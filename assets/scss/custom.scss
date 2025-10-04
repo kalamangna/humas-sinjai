@@ -1,0 +1,18 @@
+$primary: #1e3c72;
+$secondary: #2a5298;
+
+@import "bootstrap/bootstrap";
+
+.bg-primary-gradient {
+  background: linear-gradient(135deg, $primary 0%, $secondary 100%);
+}
+
+.btn-primary {
+  background-color: $primary;
+  border-color: $primary;
+
+  &:hover {
+    background-color: darken($primary, 10%);
+    border-color: darken($primary, 10%);
+  }
+}
