@@ -1,6 +1,0 @@
----
-deployment:
-  tasks:
-    - export DEPLOYPATH=/home/humassinjai/public_html/v1
-    - /bin/cp -R * $DEPLOYPATH
-    - /usr/local/bin/composer install --no-dev -d $DEPLOYPATH
