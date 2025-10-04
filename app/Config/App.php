@@ -6,17 +6,17 @@ use CodeIgniter\Config\BaseConfig;
 
 class App extends BaseConfig
 {
-    /**
-     * --------------------------------------------------------------------------
-     * Base Site URL
-     * --------------------------------------------------------------------------
-     *
-     * URL to your CodeIgniter root. Typically, this will be your base URL,
-     * WITH a trailing slash:
-     *
-     * E.g., http://example.com/
-     */
     public string $baseURL = 'http://localhost:8080/';
+
+    public function __construct()
+    {
+        parent::__construct();
+
+        if (getenv('CI_ENVIRONMENT') === 'production') {
+            // Get the baseURL from the environment, with a fallback
+            $this->baseURL = getenv('app.baseURL') ?: 'https://humas.sinjaikab.go.id/v1/';
+        }
+    }
 
     /**
      * Allowed Hostnames in the Site URL other than the hostname in the baseURL.

@@ -1,6 +1,6 @@
 ---
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/your_cpanel_username/public_html/
+    - export DEPLOYPATH=/home/humassinjai/public_html/v1
     - /bin/cp -R * $DEPLOYPATH
     - /usr/local/bin/composer install --no-dev -d $DEPLOYPATH
