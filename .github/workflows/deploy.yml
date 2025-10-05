@@ -13,27 +13,17 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Debug Secrets
+      - name: Debug HOME
         run: |
-          if [ -z "${{ secrets.CPANEL_HOST }}" ]; then
-            echo "❌ CPANEL_HOST is empty!"
-            exit 1
-          else
-            echo "✅ CPANEL_HOST: ${{ secrets.CPANEL_HOST }}"
-          fi
-
-      - name: Debug Host
-        run: |
-          echo "Resolved CPANEL_HOST: '${{ secrets.CPANEL_HOST }}'"
-          echo "Sanitized Host: '$(echo "${{ secrets.CPANEL_HOST }}" | xargs)'"
+          echo "Home directory: $HOME"
+          ls -la $HOME
 
       - name: Setup SSH
         run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" | sed 's/\r$//' > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          CPANEL_HOST=$(echo "${{ secrets.CPANEL_HOST }}" | xargs)
-          ssh-keyscan -H "$CPANEL_HOST" >> ~/.ssh/known_hosts
+          mkdir -p $HOME/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > $HOME/.ssh/id_rsa
+          chmod 600 $HOME/.ssh/id_rsa
+          ssh-keyscan -H ${{ secrets.CPANEL_HOST }} >> $HOME/.ssh/known_hosts
 
       - name: Rsync files to cPanel
         run: |
