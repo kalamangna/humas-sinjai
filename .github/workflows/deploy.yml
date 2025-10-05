@@ -13,6 +13,15 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      - name: Debug Secrets
+        run: |
+          if [ -z "${{ secrets.CPANEL_HOST }}" ]; then
+            echo "❌ CPANEL_HOST is empty!"
+            exit 1
+          else
+            echo "✅ CPANEL_HOST: ${{ secrets.CPANEL_HOST }}"
+          fi
+
       - name: Setup SSH
         run: |
           mkdir -p ~/.ssh
