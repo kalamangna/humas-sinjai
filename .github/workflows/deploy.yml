@@ -38,11 +38,13 @@ jobs:
         run: |
           ssh -o StrictHostKeyChecking=no \
             ${{ secrets.CPANEL_USERNAME }}@${{ secrets.CPANEL_HOST }} "
-            mkdir -p ${{ secrets.CPANEL_PATH }}/v1/writable/{cache,logs,uploads}
+            mkdir -p ${{ secrets.CPANEL_PATH }}/v1/writable/cache
+            mkdir -p ${{ secrets.CPANEL_PATH }}/v1/writable/logs
+            mkdir -p ${{ secrets.CPANEL_PATH }}/v1/writable/uploads
             echo '📁 Directory structure created'
           "
 
-      - name: Deploy CI4 files (include vendor)
+      - name: Deploy CI4 files
         run: |
           rsync -avz --delete \
             -e "ssh -o StrictHostKeyChecking=no" \
@@ -75,7 +77,6 @@ jobs:
             ${{ secrets.CPANEL_USERNAME }}@${{ secrets.CPANEL_HOST }} "
             echo '=== 🎉 Deployment Successful ==='
             echo '📍 Location: ${{ secrets.CPANEL_PATH }}/v1/'
-            echo '📦 Vendor status:'
-            ls -la ${{ secrets.CPANEL_PATH }}/v1/vendor/ | head -3
-            echo '🚀 CI4 deployed to humas.sinjaikab.go.id/v1'
+            ls -la ${{ secrets.CPANEL_PATH }}/v1/ | head -8
+            echo '✅ CI4 deployed to humas.sinjaikab.go.id/v1'
           "
