@@ -12,27 +12,18 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup SSH with passphrase
+      - name: Setup SSH (simple approach)
         run: |
           mkdir -p ~/.ssh
           chmod 700 ~/.ssh
-
-          # Write private key
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
-
-          # Add to ssh-agent dengan passphrase
-          eval "$(ssh-agent -s)"
-          echo "${{ secrets.SSH_PASSPHRASE }}" | ssh-add ~/.ssh/id_rsa
-
-          # Known hosts
           ssh-keyscan -H ${{ secrets.CPANEL_HOST }} >> ~/.ssh/known_hosts
 
-      - name: Test SSH connection
+      - name: Test connection (with passphrase)
         run: |
-          ssh -o BatchMode=yes -o StrictHostKeyChecking=no \
-            ${{ secrets.CPANEL_USERNAME }}@${{ secrets.CPANEL_HOST }} \
-            "echo '✅ SSH connection successful'"
+          echo "${{ secrets.SSH_PASSPHRASE }}" | sshpass ssh -o StrictHostKeyChecking=no \
+            ${{ secrets.CPANEL_USERNAME }}@${{ secrets.CPANEL_HOST }} "echo '✅ Connected'"
 
       - name: Create directory structure
         run: |
