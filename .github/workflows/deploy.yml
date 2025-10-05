@@ -22,12 +22,18 @@ jobs:
             echo "✅ CPANEL_HOST: ${{ secrets.CPANEL_HOST }}"
           fi
 
+      - name: Debug Host
+        run: |
+          echo "Resolved CPANEL_HOST: '${{ secrets.CPANEL_HOST }}'"
+          echo "Sanitized Host: '$(echo "${{ secrets.CPANEL_HOST }}" | xargs)'"
+
       - name: Setup SSH
         run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" | sed 's/\r$//' > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan -H ${{ secrets.CPANEL_HOST }} >> ~/.ssh/known_hosts
+          CPANEL_HOST=$(echo "${{ secrets.CPANEL_HOST }}" | xargs)
+          ssh-keyscan -H "$CPANEL_HOST" >> ~/.ssh/known_hosts
 
       - name: Rsync files to cPanel
         run: |
