@@ -1,4 +1,4 @@
-name: 🚀 Deploy CI4 to cPanel (no Composer on server)
+name: 🚀 Deploy CI4 to cPanel Subfolder /v1
 
 on:
   push:
@@ -11,33 +11,93 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      - name: Test write access
+      - name: Setup PHP and Composer
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.1"
+          tools: composer
+
+      - name: Install Composer dependencies
         run: |
-          echo "Testing write to $HOME"
-          touch $HOME/testfile
-          ls -la $HOME
+          composer install --no-dev --optimize-autoloader --no-interaction
 
       - name: Setup SSH
         run: |
-          mkdir -p $HOME/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" | tr -d '\r' > $HOME/.ssh/id_rsa
-          chmod 600 $HOME/.ssh/id_rsa
-          ssh-keyscan -H ${{ secrets.CPANEL_HOST }} >> $HOME/.ssh/known_hosts
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H ${{ secrets.CPANEL_HOST }} >> ~/.ssh/known_hosts
 
-      - name: Rsync files to cPanel
+          # Test connection
+          ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no \
+            ${{ secrets.CPANEL_USERNAME }}@${{ secrets.CPANEL_HOST }} "echo 'SSH connection successful'"
+
+      - name: Create target directory structure
+        run: |
+          ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no \
+            ${{ secrets.CPANEL_USERNAME }}@${{ secrets.CPANEL_HOST }} "
+            mkdir -p ${{ secrets.CPANEL_PATH }}/v1/writable/cache
+            mkdir -p ${{ secrets.CPANEL_PATH }}/v1/writable/logs
+            mkdir -p ${{ secrets.CPANEL_PATH }}/v1/writable/uploads
+          "
+
+      - name: Rsync all CI4 files to /v1 subfolder
         run: |
           rsync -avz --delete \
             --exclude '.git' \
             --exclude '.github' \
-            --exclude '.env' \
+            --exclude '*.env' \
+            --exclude 'composer.lock' \
+            --exclude 'composer.json' \
+            --exclude 'phpunit.xml' \
+            --exclude 'tests' \
+            --exclude 'app/Config/Development' \
+            --exclude 'ci4.sql' \
             -e "ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no" \
-            app/ public/ vendor/ writable/ composer.json composer.lock \
-            ${{ secrets.CPANEL_USERNAME }}@${{ secrets.CPANEL_HOST }}:${{ secrets.CPANEL_PATH }}
+            ./ \
+            ${{ secrets.CPANEL_USERNAME }}@${{ secrets.CPANEL_HOST }}:${{ secrets.CPANEL_PATH }}/v1/
 
-      - name: Clear CI4 cache (if CLI available)
+      - name: Set proper permissions
         run: |
           ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no \
-            ${{ secrets.CPANEL_USERNAME }}@${{ secrets.CPANEL_HOST }} \
-            "cd ${{ secrets.CPANEL_PATH }} && php spark cache:clear || true"
+            ${{ secrets.CPANEL_USERNAME }}@${{ secrets.CPANEL_HOST }} "
+            cd ${{ secrets.CPANEL_PATH }}/v1
+            
+            # Set directory permissions
+            chmod 755 writable/
+            chmod 755 public/
+            chmod 755 app/Config/
+            
+            # Set file permissions
+            chmod 644 public/index.php
+            chmod 644 app/Config/*
+            chmod 644 .htaccess
+            
+            # Recursive permissions for writable subdirectories
+            find writable/ -type d -exec chmod 755 {} \;
+            find writable/ -type f -exec chmod 644 {} \;
+          "
+
+      - name: Clear CI4 cache
+        run: |
+          ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no \
+            ${{ secrets.CPANEL_USERNAME }}@${{ secrets.CPANEL_HOST }} "
+            cd ${{ secrets.CPANEL_PATH }}/v1
+            php spark cache:clear 2>/dev/null || echo 'Cache clear skipped'
+          "
+
+      - name: Verify deployment
+        run: |
+          ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no \
+            ${{ secrets.CPANEL_USERNAME }}@${{ secrets.CPANEL_HOST }} "
+            echo '=== Deployment Verification ==='
+            echo 'Location: ${{ secrets.CPANEL_PATH }}/v1/'
+            echo 'Contents:'
+            ls -la ${{ secrets.CPANEL_PATH }}/v1/
+            echo 'Writable structure:'
+            ls -la ${{ secrets.CPANEL_PATH }}/v1/writable/
+            echo 'Public folder:'
+            ls -la ${{ secrets.CPANEL_PATH }}/v1/public/
+          "
