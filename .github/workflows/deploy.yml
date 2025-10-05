@@ -1,58 +1,51 @@
-name: 🚀 Deploy CI4 to cPanel Subfolder /v1
+name: 🚀 Deploy CI4 to humas.sinjaikab.go.id/v1
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup PHP and Composer
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: "8.1"
-          tools: composer
-
-      - name: Install Composer dependencies
+      - name: Setup SSH with passphrase
         run: |
-          composer install --no-dev --optimize-autoloader --no-interaction
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
 
-      - name: Debug SSH Key
-        run: |
-          echo "SSH_PRIVATE_KEY length: ${#SSH_PRIVATE_KEY}"
-          echo "First 100 chars: ${SSH_PRIVATE_KEY:0:100}"
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          # Write private key
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
 
-      - name: Setup SSH using ssh-agent
-        uses: webfactory/ssh-agent@v0.8.0
-        with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+          # Add to ssh-agent dengan passphrase
+          eval "$(ssh-agent -s)"
+          echo "${{ secrets.SSH_PASSPHRASE }}" | ssh-add ~/.ssh/id_rsa
+
+          # Known hosts
+          ssh-keyscan -H ${{ secrets.CPANEL_HOST }} >> ~/.ssh/known_hosts
 
       - name: Test SSH connection
         run: |
-          ssh -o StrictHostKeyChecking=no -o ConnectTimeout=10 \
-            ${{ secrets.CPANEL_USERNAME }}@${{ secrets.CPANEL_HOST }} "echo '✅ SSH connection successful'"
+          ssh -o BatchMode=yes -o StrictHostKeyChecking=no \
+            ${{ secrets.CPANEL_USERNAME }}@${{ secrets.CPANEL_HOST }} \
+            "echo '✅ SSH connection successful'"
 
-      - name: Create target directory structure
+      - name: Create directory structure
         run: |
           ssh -o StrictHostKeyChecking=no \
             ${{ secrets.CPANEL_USERNAME }}@${{ secrets.CPANEL_HOST }} "
-            mkdir -p ${{ secrets.CPANEL_PATH }}/v1/writable/cache
-            mkdir -p ${{ secrets.CPANEL_PATH }}/v1/writable/logs
-            mkdir -p ${{ secrets.CPANEL_PATH }}/v1/writable/uploads
-            echo '✅ Directory structure created'
+            mkdir -p ${{ secrets.CPANEL_PATH }}/v1/writable/{cache,logs,uploads}
+            echo '📁 Directory structure created'
           "
 
-      - name: Rsync all CI4 files to /v1 subfolder
+      - name: Deploy CI4 files (include vendor)
         run: |
           rsync -avz --delete \
+            -e "ssh -o StrictHostKeyChecking=no" \
             --exclude '.git' \
             --exclude '.github' \
             --exclude '*.env' \
@@ -60,49 +53,29 @@ jobs:
             --exclude 'composer.json' \
             --exclude 'phpunit.xml' \
             --exclude 'tests' \
-            --exclude 'app/Config/Development' \
             --exclude 'ci4.sql' \
-            -e "ssh -o StrictHostKeyChecking=no" \
             ./ \
             ${{ secrets.CPANEL_USERNAME }}@${{ secrets.CPANEL_HOST }}:${{ secrets.CPANEL_PATH }}/v1/
 
-      - name: Set proper permissions
+      - name: Set permissions
         run: |
           ssh -o StrictHostKeyChecking=no \
             ${{ secrets.CPANEL_USERNAME }}@${{ secrets.CPANEL_HOST }} "
             cd ${{ secrets.CPANEL_PATH }}/v1
-            
-            # Set directory permissions
-            chmod 755 writable/
-            chmod 755 public/
-            chmod 755 app/Config/
-            
-            # Set file permissions
-            chmod 644 public/index.php
-            chmod 644 app/Config/*
-            chmod 644 .htaccess
-            
-            echo '✅ Permissions set successfully'
-          "
-
-      - name: Clear CI4 cache
-        run: |
-          ssh -o StrictHostKeyChecking=no \
-            ${{ secrets.CPANEL_USERNAME }}@${{ secrets.CPANEL_HOST }} "
-            cd ${{ secrets.CPANEL_PATH }}/v1
-            php spark cache:clear 2>/dev/null || echo '⚠️ Cache clear skipped (command not available)'
-            echo '✅ Cache cleared (if available)'
+            chmod 755 writable/ public/ app/Config/
+            chmod 644 public/index.php app/Config/* .htaccess
+            find writable/ -type d -exec chmod 755 {} \;
+            find writable/ -type f -exec chmod 644 {} \;
+            echo '🔒 Permissions set'
           "
 
       - name: Verify deployment
         run: |
           ssh -o StrictHostKeyChecking=no \
             ${{ secrets.CPANEL_USERNAME }}@${{ secrets.CPANEL_HOST }} "
-            echo '=== Deployment Verification ==='
-            echo 'Location: ${{ secrets.CPANEL_PATH }}/v1/'
-            echo 'Critical files:'
-            ls -la ${{ secrets.CPANEL_PATH }}/v1/app/Config/App.php
-            ls -la ${{ secrets.CPANEL_PATH }}/v1/public/index.php
-            ls -la ${{ secrets.CPANEL_PATH }}/v1/vendor/autoload.php
-            echo '✅ Deployment completed successfully'
+            echo '=== 🎉 Deployment Successful ==='
+            echo '📍 Location: ${{ secrets.CPANEL_PATH }}/v1/'
+            echo '📦 Vendor status:'
+            ls -la ${{ secrets.CPANEL_PATH }}/v1/vendor/ | head -3
+            echo '🚀 CI4 deployed to humas.sinjaikab.go.id/v1'
           "
