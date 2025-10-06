@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= isset($title) ? esc($title) . ' - ' : '' ?>Humas Sinjai</title>
-    <link rel="icon" href="/logo.png" type="image/png">
-    <link rel="stylesheet" href="/css/custom.css">
+    <link rel="icon" href="<?= base_url('logo.png') ?>" type="image/png">
+    <link rel="stylesheet" href="<?= base_url('css/custom.css') ?>">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 </head>
 
@@ -15,8 +15,8 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary-gradient shadow-sm">
         <div class="container">
             <!-- Brand with icon -->
-            <a class="navbar-brand fw-bold text-white d-flex align-items-center" href="/">
-                <img src="/logo.png" alt="Logo Sinjai" width="40" height="40" class="d-inline-block align-text-top me-2">
+            <a class="navbar-brand fw-bold text-white d-flex align-items-center" href="<?= base_url('/') ?>">
+                <img src="<?= base_url('logo.png') ?>" alt="Logo Sinjai" width="40" height="40" class="d-inline-block align-text-top me-2">
                 <span>Humas Sinjai</span>
             </a>
 
@@ -47,7 +47,7 @@
                 </ul>
 
                 <!-- Search form -->
-                <form class="d-flex" action="/search" method="get">
+                <form class="d-flex" action="<?= base_url('search') ?>" method="get">
                     <div class="input-group">
                         <input class="form-control" type="search" placeholder="Cari berita..." aria-label="Search" name="q" required>
                         <button class="btn btn-light" type="submit">
