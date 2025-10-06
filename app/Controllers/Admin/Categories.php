@@ -42,7 +42,7 @@ class Categories extends BaseController
         ];
 
         if ($categoryModel->save($data)) {
-            return redirect()->to('/admin/categories')->with('message', 'Category created successfully.');
+            return redirect()->to(base_url('admin/categories'))->with('message', 'Category created successfully.');
         }
 
         return redirect()->back()->withInput()->with('errors', $categoryModel->errors());
@@ -61,7 +61,7 @@ class Categories extends BaseController
     }
 
     public function update($id = null)
-    {
+    { 
         $categoryModel = new CategoryModel();
         $data = [
             'name' => $this->request->getPost('name'),
@@ -69,7 +69,7 @@ class Categories extends BaseController
         ];
 
         if ($categoryModel->update($id, $data)) {
-            return redirect()->to('/admin/categories')->with('message', 'Category updated successfully.');
+            return redirect()->to(base_url('admin/categories'))->with('message', 'Category updated successfully.');
         }
 
         return redirect()->back()->withInput()->with('errors', $categoryModel->errors());
@@ -79,9 +79,9 @@ class Categories extends BaseController
     {
         $categoryModel = new CategoryModel();
         if ($categoryModel->delete($id)) {
-            return redirect()->to('/admin/categories')->with('message', 'Category deleted successfully.');
+            return redirect()->to(base_url('admin/categories'))->with('message', 'Category deleted successfully.');
         }
 
-        return redirect()->to('/admin/categories')->with('error', 'Error deleting category.');
+        return redirect()->to(base_url('admin/categories'))->with('error', 'Error deleting category.');
     }
 }

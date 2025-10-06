@@ -96,7 +96,7 @@ class Posts extends BaseController
         if ($file->isValid() && ! $file->hasMoved()) {
             $thumbnailName = $file->getRandomName();
             $file->move(FCPATH . 'uploads/thumbnails', $thumbnailName);
-            $thumbnailName = '/uploads/thumbnails/' . $thumbnailName;
+            $thumbnailName = base_url('uploads/thumbnails/' . $thumbnailName);
         }
 
         $postData = [
@@ -132,7 +132,7 @@ class Posts extends BaseController
                 $postTagModel->insertBatch($tagsToInsert);
             }
 
-            return redirect()->to('/admin/posts')->with('message', 'Post created successfully.');
+            return redirect()->to(base_url('admin/posts'))->with('message', 'Post created successfully.');
         }
 
         return redirect()->back()->withInput()->with('errors', $postModel->errors());
@@ -198,7 +198,7 @@ class Posts extends BaseController
 
             $thumbnailName = $file->getRandomName();
             $file->move(FCPATH . 'uploads/thumbnails', $thumbnailName);
-            $postData['thumbnail'] = '/uploads/thumbnails/' . $thumbnailName;
+            $postData['thumbnail'] = base_url('uploads/thumbnails/' . $thumbnailName);
         }
 
         if ($postModel->update($id, $postData)) {
@@ -224,7 +224,7 @@ class Posts extends BaseController
                 $postTagModel->insertBatch($tagsToInsert);
             }
 
-            return redirect()->to('/admin/posts')->with('message', 'Post updated successfully.');
+            return redirect()->to(base_url('admin/posts'))->with('message', 'Post updated successfully.');
         }
 
         return redirect()->back()->withInput()->with('errors', $postModel->errors());
@@ -234,9 +234,9 @@ class Posts extends BaseController
     {
         $postModel = new PostModel();
         if ($postModel->delete($id)) {
-            return redirect()->to('/admin/posts')->with('message', 'Post deleted successfully.');
+            return redirect()->to(base_url('admin/posts'))->with('message', 'Post deleted successfully.');
         }
 
-        return redirect()->to('/admin/posts')->with('error', 'Error deleting post.');
+        return redirect()->to(base_url('admin/posts'))->with('error', 'Error deleting post.');
     }
 }

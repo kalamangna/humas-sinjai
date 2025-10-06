@@ -44,7 +44,7 @@ class Users extends BaseController
         ];
 
         if ($userModel->save($data)) {
-            return redirect()->to('/admin/users')->with('message', 'User created successfully.');
+            return redirect()->to(base_url('admin/users'))->with('message', 'User created successfully.');
         }
 
         return redirect()->back()->withInput()->with('errors', $userModel->errors());
@@ -88,7 +88,7 @@ class Users extends BaseController
         }
 
         if ($userModel->update($id, $data)) {
-            return redirect()->to('/admin/users')->with('message', 'User updated successfully.');
+            return redirect()->to(base_url('admin/users'))->with('message', 'User updated successfully.');
         }
 
         return redirect()->back()->withInput()->with('errors', $userModel->errors());
@@ -98,10 +98,10 @@ class Users extends BaseController
     {
         $userModel = new UserModel();
         if ($userModel->delete($id)) {
-            return redirect()->to('/admin/users')->with('message', 'User deleted successfully.');
+            return redirect()->to(base_url('admin/users'))->with('message', 'User deleted successfully.');
         }
 
-        return redirect()->to('/admin/users')->with('error', 'Error deleting user.');
+        return redirect()->to(base_url('admin/users'))->with('error', 'Error deleting user.');
     }
 
     public function profile()
@@ -172,7 +172,7 @@ class Users extends BaseController
                 session()->set('name', $userData['name']);
                 session()->set('email', $userData['email']);
             }
-            return redirect()->to('/admin')->with('message', 'Pengaturan profil berhasil diperbarui.');
+            return redirect()->to(base_url('admin'))->with('message', 'Pengaturan profil berhasil diperbarui.');
         }
 
         return redirect()->back()->withInput()->with('error', 'Gagal memperbarui pengaturan profil.');

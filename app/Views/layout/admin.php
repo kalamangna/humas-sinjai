@@ -7,32 +7,32 @@
             <div class="position-sticky pt-3">
                 <ul class="nav flex-column">
                     <li class="nav-item">
-                        <a class="nav-link d-flex align-items-center py-3 <?= url_is('admin') ? 'active text-primary fw-bold' : 'text-dark' ?>" href="/admin">
+                        <a class="nav-link d-flex align-items-center py-3 <?= url_is('admin') ? 'active text-primary fw-bold' : 'text-dark' ?>" href="<?= base_url('admin') ?>">
                             <i class="fas fa-fw fa-tachometer-alt me-3"></i>
                             Dashboard
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link d-flex align-items-center py-3 <?= url_is('admin/posts*') ? 'active text-primary fw-bold' : 'text-dark' ?>" href="/admin/posts">
+                        <a class="nav-link d-flex align-items-center py-3 <?= url_is('admin/posts*') ? 'active text-primary fw-bold' : 'text-dark' ?>" href="<?= base_url('admin/posts') ?>">
                             <i class="fas fa-fw fa-newspaper me-3"></i>
                             Berita
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link d-flex align-items-center py-3 <?= url_is('admin/categories*') ? 'active text-primary fw-bold' : 'text-dark' ?>" href="/admin/categories">
+                        <a class="nav-link d-flex align-items-center py-3 <?= url_is('admin/categories*') ? 'active text-primary fw-bold' : 'text-dark' ?>" href="<?= base_url('admin/categories') ?>">
                             <i class="fas fa-fw fa-folder me-3"></i>
                             Kategori
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link d-flex align-items-center py-3 <?= url_is('admin/tags*') ? 'active text-primary fw-bold' : 'text-dark' ?>" href="/admin/tags">
+                        <a class="nav-link d-flex align-items-center py-3 <?= url_is('admin/tags*') ? 'active text-primary fw-bold' : 'text-dark' ?>" href="<?= base_url('admin/tags') ?>">
                             <i class="fas fa-fw fa-tags me-3"></i>
                             Tags
                         </a>
                     </li>
                     <?php if (session()->get('role') === 'admin') : ?>
                         <li class="nav-item">
-                            <a class="nav-link d-flex align-items-center py-3 <?= url_is('admin/users*') ? 'active text-primary fw-bold' : 'text-dark' ?>" href="/admin/users">
+                            <a class="nav-link d-flex align-items-center py-3 <?= url_is('admin/users*') ? 'active text-primary fw-bold' : 'text-dark' ?>" href="<?= base_url('admin/users') ?>">
                                 <i class="fas fa-users me-3"></i>
                                 Pengguna
                             </a>
