@@ -15,7 +15,7 @@
             </div>
 
             <div class="card-body">
-                <form action="/admin/users/update_settings" method="post" class="needs-validation" novalidate>
+                <form action="<?= base_url('admin/users/update_settings') ?>" method="post" class="needs-validation" novalidate>
                     <?= csrf_field() ?>
                     <input type="hidden" name="user_id" value="<?= esc($user['id']) ?>">
 

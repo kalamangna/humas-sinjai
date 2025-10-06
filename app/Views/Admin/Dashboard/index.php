@@ -31,7 +31,7 @@
                 </div>
             </div>
             <div class="card-footer bg-transparent border-0 pt-0">
-                <a href="/admin/posts" class="btn btn-outline-primary btn-sm w-100">
+                <a href="<?= base_url('admin/posts') ?>" class="btn btn-outline-primary btn-sm w-100">
                     <i class="fas fa-eye me-2"></i>Lihat Semua
                 </a>
             </div>
@@ -51,7 +51,7 @@
                 <p class="text-muted mb-0">Total Kategori</p>
             </div>
             <div class="card-footer bg-transparent border-0 pt-0">
-                <a href="/admin/categories" class="btn btn-outline-success btn-sm w-100">
+                <a href="<?= base_url('admin/categories') ?>" class="btn btn-outline-success btn-sm w-100">
                     <i class="fas fa-eye me-2"></i>Lihat Semua
                 </a>
             </div>
@@ -71,7 +71,7 @@
                 <p class="text-muted mb-0">Total Tags</p>
             </div>
             <div class="card-footer bg-transparent border-0 pt-0">
-                <a href="/admin/tags" class="btn btn-outline-info btn-sm w-100">
+                <a href="<?= base_url('admin/tags') ?>" class="btn btn-outline-info btn-sm w-100">
                     <i class="fas fa-eye me-2"></i>Lihat Semua
                 </a>
             </div>
@@ -92,7 +92,7 @@
                 <p class="text-muted mb-0">Total Pengguna</p>
             </div>
             <div class="card-footer bg-transparent border-0 pt-0">
-                <a href="/admin/users" class="btn btn-outline-warning btn-sm w-100">
+                <a href="<?= base_url('admin/users') ?>" class="btn btn-outline-warning btn-sm w-100">
                     <i class="fas fa-eye me-2"></i>Lihat Semua
                 </a>
             </div>
@@ -169,21 +169,21 @@
                 <div class="row g-3">
                     <?php $isAdmin = session()->get('role') === 'admin'; ?>
                     <div class="<?= $isAdmin ? 'col-md-3' : 'col-md-4' ?> col-6">
-                        <a href="/admin/posts/new" class="btn btn-primary w-100 d-flex flex-column align-items-center py-3 text-white text-decoration-none">
+                        <a href="<?= base_url('admin/posts/new') ?>" class="btn btn-primary w-100 d-flex flex-column align-items-center py-3 text-white text-decoration-none">
                             <i class="fas fa-plus-circle fs-2 mb-2"></i>
                             <span>Tambah Berita</span>
                             <small class="text-light opacity-75 mt-1">Berita baru</small>
                         </a>
                     </div>
                     <div class="<?= $isAdmin ? 'col-md-3' : 'col-md-4' ?> col-6">
-                        <a href="/admin/categories/new" class="btn btn-success w-100 d-flex flex-column align-items-center py-3 text-white text-decoration-none">
+                        <a href="<?= base_url('admin/categories/new') ?>" class="btn btn-success w-100 d-flex flex-column align-items-center py-3 text-white text-decoration-none">
                             <i class="fas fa-folder-plus fs-2 mb-2"></i>
                             <span>Tambah Kategori</span>
                             <small class="text-light opacity-75 mt-1">Kategori baru</small>
                         </a>
                     </div>
                     <div class="<?= $isAdmin ? 'col-md-3' : 'col-md-4' ?> col-6">
-                        <a href="/admin/tags/new" class="btn btn-info w-100 d-flex flex-column align-items-center py-3 text-white text-decoration-none">
+                        <a href="<?= base_url('admin/tags/new') ?>" class="btn btn-info w-100 d-flex flex-column align-items-center py-3 text-white text-decoration-none">
                             <i class="fas fa-tag fs-2 mb-2"></i>
                             <span>Tambah Tag</span>
                             <small class="text-light opacity-75 mt-1">Tag baru</small>
@@ -191,7 +191,7 @@
                     </div>
                     <?php if ($isAdmin) : ?>
                     <div class="col-md-3 col-6">
-                        <a href="/admin/users/new" class="btn btn-warning w-100 d-flex flex-column align-items-center py-3 text-white text-decoration-none">
+                        <a href="<?= base_url('admin/users/new') ?>" class="btn btn-warning w-100 d-flex flex-column align-items-center py-3 text-white text-decoration-none">
                             <i class="fas fa-user-plus fs-2 mb-2"></i>
                             <span>Tambah User</span>
                             <small class="text-light opacity-75 mt-1">User baru</small>

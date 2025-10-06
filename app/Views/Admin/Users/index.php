@@ -5,7 +5,7 @@
 <?= $this->section('page_title') ?>Kelola Pengguna<?= $this->endSection() ?>
 
 <?= $this->section('page_actions') ?>
-<a href="/admin/users/new" class="btn btn-primary">
+<a href="<?= base_url('admin/users/new') ?>" class="btn btn-primary">
     <i class="fas fa-plus-circle me-2"></i>Tambah Pengguna
 </a>
 <?= $this->endSection() ?>
@@ -125,11 +125,11 @@
                                 </td>
                                 <td class="text-end pe-4">
                                     <div class="btn-group" role="group">
-                                        <a href="/admin/users/<?= $user['id'] ?>/edit" class="btn btn-sm btn-outline-warning" data-bs-toggle="tooltip" title="Edit Pengguna">
+                                        <a href="<?= base_url('admin/users/' . $user['id'] . '/edit') ?>" class="btn btn-sm btn-outline-warning" data-bs-toggle="tooltip" title="Edit Pengguna">
                                             <i class="fas fa-edit"></i>
                                         </a>
                                         <?php if (($user['id'] ?? 0) !== ($current_user_id ?? 0)): ?>
-                                            <form action="/admin/users/<?= $user['id'] ?>" method="post" class="d-inline">
+                                            <form action="<?= base_url('admin/users/' . $user['id']) ?>" method="post" class="d-inline">
                                                 <input type="hidden" name="_method" value="DELETE">
                                                 <?= csrf_field() ?>
                                                 <button type="submit" class="btn btn-sm btn-outline-danger" data-bs-toggle="tooltip" title="Hapus Pengguna" onclick="return confirm('Apakah Anda yakin ingin menghapus pengguna <?= esc($user['name']) ?>?')">
@@ -151,7 +151,7 @@
                                 <i class="fas fa-users fa-3x text-muted mb-3"></i>
                                 <h5 class="text-muted">Belum ada pengguna</h5>
                                 <p class="text-muted">Mulai dengan menambahkan pengguna pertama.</p>
-                                <a href="/admin/users/new" class="btn btn-primary">
+                                <a href="<?= base_url('admin/users/new') ?>" class="btn btn-primary">
                                     <i class="fas fa-plus-circle me-2"></i>Tambah Pengguna Pertama
                                 </a>
                             </td>

@@ -5,7 +5,7 @@
 <?= $this->section('page_title') ?>Kelola Kategori<?= $this->endSection() ?>
 
 <?= $this->section('page_actions') ?>
-<a href="/admin/categories/new" class="btn btn-primary">
+<a href="<?= base_url('admin/categories/new') ?>" class="btn btn-primary">
     <i class="fas fa-plus-circle me-2"></i>Tambah Kategori
 </a>
 <?= $this->endSection() ?>
@@ -100,14 +100,14 @@
                                 <td class="text-end pe-4">
                                     <div class="btn-group" role="group">
                                         <?php if (($category['post_count'] ?? 0) > 0): ?>
-                                            <a href="/category/<?= esc($category['slug']) ?>" target="_blank" class="btn btn-sm btn-outline-primary" data-bs-toggle="tooltip" title="Lihat Berita">
+                                            <a href="<?= base_url('category/' . esc($category['slug'])) ?>" target="_blank" class="btn btn-sm btn-outline-primary" data-bs-toggle="tooltip" title="Lihat Berita">
                                                 <i class="fas fa-eye"></i>
                                             </a>
                                         <?php endif; ?>
-                                        <a href="/admin/categories/<?= $category['id'] ?>/edit" class="btn btn-sm btn-outline-warning" data-bs-toggle="tooltip" title="Edit">
+                                        <a href="<?= base_url('admin/categories/' . $category['id'] . '/edit') ?>" class="btn btn-sm btn-outline-warning" data-bs-toggle="tooltip" title="Edit">
                                             <i class="fas fa-edit"></i>
                                         </a>
-                                        <form action="/admin/categories/<?= $category['id'] ?>" method="post" class="d-inline">
+                                        <form action="<?= base_url('admin/categories/' . $category['id']) ?>" method="post" class="d-inline">
                                             <input type="hidden" name="_method" value="DELETE">
                                             <?= csrf_field() ?>
                                             <button type="submit" class="btn btn-sm btn-outline-danger" data-bs-toggle="tooltip" title="Hapus" onclick="return confirm('Apakah Anda yakin ingin menghapus kategori <?= esc($category['name']) ?>?')">
@@ -124,7 +124,7 @@
                                 <i class="fas fa-folder-open fa-3x text-muted mb-3"></i>
                                 <h5 class="text-muted">Belum ada kategori</h5>
                                 <p class="text-muted">Mulai dengan membuat kategori pertama Anda.</p>
-                                <a href="/admin/categories/new" class="btn btn-primary">
+                                <a href="<?= base_url('admin/categories/new') ?>" class="btn btn-primary">
                                     <i class="fas fa-plus-circle me-2"></i>Tambah Kategori Pertama
                                 </a>
                             </td>

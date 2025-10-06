@@ -3,7 +3,7 @@
 <?= $this->section('page_title') ?>Tambah Pengguna Baru<?= $this->endSection() ?>
 
 <?= $this->section('page_actions') ?>
-<a href="/admin/users" class="btn btn-outline-secondary btn-sm">
+<a href="<?= base_url('admin/users') ?>" class="btn btn-outline-secondary btn-sm">
     <i class="fas fa-arrow-left me-2"></i>Kembali
 </a>
 <?= $this->endSection() ?>
@@ -23,7 +23,7 @@
             <div class="card-body">
                 <?= $this->include('layout/admin_errors') ?>
 
-                <form action="/admin/users" method="post" class="needs-validation" novalidate>
+                <form action="<?= base_url('admin/users') ?>" method="post" class="needs-validation" novalidate>
                     <?= csrf_field() ?>
 
                     <div class="row g-4">
@@ -64,7 +64,7 @@
                     <div class="row mt-5">
                         <div class="col-12">
                             <div class="d-flex gap-3 justify-content-end border-top pt-4">
-                                <a href="/admin/users" class="btn btn-outline-secondary px-4">
+                                <a href="<?= base_url('admin/users') ?>" class="btn btn-outline-secondary px-4">
                                     <i class="fas fa-times me-2"></i>Batal
                                 </a>
                                 <button type="submit" class="btn btn-primary px-4">

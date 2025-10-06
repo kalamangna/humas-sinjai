@@ -3,7 +3,7 @@
 <?= $this->section('page_title') ?>Kelola Berita<?= $this->endSection() ?>
 
 <?= $this->section('page_actions') ?>
-<a href="/admin/posts/new" class="btn btn-primary">
+<a href="<?= base_url('admin/posts/new') ?>" class="btn btn-primary">
     <i class="fas fa-plus-circle me-2"></i>Tambah Berita
 </a>
 <?= $this->endSection() ?>
@@ -13,7 +13,7 @@
 <!-- Search and Filter -->
 <div class="card border-0 shadow-sm mb-4">
     <div class="card-body">
-        <form action="/admin/posts" method="get">
+        <form action="<?= base_url('admin/posts') ?>" method="get">
             <div class="row g-3">
                 <div class="col-md-4">
                     <input type="text" name="search" class="form-control" placeholder="Cari judul berita..." value="<?= esc($filters['search'] ?? '') ?>">
@@ -37,7 +37,7 @@
                 <div class="col-md-2">
                     <div class="d-grid d-md-flex gap-2">
                         <button type="submit" class="btn btn-primary w-100">Filter</button>
-                        <a href="/admin/posts" class="btn btn-outline-secondary w-100">Reset</a>
+                        <a href="<?= base_url('admin/posts') ?>" class="btn btn-outline-secondary w-100">Reset</a>
                     </div>
                 </div>
             </div>
@@ -173,13 +173,13 @@
                                 </td>
                                 <td class="text-end pe-4">
                                     <div class="btn-group" role="group">
-                                        <a href="/post/<?= esc($post['slug']) ?>" target="_blank" class="btn btn-sm btn-outline-primary" data-bs-toggle="tooltip" title="Lihat">
+                                        <a href="<?= base_url('post/' . esc($post['slug'])) ?>" target="_blank" class="btn btn-sm btn-outline-primary" data-bs-toggle="tooltip" title="Lihat">
                                             <i class="fas fa-eye"></i>
                                         </a>
-                                        <a href="/admin/posts/<?= $post['id'] ?>/edit" class="btn btn-sm btn-outline-warning" data-bs-toggle="tooltip" title="Edit">
+                                        <a href="<?= base_url('admin/posts/' . $post['id'] . '/edit') ?>" class="btn btn-sm btn-outline-warning" data-bs-toggle="tooltip" title="Edit">
                                             <i class="fas fa-edit"></i>
                                         </a>
-                                        <form action="/admin/posts/<?= $post['id'] ?>" method="post" class="d-inline">
+                                        <form action="<?= base_url('admin/posts/' . $post['id']) ?>" method="post" class="d-inline">
                                             <input type="hidden" name="_method" value="DELETE">
                                             <?= csrf_field() ?>
                                             <button type="submit" class="btn btn-sm btn-outline-danger" data-bs-toggle="tooltip" title="Hapus" onclick="return confirm('Apakah Anda yakin ingin menghapus berita ini?')">
@@ -196,7 +196,7 @@
                                 <i class="fas fa-inbox fa-3x text-muted mb-3"></i>
                                 <h5 class="text-muted">Belum ada berita</h5>
                                 <p class="text-muted">Mulai dengan membuat berita pertama Anda.</p>
-                                <a href="/admin/posts/create" class="btn btn-primary">
+                                <a href="<?= base_url('admin/posts/create') ?>" class="btn btn-primary">
                                     <i class="fas fa-plus-circle me-2"></i>Tambah Berita Pertama
                                 </a>
                             </td>

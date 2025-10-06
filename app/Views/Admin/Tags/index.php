@@ -3,7 +3,7 @@
 <?= $this->section('page_title') ?>Kelola Tag<?= $this->endSection() ?>
 
 <?= $this->section('page_actions') ?>
-<a href="/admin/tags/new" class="btn btn-primary">
+<a href="<?= base_url('admin/tags/new') ?>" class="btn btn-primary">
     <i class="fas fa-plus-circle me-2"></i>Tambah Tag
 </a>
 <?= $this->endSection() ?>
@@ -98,14 +98,14 @@
                                 <td class="text-end pe-4">
                                     <div class="btn-group" role="group">
                                         <?php if (($tag['post_count'] ?? 0) > 0): ?>
-                                            <a href="/tag/<?= esc($tag['slug']) ?>" target="_blank" class="btn btn-sm btn-outline-primary" data-bs-toggle="tooltip" title="Lihat Berita">
+                                            <a href="<?= base_url('tag/' . esc($tag['slug'])) ?>" target="_blank" class="btn btn-sm btn-outline-primary" data-bs-toggle="tooltip" title="Lihat Berita">
                                                 <i class="fas fa-eye"></i>
                                             </a>
                                         <?php endif; ?>
-                                        <a href="/admin/tags/<?= $tag['id'] ?>/edit" class="btn btn-sm btn-outline-warning" data-bs-toggle="tooltip" title="Edit">
+                                        <a href="<?= base_url('admin/tags/' . $tag['id'] . '/edit') ?>" class="btn btn-sm btn-outline-warning" data-bs-toggle="tooltip" title="Edit">
                                             <i class="fas fa-edit"></i>
                                         </a>
-                                        <form action="/admin/tags/<?= $tag['id'] ?>" method="post" class="d-inline">
+                                        <form action="<?= base_url('admin/tags/' . $tag['id']) ?>" method="post" class="d-inline">
                                             <input type="hidden" name="_method" value="DELETE">
                                             <?= csrf_field() ?>
                                             <button type="submit" class="btn btn-sm btn-outline-danger" data-bs-toggle="tooltip" title="Hapus" onclick="return confirm('Apakah Anda yakin ingin menghapus tag <?= esc($tag['name']) ?>?')">
@@ -122,7 +122,7 @@
                                 <i class="fas fa-tags fa-3x text-muted mb-3"></i>
                                 <h5 class="text-muted">Belum ada tag</h5>
                                 <p class="text-muted">Mulai dengan membuat tag pertama Anda.</p>
-                                <a href="/admin/tags/new" class="btn btn-primary">
+                                <a href="<?= base_url('admin/tags/new') ?>" class="btn btn-primary">
                                     <i class="fas fa-plus-circle me-2"></i>Tambah Tag Pertama
                                 </a>
                             </td>
