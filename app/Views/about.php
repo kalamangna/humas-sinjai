@@ -6,12 +6,9 @@
 <section class="bg-primary-gradient text-white py-5 mb-5">
     <div class="container">
         <div class="row g-4">
-            <div class="col-lg-8 text-center text-lg-start">
+            <div class="col-12 text-center">
                 <h1 class="display-5 fw-bold mb-3">Tentang Humas Sinjai</h1>
                 <p class="lead mb-0">Menjadi pusat informasi terpercaya bagi masyarakat Kabupaten Sinjai</p>
-            </div>
-            <div class="col-lg-4 text-center">
-                <img src="<?= base_url('logo.png') ?>" alt="Logo Kabupaten Sinjai" class="img-fluid" style="max-width: 200px;">
             </div>
         </div>
     </div>

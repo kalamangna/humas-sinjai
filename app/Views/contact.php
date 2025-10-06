@@ -6,12 +6,9 @@
 <section class="bg-primary-gradient text-white py-5 mb-5">
     <div class="container">
         <div class="row g-4">
-            <div class="col-lg-8 text-center text-lg-start">
+            <div class="col-12 text-center">
                 <h1 class="display-5 fw-bold mb-3">Hubungi Kami</h1>
                 <p class="lead mb-0">Kami siap melayani kebutuhan informasi Anda</p>
-            </div>
-            <div class="col-lg-4 text-center">
-                <img src="<?= base_url('logo.png') ?>" alt="Logo Kabupaten Sinjai" class="img-fluid" style="max-width: 200px;">
             </div>
         </div>
     </div>
@@ -77,18 +74,11 @@
                     <div class="mt-4">
                         <h6 class="fw-bold mb-3">Media Sosial</h6>
                         <div class="d-flex gap-3">
-                            <a href="#" class="text-primary fs-5">
-                                <i class="fab fa-facebook"></i>
-                            </a>
-                            <a href="#" class="text-primary fs-5">
-                                <i class="fab fa-twitter"></i>
-                            </a>
-                            <a href="#" class="text-primary fs-5">
-                                <i class="fab fa-instagram"></i>
-                            </a>
-                            <a href="#" class="text-primary fs-5">
-                                <i class="fab fa-youtube"></i>
-                            </a>
+                            <a href="https://www.facebook.com/FP.KabupatenSinjai" target="_blank" class="text-primary fs-5"><i class="fab fa-facebook"></i></a>
+                            <a href="https://x.com/sinjaikab" target="_blank" class="text-primary fs-5"><i class="fab fa-x-twitter"></i></a>
+                            <a href="https://www.instagram.com/sinjaikab" target="_blank" class="text-primary fs-5"><i class="fab fa-instagram"></i></a>
+                            <a href="https://www.youtube.com/@SINJAITV" target="_blank" class="text-primary fs-5"><i class="fab fa-youtube"></i></a>
+                            <a href="https://www.tiktok.com/@pemkabsinjai" target="_blank" class="text-primary fs-5"><i class="fab fa-tiktok"></i></a>
                         </div>
                     </div>
                 </div>

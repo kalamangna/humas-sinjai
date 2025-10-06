@@ -12,10 +12,11 @@
                     Portal Berita Resmi Pemerintah Kabupaten Sinjai <span class="fw-bold">#samasamaki</span>
                 </p>
                 <div class="d-flex gap-3">
-                    <a href="#" class="text-white fs-5"><i class="fab fa-facebook"></i></a>
-                    <a href="#" class="text-white fs-5"><i class="fab fa-twitter"></i></a>
-                    <a href="#" class="text-white fs-5"><i class="fab fa-instagram"></i></a>
-                    <a href="#" class="text-white fs-5"><i class="fab fa-youtube"></i></a>
+                    <a href="https://www.facebook.com/FP.KabupatenSinjai" target="_blank" class="text-white fs-5"><i class="fab fa-facebook"></i></a>
+                    <a href="https://x.com/sinjaikab" target="_blank" class="text-white fs-5"><i class="fab fa-x-twitter"></i></a>
+                    <a href="https://www.instagram.com/sinjaikab" target="_blank" class="text-white fs-5"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.youtube.com/@SINJAITV" target="_blank" class="text-white fs-5"><i class="fab fa-youtube"></i></a>
+                    <a href="https://www.tiktok.com/@pemkabsinjai" target="_blank" class="text-white fs-5"><i class="fab fa-tiktok"></i></a>
                 </div>
             </div>
 
@@ -56,16 +57,9 @@
                 </ul>
             </div>
 
-            <!-- Newsletter -->
+            <!-- Banner -->
             <div class="col-lg-3 col-md-6 mb-4">
-                <h6 class="fw-bold mb-3 text-white">Newsletter</h6>
-                <p class="text-light small mb-3">Dapatkan update berita terbaru langsung ke email Anda</p>
-                <form class="d-flex flex-column gap-2">
-                    <input type="email" class="form-control form-control-sm border rounded" placeholder="Alamat email Anda">
-                    <button class="btn btn-light btn-sm text-primary" type="submit">
-                        <i class="fas fa-paper-plane"></i>
-                    </button>
-                </form>
+                <img src="<?= base_url('poster.png') ?>" alt="Banner" class="img-fluid">
             </div>
         </div>
 

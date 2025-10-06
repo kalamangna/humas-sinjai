@@ -6,15 +6,15 @@
 <section class="bg-primary-gradient text-white py-5 mb-5">
     <div class="container">
         <div class="row g-4">
-            <div class="col-lg-6 text-center text-lg-start">
+            <div class="col-lg-6 text-center text-lg-start order-last order-lg-first">
                 <h1 class="display-5 fw-bold mb-3">Humas Sinjai</h1>
                 <p class="lead mb-4">Portal Berita Resmi Pemerintah Kabupaten Sinjai <span class="fw-bold">#samasamaki</span></p>
                 <a href="<?= base_url('about') ?>" class="btn btn-light btn-lg px-4">
                     <i class="fas fa-info-circle me-2"></i>Selengkapnya
                 </a>
             </div>
-            <div class="col-lg-6 text-center">
-                <img src="<?= base_url('logo.png') ?>" alt="Logo Kabupaten Sinjai" class="img-fluid" style="max-width: 300px;">
+            <div class="col-lg-6 text-center order-first order-lg-last">
+                <img src="<?= base_url('banner.png') ?>" alt="Poster Humas Sinjai" class="img-fluid">
             </div>
         </div>
     </div>
