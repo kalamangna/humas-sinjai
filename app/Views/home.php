@@ -5,16 +5,22 @@
 <!-- Hero Section -->
 <section class="bg-primary-gradient text-white py-5 mb-5">
     <div class="container">
-        <div class="row g-4">
-            <div class="col-lg-6 text-center text-lg-start order-last order-lg-first">
-                <h1 class="display-5 fw-bold mb-3">Humas Sinjai</h1>
-                <p class="lead mb-4">Portal Berita Resmi Pemerintah Kabupaten Sinjai <span class="fw-bold">#samasamaki</span></p>
-                <a href="<?= base_url('about') ?>" class="btn btn-light btn-lg px-4">
-                    <i class="fas fa-info-circle me-2"></i>Selengkapnya
-                </a>
+        <div class="row align-items-center g-4">
+            <!-- Text Content -->
+            <div class="col-lg-6 text-center text-lg-start order-2 order-lg-1">
+                <h1 class="display-4 fw-bold mb-3">Humas Sinjai</h1>
+                <div class="mb-4">
+                    <p class="lead fs-4 fw-semibold mb-3">Portal Berita Resmi Pemerintah Kabupaten Sinjai</p>
+                    <span class="badge bg-light text-primary fs-6 px-3 py-2 border-0">
+                        <i class="fas fa-hashtag me-1"></i>samasamaki
+                    </span>
+                </div>
             </div>
-            <div class="col-lg-6 text-center order-first order-lg-last">
-                <img src="<?= base_url('banner.png') ?>" alt="Poster Humas Sinjai" class="img-fluid">
+
+            <!-- Banner Image -->
+            <div class="col-lg-6 text-center order-1 order-lg-2">
+                <img src="<?= base_url('banner.png') ?>" alt="Humas Sinjai - Portal Berita Resmi Kabupaten Sinjai"
+                    class="img-fluid rounded-3 shadow" style="max-height: 400px; object-fit: cover;">
             </div>
         </div>
     </div>
