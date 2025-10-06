@@ -69,7 +69,7 @@
 
                     <!-- Post Content -->
                     <div class="text-muted lh-lg mb-4">
-                        <?= $post['content'] ?>
+                        <?= nl2br(esc($post['content'])) ?>
                     </div>
 
                     <!-- Share Buttons -->

@@ -158,9 +158,6 @@ class Posts extends BaseController
             'tags'       => 'required',
             'status'     => 'required',
         ];
-        if ($this->request->getFile('thumbnail')->isValid()) {
-            $validationRules['thumbnail'] = 'uploaded[thumbnail]|max_size[thumbnail,2048]|is_image[thumbnail]|mime_in[thumbnail,image/jpg,image/jpeg,image/png,image/webp]';
-        }
 
         if (! $this->validate($validationRules)) {
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
@@ -176,19 +173,6 @@ class Posts extends BaseController
             'status'  => $this->request->getPost('status'),
             'user_id' => session()->get('user_id'),
         ];
-
-        // Handle file upload
-        $file = $this->request->getFile('thumbnail');
-        if ($file->isValid() && ! $file->hasMoved()) {
-            // Delete old thumbnail if it exists
-            if (! empty($post['thumbnail']) && file_exists(FCPATH . ltrim($post['thumbnail'], '/'))) {
-                unlink(FCPATH . ltrim($post['thumbnail'], '/'));
-            }
-
-            $thumbnailName = $file->getRandomName();
-            $file->move(FCPATH . 'uploads/thumbnails', $thumbnailName);
-            $postData['thumbnail'] = base_url('uploads/thumbnails/' . $thumbnailName);
-        }
 
         if ($postModel->update($id, $postData)) {
             // Sync categories
