@@ -10,7 +10,7 @@
             <div class="col-lg-6 text-center text-lg-start order-2 order-lg-1">
                 <h1 class="display-4 fw-bold mb-2">Humas Sinjai</h1>
                 <div class="mb-4">
-                    <p class="lead fs-4 mb-3">Portal Berita Resmi Pemerintah Kabupaten Sinjai</p>
+                    <p class="lead fs-4 mb-3">Portal Berita Resmi <span class="d-block d-md-inline">Pemerintah Kabupaten Sinjai</span></p>
                     <span class="badge bg-light text-primary fs-6 px-3 py-2 border-0">
                         <i class="fas fa-hashtag me-1"></i>samasamaki
                     </span>
