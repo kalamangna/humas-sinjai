@@ -24,17 +24,17 @@
                 <h6 class="fw-bold mb-3 text-white">Menu</h6>
                 <ul class="list-unstyled">
                     <li class="mb-2">
-                        <a href="/" class="text-light text-decoration-none">
+                        <a href="<?= base_url('/') ?>" class="text-light text-decoration-none">
                             <i class="fas fa-arrow-right me-2 small text-white"></i>Beranda
                         </a>
                     </li>
                     <li class="mb-2">
-                        <a href="/about" class="text-light text-decoration-none">
+                        <a href="<?= base_url('about') ?>" class="text-light text-decoration-none">
                             <i class="fas fa-arrow-right me-2 small text-white"></i>Tentang
                         </a>
                     </li>
                     <li class="mb-2">
-                        <a href="/contact" class="text-light text-decoration-none">
+                        <a href="<?= base_url('contact') ?>" class="text-light text-decoration-none">
                             <i class="fas fa-arrow-right me-2 small text-white"></i>Kontak
                         </a>
                     </li>
