@@ -10,14 +10,24 @@ class Users extends BaseController
     {
         $userModel = new UserModel();
 
+        // Get filters from request
+        $filters = [
+            'search'   => $this->request->getGet('search'),
+        ];
+
+        $builder = $userModel
+            ->select('users.*, COUNT(posts.id) as post_count')
+            ->join('posts', 'posts.user_id = users.id', 'left')
+            ->groupBy('users.id');
+
+        if (!empty($filters['search'])) {
+            $builder->like('users.name', $filters['search']);
+        }
+
         $data = [
-            'users'          => $userModel
-                ->select('users.*, COUNT(posts.id) as post_count')
-                ->join('posts', 'posts.user_id = users.id', 'left')
-                ->groupBy('users.id')
-                ->orderBy('users.name', 'ASC')
-                ->paginate(10),
+            'users'          => $builder->orderBy('users.name', 'ASC')->paginate(10),
             'pager'          => $userModel->pager,
+            'filters'        => $filters,
             'total_users'    => $userModel->countAllResults(),
             'admin_users'    => $userModel->where('role', 'admin')->countAllResults(),
             'author_users'   => $userModel->where('role', 'author')->countAllResults(),

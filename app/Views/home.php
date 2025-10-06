@@ -10,7 +10,7 @@
             <div class="col-lg-6 text-center text-lg-start order-2 order-lg-1">
                 <h1 class="display-4 fw-bold mb-2">Humas Sinjai</h1>
                 <div class="mb-4">
-                    <p class="lead fs-4 mb-3">Portal Berita Resmi <span class="d-block d-md-inline">Pemerintah Kabupaten Sinjai</span></p>
+                    <p class="lead fs-4 mb-2">Portal Berita Resmi <span class="d-block d-md-inline">Pemerintah Kabupaten Sinjai</span></p>
                     <span class="badge bg-light text-primary fs-6 px-3 py-2 border-0">
                         <i class="fas fa-hashtag me-1"></i>samasamaki
                     </span>
@@ -126,80 +126,6 @@
                 </div>
             </div>
         <?php endif; ?>
-    </div>
-</section>
-
-<!-- Features Section -->
-<section class="py-5 bg-light">
-    <div class="container">
-        <div class="row mb-5">
-            <div class="col-12 text-center">
-                <h2 class="fw-bold">Informasi Humas Sinjai</h2>
-                <p class="lead text-muted">Layanan informasi publik Kabupaten Sinjai</p>
-            </div>
-        </div>
-
-        <div class="row g-3">
-            <div class="col-md-4 mb-4">
-                <div class="text-center p-4">
-                    <div class="bg-primary rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px;">
-                        <i class="fas fa-newspaper text-white fa-2x"></i>
-                    </div>
-                    <h4 class="fw-bold">Berita Terkini</h4>
-                    <p class="text-muted">Informasi terbaru seputar kegiatan dan perkembangan di Kabupaten Sinjai</p>
-                </div>
-            </div>
-
-            <div class="col-md-4 mb-4">
-                <div class="text-center p-4">
-                    <div class="bg-primary rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px;">
-                        <i class="fas fa-bullhorn text-white fa-2x"></i>
-                    </div>
-                    <h4 class="fw-bold">Pengumuman</h4>
-                    <p class="text-muted">Pengumuman resmi dari Pemerintah Kabupaten Sinjai untuk masyarakat</p>
-                </div>
-            </div>
-
-            <div class="col-md-4 mb-4">
-                <div class="text-center p-4">
-                    <div class="bg-primary rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px;">
-                        <i class="fas fa-images text-white fa-2x"></i>
-                    </div>
-                    <h4 class="fw-bold">Galeri Kegiatan</h4>
-                    <p class="text-muted">Dokumentasi visual berbagai kegiatan dan program pemerintah</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Quick Stats -->
-<section class="py-4 bg-white">
-    <div class="container">
-        <div class="row text-center g-3">
-            <div class="col-md-3 col-6 mb-3">
-                <div class="border-end border-2">
-                    <h3 class="fw-bold text-primary mb-1"><?= !empty($posts) ? count($posts) : 0 ?></h3>
-                    <p class="text-muted small">Total Berita</p>
-                </div>
-            </div>
-            <div class="col-md-3 col-6 mb-3">
-                <div class="border-end border-2">
-                    <h3 class="fw-bold text-primary mb-1"><?= date('Y') - 2020 ?></h3>
-                    <p class="text-muted small">Tahun Aktif</p>
-                </div>
-            </div>
-            <div class="col-md-3 col-6 mb-3">
-                <div class="border-end border-2">
-                    <h3 class="fw-bold text-primary mb-1">24/7</h3>
-                    <p class="text-muted small">Layanan Informasi</p>
-                </div>
-            </div>
-            <div class="col-md-3 col-6 mb-3">
-                <h3 class="fw-bold text-primary mb-1">100%</h3>
-                <p class="text-muted small">Informasi Terpercaya</p>
-            </div>
-        </div>
     </div>
 </section>
 

@@ -14,8 +14,8 @@
 <div class="card border-0 shadow-sm mb-4">
     <div class="card-body">
         <form action="<?= base_url('admin/posts') ?>" method="get">
-            <div class="row g-2 g-md-3">
-                <div class="col-md-4">
+            <div class="row g-3">
+                <div class="col-md-3">
                     <input type="text" name="search" class="form-control" placeholder="Cari judul berita..." value="<?= esc($filters['search'] ?? '') ?>">
                 </div>
                 <div class="col-md-3">
@@ -34,7 +34,7 @@
                         <?php endforeach; ?>
                     </select>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-3">
                     <div class="d-grid d-md-flex gap-2">
                         <button type="submit" class="btn btn-primary w-100">Filter</button>
                         <a href="<?= base_url('admin/posts') ?>" class="btn btn-outline-secondary w-100">Reset</a>
@@ -46,7 +46,7 @@
 </div>
 
 <!-- Stats Overview -->
-<div class="row mb-4">
+<div class="row g-3 mb-4">
     <div class="col-xl-3 col-md-6">
         <div class="card border-0 bg-primary text-white">
             <div class="card-body p-3">
@@ -110,7 +110,7 @@
                     <tr>
                         <th class="border-0 ps-4">Judul Berita</th>
                         <th class="border-0">Kategori</th>
-                        <th class="border-0 text-center">Tags</th>
+                        <th class="border-0 text-center">Tag</th>
                         <th class="border-0">Status</th>
                         <th class="border-0">Penulis</th>
                         <th class="border-0">Tanggal</th>
@@ -122,11 +122,11 @@
                         <?php foreach ($posts as $post) : ?>
                             <tr>
                                 <td class="ps-4">
-                                    <div class="d-flex align-items-start">
+                                    <div class="d-flex align-items-start flex-column flex-lg-row">
                                         <?php if (!empty($post['thumbnail'])) : ?>
-                                            <img src="<?= esc($post['thumbnail']) ?>" alt="<?= esc($post['title']) ?>" class="rounded me-3" style="width: 60px; height: 40px; object-fit: cover;">
+                                            <img src="<?= esc($post['thumbnail']) ?>" alt="<?= esc($post['title']) ?>" class="rounded me-lg-3 mb-2 mb-lg-0" style="width: 100px; height: 60px; object-fit: cover;">
                                         <?php else : ?>
-                                            <div class="bg-secondary rounded d-flex align-items-center justify-content-center me-3" style="width: 60px; height: 40px;">
+                                            <div class="bg-secondary rounded d-flex align-items-center justify-content-center me-lg-3 mb-2 mb-lg-0" style="width: 100px; height: 60px;">
                                                 <i class="fas fa-newspaper text-white"></i>
                                             </div>
                                         <?php endif; ?>
@@ -192,13 +192,22 @@
                         <?php endforeach; ?>
                     <?php else: ?>
                         <tr>
-                            <td colspan="6" class="text-center py-5">
-                                <i class="fas fa-inbox fa-3x text-muted mb-3"></i>
-                                <h5 class="text-muted">Belum ada berita</h5>
-                                <p class="text-muted">Mulai dengan membuat berita pertama Anda.</p>
-                                <a href="<?= base_url('admin/posts/new') ?>" class="btn btn-primary">
-                                    <i class="fas fa-plus-circle me-2"></i>Tambah Berita Pertama
-                                </a>
+                            <td colspan="7" class="text-center py-5">
+                                <?php if (!empty($filters['search']) || !empty($filters['category']) || !empty($filters['author'])) : ?>
+                                    <i class="fas fa-search fa-3x text-muted mb-3"></i>
+                                    <h5 class="text-muted">Tidak ada berita ditemukan</h5>
+                                    <p class="text-muted">Tidak ada berita yang sesuai dengan kriteria pencarian Anda.</p>
+                                    <a href="<?= base_url('admin/posts') ?>" class="btn btn-primary mt-3">
+                                        <i class="fas fa-sync-alt me-2"></i>Reset Filter
+                                    </a>
+                                <?php else : ?>
+                                    <i class="fas fa-inbox fa-3x text-muted mb-3"></i>
+                                    <h5 class="text-muted">Belum ada berita</h5>
+                                    <p class="text-muted">Mulai dengan membuat berita pertama Anda.</p>
+                                    <a href="<?= base_url('admin/posts/new') ?>" class="btn btn-primary">
+                                        <i class="fas fa-plus-circle me-2"></i>Tambah Berita Pertama
+                                    </a>
+                                <?php endif; ?>
                             </td>
                         </tr>
                     <?php endif; ?>
@@ -210,15 +219,15 @@
 
 <!-- Pagination -->
 <?php if (isset($pager) && $pager->getPageCount('posts') > 1) : ?>
-    <div class="d-flex justify-content-between align-items-center mt-4">
-        <div class="text-muted small">
+    <div class="d-flex flex-column flex-lg-row justify-content-center align-items-center justify-content-lg-between mt-4">
+        <div class="text-muted small mb-2 mb-lg-0">
             <?php
-                $from = ($pager->getCurrentPage('posts') - 1) * $pager->getPerPage('posts') + 1;
-                $to = $from + count($posts) - 1;
+            $from = ($pager->getCurrentPage('posts') - 1) * $pager->getPerPage('posts') + 1;
+            $to = $from + count($posts) - 1;
             ?>
             Menampilkan <?= $from ?>-<?= $to ?> dari <?= $pager->getTotal('posts') ?> berita
         </div>
-        <div>
+        <div class="d-flex align-items-text-center">
             <?= $pager->only(['search', 'category', 'author'])->links('posts', 'custom_bootstrap') ?>
         </div>
     </div>

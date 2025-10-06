@@ -9,7 +9,7 @@
             <nav aria-label="breadcrumb" class="my-4">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="<?= base_url('/') ?>" class="text-decoration-none">Beranda</a></li>
-                    <li class="breadcrumb-item"><a href="<?= base_url('tags') ?>" class="text-decoration-none">Tags</a></li>
+                    <li class="breadcrumb-item"><a href="<?= base_url('tags') ?>" class="text-decoration-none">Tag</a></li>
                     <li class="breadcrumb-item active" aria-current="page"><?= esc($tag['name'] ?? 'Tag') ?></li>
                 </ol>
             </nav>
@@ -24,7 +24,7 @@
     <?php if (!empty($posts)) : ?>
         <div class="row g-3">
             <?php foreach ($posts as $post) : ?>
-                <div class="col-lg-6 mb-4">
+                <div class="col-md-6 col-lg-4 mb-4">
                     <div class="card h-100 shadow-sm border-0">
                         <?php if (!empty($post['thumbnail'])) : ?>
                             <img src="<?= esc($post['thumbnail']) ?>" class="card-img-top" alt="<?= esc($post['title']) ?>" style="height: 200px; object-fit: cover;">
@@ -92,15 +92,15 @@
 
         <!-- Pagination -->
         <?php if (isset($pager) && $pager->getPageCount() > 1) : ?>
-            <div class="d-flex justify-content-between align-items-center mt-5">
-                <div class="text-muted small">
+            <div class="d-flex flex-column flex-lg-row justify-content-center align-items-center justify-content-lg-between mt-5">
+                <div class="text-muted small mb-2 mb-lg-0">
                     <?php
-                        $from = ($pager->getCurrentPage() - 1) * $pager->getPerPage() + 1;
-                        $to = $from + count($posts) - 1;
+                    $from = ($pager->getCurrentPage() - 1) * $pager->getPerPage() + 1;
+                    $to = $from + count($posts) - 1;
                     ?>
                     Menampilkan <?= $from ?>-<?= $to ?> dari <?= $pager->getTotal() ?> berita
                 </div>
-                <div>
+                <div class="d-flex align-items-text-center">
                     <?= $pager->links('default', 'custom_bootstrap') ?>
                 </div>
             </div>

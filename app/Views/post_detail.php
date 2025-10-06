@@ -79,8 +79,8 @@
                         </h6>
                         <div class="d-flex flex-wrap gap-2">
                             <?php
-                                $share_url = urlencode(current_url());
-                                $share_title = urlencode($post['title']);
+                            $share_url = urlencode(current_url());
+                            $share_title = urlencode($post['title']);
                             ?>
                             <!-- WhatsApp -->
                             <a href="https://api.whatsapp.com/send?text=<?= $share_title ?>%20<?= $share_url ?>" target="_blank" class="btn btn-success btn-sm">
@@ -108,7 +108,7 @@
                     <?php if (!empty($tags)) : ?>
                         <div class="mt-4 pt-4 border-top">
                             <h6 class="fw-bold mb-3 text-dark">
-                                <i class="fas fa-tags me-2"></i>Tags:
+                                <i class="fas fa-tags me-2"></i>Tag:
                             </h6>
                             <div class="d-flex flex-wrap gap-2">
                                 <?php foreach ($tags as $tag) : ?>
@@ -153,11 +153,11 @@
                         <div class="list-group list-group-flush">
                             <?php foreach ($related_posts as $related) : ?>
                                 <a href="<?= base_url('post/' . esc($related['slug'])) ?>" class="list-group-item list-group-item-action border-0 px-0 py-3">
-                                    <div class="d-flex align-items-start">
+                                    <div class="d-block">
                                         <?php if (!empty($related['thumbnail'])) : ?>
-                                            <img src="<?= esc($related['thumbnail']) ?>" class="rounded me-3" alt="<?= esc($related['title']) ?>" style="width: 60px; height: 60px; object-fit: cover;">
+                                            <img src="<?= esc($related['thumbnail']) ?>" class="img-fluid rounded mb-2" alt="<?= esc($related['title']) ?>">
                                         <?php else : ?>
-                                            <div class="bg-secondary rounded d-flex align-items-center justify-content-center me-3" style="width: 60px; height: 60px;">
+                                            <div class="bg-secondary rounded d-flex align-items-center justify-content-center mb-2" style="height: 150px;">
                                                 <i class="fas fa-newspaper text-white"></i>
                                             </div>
                                         <?php endif; ?>
@@ -187,11 +187,11 @@
                         <div class="list-group list-group-flush">
                             <?php foreach ($recent_posts as $recent) : ?>
                                 <a href="<?= base_url('post/' . esc($recent['slug'])) ?>" class="list-group-item list-group-item-action border-0 px-0 py-3">
-                                    <div class="d-flex align-items-start">
+                                    <div class="d-block">
                                         <?php if (!empty($recent['thumbnail'])) : ?>
-                                            <img src="<?= esc($recent['thumbnail']) ?>" class="rounded me-3" alt="<?= esc($recent['title']) ?>" style="width: 60px; height: 60px; object-fit: cover;">
+                                            <img src="<?= esc($recent['thumbnail']) ?>" class="img-fluid rounded mb-2" alt="<?= esc($recent['title']) ?>">
                                         <?php else : ?>
-                                            <div class="bg-secondary rounded d-flex align-items-center justify-content-center me-3" style="width: 60px; height: 60px;">
+                                            <div class="bg-secondary rounded d-flex align-items-center justify-content-center mb-2" style="height: 150px;">
                                                 <i class="fas fa-newspaper text-white"></i>
                                             </div>
                                         <?php endif; ?>

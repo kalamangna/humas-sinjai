@@ -3,7 +3,7 @@
 <div class="container-fluid">
     <div class="row">
         <!-- Sidebar -->
-        <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-white sidebar collapse border-end">
+        <nav id="sidebarMenu" class="col-lg-2 d-lg-block bg-white sidebar collapse border-end">
             <div class="position-sticky pt-3">
                 <ul class="nav flex-column">
                     <li class="nav-item">
@@ -27,7 +27,7 @@
                     <li class="nav-item">
                         <a class="nav-link d-flex align-items-center py-3 <?= url_is('admin/tags*') ? 'active text-primary fw-bold' : 'text-dark' ?>" href="<?= base_url('admin/tags') ?>">
                             <i class="fas fa-fw fa-tags me-3"></i>
-                            Tags
+                            Tag
                         </a>
                     </li>
                     <?php if (session()->get('role') === 'admin') : ?>
@@ -41,7 +41,7 @@
                 </ul>
 
                 <!-- Quick Stats -->
-                <div class="mt-5 px-3">
+                <div class="mt-5 px-3 d-none d-lg-block">
                     <h6 class="text-uppercase small fw-bold text-muted mb-3">Statistik</h6>
                     <div class="d-flex flex-column gap-2">
                         <div class="d-flex justify-content-between align-items-center">
@@ -53,14 +53,14 @@
                             <span class="badge bg-success"><?= $total_categories ?? '0' ?></span>
                         </div>
                         <div class="d-flex justify-content-between align-items-center">
-                            <span class="small text-muted">Total Tags</span>
+                            <span class="small text-muted">Total Tag</span>
                             <span class="badge bg-info"><?= $total_tags ?? '0' ?></span>
                         </div>
                         <?php if (session()->get('role') === 'admin') : ?>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <span class="small text-muted">Total Pengguna</span>
-                            <span class="badge bg-warning"><?= $total_users ?? '0' ?></span>
-                        </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="small text-muted">Total Pengguna</span>
+                                <span class="badge bg-warning"><?= $total_users ?? '0' ?></span>
+                            </div>
                         <?php endif; ?>
                     </div>
                 </div>
@@ -68,7 +68,7 @@
         </nav>
 
         <!-- Main Content -->
-        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4">
+        <main class="col-lg-10 ms-lg-auto px-md-4 py-4">
             <!-- Page Header -->
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <div>

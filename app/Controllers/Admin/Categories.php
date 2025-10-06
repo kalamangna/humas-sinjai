@@ -11,14 +11,24 @@ class Categories extends BaseController
         $categoryModel = new CategoryModel();
         $postModel = new \App\Models\PostModel(); // Need this for total posts
 
+        // Get filters from request
+        $filters = [
+            'search'   => $this->request->getGet('search'),
+        ];
+
+        $builder = $categoryModel
+            ->select('categories.*, COUNT(post_categories.post_id) as post_count')
+            ->join('post_categories', 'post_categories.category_id = categories.id', 'left')
+            ->groupBy('categories.id');
+
+        if (!empty($filters['search'])) {
+            $builder->like('categories.name', $filters['search']);
+        }
+
         $data = [
-            'categories'        => $categoryModel
-                ->select('categories.*, COUNT(post_categories.post_id) as post_count')
-                ->join('post_categories', 'post_categories.category_id = categories.id', 'left')
-                ->groupBy('categories.id')
-                ->orderBy('categories.name', 'ASC')
-                ->paginate(10),
+            'categories'        => $builder->orderBy('categories.name', 'ASC')->paginate(10),
             'pager'             => $categoryModel->pager,
+            'filters'           => $filters,
             'total_categories'  => $this->data['total_categories'], // Use data from BaseController
             'active_categories' => $categoryModel->join('post_categories', 'post_categories.category_id = categories.id')->countAll(),
             'total_posts'       => $this->data['total_posts'],

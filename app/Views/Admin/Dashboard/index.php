@@ -30,7 +30,7 @@
                     </small>
                 </div>
             </div>
-            <div class="card-footer bg-transparent border-0 pt-0">
+            <div class="card-footer bg-transparent border-0 pb-3">
                 <a href="<?= base_url('admin/posts') ?>" class="btn btn-outline-primary btn-sm w-100">
                     <i class="fas fa-eye me-2"></i>Lihat Semua
                 </a>
@@ -50,7 +50,7 @@
                 <h3 class="fw-bold text-dark mb-1"><?= $categoryCount ?? '0' ?></h3>
                 <p class="text-muted mb-0">Total Kategori</p>
             </div>
-            <div class="card-footer bg-transparent border-0 pt-0">
+            <div class="card-footer bg-transparent border-0 pb-3">
                 <a href="<?= base_url('admin/categories') ?>" class="btn btn-outline-success btn-sm w-100">
                     <i class="fas fa-eye me-2"></i>Lihat Semua
                 </a>
@@ -68,9 +68,9 @@
                     </div>
                 </div>
                 <h3 class="fw-bold text-dark mb-1"><?= $tagCount ?? '0' ?></h3>
-                <p class="text-muted mb-0">Total Tags</p>
+                <p class="text-muted mb-0">Total Tag</p>
             </div>
-            <div class="card-footer bg-transparent border-0 pt-0">
+            <div class="card-footer bg-transparent border-0 pb-3">
                 <a href="<?= base_url('admin/tags') ?>" class="btn btn-outline-info btn-sm w-100">
                     <i class="fas fa-eye me-2"></i>Lihat Semua
                 </a>
@@ -79,25 +79,25 @@
     </div>
 
     <?php if ($isAdmin) : ?>
-    <!-- Users Card -->
-    <div class="col-xl-3 col-md-6">
-        <div class="card border-0 shadow-sm h-100">
-            <div class="card-body">
-                <div class="d-flex justify-content-between align-items-start mb-3">
-                    <div class="p-3 rounded-3 bg-warning">
-                        <i class="fas fa-users text-white fs-4"></i>
+        <!-- Users Card -->
+        <div class="col-xl-3 col-md-6">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-start mb-3">
+                        <div class="p-3 rounded-3 bg-warning">
+                            <i class="fas fa-users text-white fs-4"></i>
+                        </div>
                     </div>
+                    <h3 class="fw-bold text-dark mb-1"><?= $userCount ?? '0' ?></h3>
+                    <p class="text-muted mb-0">Total Pengguna</p>
                 </div>
-                <h3 class="fw-bold text-dark mb-1"><?= $userCount ?? '0' ?></h3>
-                <p class="text-muted mb-0">Total Pengguna</p>
-            </div>
-            <div class="card-footer bg-transparent border-0 pt-0">
-                <a href="<?= base_url('admin/users') ?>" class="btn btn-outline-warning btn-sm w-100">
-                    <i class="fas fa-eye me-2"></i>Lihat Semua
-                </a>
+                <div class="card-footer bg-transparent border-0 pb-3">
+                    <a href="<?= base_url('admin/users') ?>" class="btn btn-outline-warning btn-sm w-100">
+                        <i class="fas fa-eye me-2"></i>Lihat Semua
+                    </a>
+                </div>
             </div>
         </div>
-    </div>
     <?php endif; ?>
 </div>
 
@@ -117,8 +117,7 @@
                             <thead>
                                 <tr>
                                     <th>Judul</th>
-                                    <th>Kategori</th>
-                                    <th>Author</th>
+                                    <th>Penulis</th>
                                     <th>Tanggal</th>
                                 </tr>
                             </thead>
@@ -126,17 +125,6 @@
                                 <?php foreach ($recentPosts as $post): ?>
                                     <tr>
                                         <td><?= esc($post['title']) ?></td>
-                                        <td>
-                                            <?php if (!empty($post['category_name'])) : ?>
-                                                <?php
-                                                $cat_names = explode(',', $post['category_name']);
-                                                foreach ($cat_names as $name) : ?>
-                                                    <span class="badge bg-primary me-1"><?= esc($name) ?></span>
-                                                <?php endforeach; ?>
-                                            <?php else : ?>
-                                                <span class="badge bg-secondary">N/A</span>
-                                            <?php endif; ?>
-                                        </td>
                                         <td><?= esc($post['author_name'] ?? 'N/A') ?></td>
                                         <td><?= date('d M Y H:i', strtotime($post['published_at'])) ?></td>
                                     </tr>
@@ -190,13 +178,13 @@
                         </a>
                     </div>
                     <?php if ($isAdmin) : ?>
-                    <div class="col-md-3 col-6">
-                        <a href="<?= base_url('admin/users/new') ?>" class="btn btn-warning w-100 d-flex flex-column align-items-center py-3 text-white text-decoration-none">
-                            <i class="fas fa-user-plus fs-2 mb-2"></i>
-                            <span>Tambah User</span>
-                            <small class="text-light opacity-75 mt-1">User baru</small>
-                        </a>
-                    </div>
+                        <div class="col-md-3 col-6">
+                            <a href="<?= base_url('admin/users/new') ?>" class="btn btn-warning w-100 d-flex flex-column align-items-center py-3 text-white text-decoration-none">
+                                <i class="fas fa-user-plus fs-2 mb-2"></i>
+                                <span>Tambah Pengguna</span>
+                                <small class="text-light opacity-75 mt-1">Pengguna baru</small>
+                            </a>
+                        </div>
                     <?php endif; ?>
                 </div>
             </div>

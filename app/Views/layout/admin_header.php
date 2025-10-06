@@ -22,7 +22,7 @@
             </a>
 
             <!-- Mobile Toggle -->
-            <button class="navbar-toggler d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu">
+            <button class="navbar-toggler d-lg-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu">
                 <i class="fas fa-bars"></i>
             </button>
 

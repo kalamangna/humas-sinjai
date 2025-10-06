@@ -12,8 +12,27 @@
 
 <?= $this->section('content') ?>
 
+<!-- Search and Filter -->
+<div class="card border-0 shadow-sm mb-4">
+    <div class="card-body">
+        <form action="<?= base_url('admin/users') ?>" method="get">
+            <div class="row g-3">
+                <div class="col-md-9">
+                    <input type="text" name="search" class="form-control" placeholder="Cari nama pengguna..." value="<?= esc($filters['search'] ?? '') ?>">
+                </div>
+                <div class="col-md-3">
+                    <div class="d-grid d-md-flex gap-2">
+                        <button type="submit" class="btn btn-primary w-100">Filter</button>
+                        <a href="<?= base_url('admin/users') ?>" class="btn btn-outline-secondary w-100">Reset</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
 <!-- Stats Overview -->
-<div class="row mb-4">
+<div class="row g-3 mb-4">
     <div class="col-xl-3 col-md-6">
         <div class="card border-0 bg-primary text-white">
             <div class="card-body p-3">
@@ -148,12 +167,21 @@
                     <?php else: ?>
                         <tr>
                             <td colspan="6" class="text-center py-5">
-                                <i class="fas fa-users fa-3x text-muted mb-3"></i>
-                                <h5 class="text-muted">Belum ada pengguna</h5>
-                                <p class="text-muted">Mulai dengan menambahkan pengguna pertama.</p>
-                                <a href="<?= base_url('admin/users/new') ?>" class="btn btn-primary">
-                                    <i class="fas fa-plus-circle me-2"></i>Tambah Pengguna Pertama
-                                </a>
+                                <?php if (!empty($filters['search'])) : ?>
+                                    <i class="fas fa-search fa-3x text-muted mb-3"></i>
+                                    <h5 class="text-muted">Tidak ada pengguna ditemukan</h5>
+                                    <p class="text-muted">Tidak ada pengguna yang sesuai dengan kriteria pencarian Anda.</p>
+                                    <a href="<?= base_url('admin/users') ?>" class="btn btn-primary mt-3">
+                                        <i class="fas fa-sync-alt me-2"></i>Reset Filter
+                                    </a>
+                                <?php else : ?>
+                                    <i class="fas fa-users fa-3x text-muted mb-3"></i>
+                                    <h5 class="text-muted">Belum ada pengguna</h5>
+                                    <p class="text-muted">Mulai dengan menambahkan pengguna pertama.</p>
+                                    <a href="<?= base_url('admin/users/new') ?>" class="btn btn-primary">
+                                        <i class="fas fa-plus-circle me-2"></i>Tambah Pengguna Pertama
+                                    </a>
+                                <?php endif; ?>
                             </td>
                         </tr>
                     <?php endif; ?>
@@ -165,15 +193,15 @@
 
 <!-- Pagination -->
 <?php if (isset($pager) && $pager->getPageCount() > 1) : ?>
-    <div class="d-flex justify-content-between align-items-center mt-4">
-        <div class="text-muted small">
+    <div class="d-flex flex-column flex-lg-row justify-content-center align-items-center justify-content-lg-between mt-4">
+        <div class="text-muted small mb-2 mb-lg-0">
             <?php
                 $from = ($pager->getCurrentPage() - 1) * $pager->getPerPage() + 1;
                 $to = $from + count($users) - 1;
             ?>
             Menampilkan <?= $from ?>-<?= $to ?> dari <?= $pager->getTotal() ?> pengguna
         </div>
-        <div>
+        <div class="d-flex align-items-text-center">
             <?= $pager->links('default', 'custom_bootstrap') ?>
         </div>
     </div>

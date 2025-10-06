@@ -11,14 +11,24 @@ class Tags extends BaseController
         $tagModel = new TagModel();
         $postModel = new \App\Models\PostModel(); // Need this for total posts
 
+        // Get filters from request
+        $filters = [
+            'search'   => $this->request->getGet('search'),
+        ];
+
+        $builder = $tagModel
+            ->select('tags.*, COUNT(post_tags.post_id) as post_count')
+            ->join('post_tags', 'post_tags.tag_id = tags.id', 'left')
+            ->groupBy('tags.id');
+
+        if (!empty($filters['search'])) {
+            $builder->like('tags.name', $filters['search']);
+        }
+
         $data = [
-            'tags'              => $tagModel
-                ->select('tags.*, COUNT(post_tags.post_id) as post_count')
-                ->join('post_tags', 'post_tags.tag_id = tags.id', 'left')
-                ->groupBy('tags.id')
-                ->orderBy('tags.name', 'ASC')
-                ->paginate(10),
+            'tags'              => $builder->orderBy('tags.name', 'ASC')->paginate(10),
             'pager'             => $tagModel->pager,
+            'filters'           => $filters,
             'total_tags'        => $this->data['total_tags'], // Use data from BaseController
             'active_tags'       => $tagModel->join('post_tags', 'post_tags.tag_id = tags.id')->countAll(),
             'total_posts'       => $this->data['total_posts'],

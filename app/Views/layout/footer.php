@@ -3,15 +3,18 @@
     <div class="container py-5">
         <div class="row g-3">
             <!-- Brand info -->
-            <div class="col-lg-4 col-md-6 mb-4">
-                <div class="d-flex align-items-center mb-3">
-                    <img src="<?= base_url('logo.png') ?>" alt="Logo Sinjai" width="50" height="50" class="me-3">
+            <div class="col-lg-4 mb-4 text-center text-lg-start">
+                <div class="d-block d-lg-flex align-items-center justify-content-center justify-content-lg-start mb-3">
+                    <img src="<?= base_url('logo.png') ?>" alt="Logo Sinjai" width="50" height="50" class="me-lg-3 mb-2 mb-lg-0">
                     <h5 class="fw-bold mb-0 text-white">Humas Sinjai</h5>
                 </div>
-                <p class="text-light mb-4">
-                    Portal Berita Resmi Pemerintah Kabupaten Sinjai <span class="fw-bold">#samasamaki</span>
+                <p class="text-light mb-2">
+                    Portal Berita Resmi Pemerintah Kabupaten Sinjai
                 </p>
-                <div class="d-flex gap-3">
+                <span class="badge bg-light text-primary mb-3">
+                    <i class="fas fa-hashtag me-1"></i>samasamaki
+                </span>
+                <div class="d-flex gap-3 justify-content-center justify-content-lg-start">
                     <a href="https://www.facebook.com/FP.KabupatenSinjai" target="_blank" class="text-white fs-5"><i class="fab fa-facebook"></i></a>
                     <a href="https://x.com/sinjaikab" target="_blank" class="text-white fs-5"><i class="fab fa-x-twitter"></i></a>
                     <a href="https://www.instagram.com/sinjaikab" target="_blank" class="text-white fs-5"><i class="fab fa-instagram"></i></a>
@@ -21,7 +24,7 @@
             </div>
 
             <!-- Quick links -->
-            <div class="col-lg-2 col-md-6 mb-4">
+            <div class="col-lg-2 mb-4 text-center text-lg-start">
                 <h6 class="fw-bold mb-3 text-white">Menu</h6>
                 <ul class="list-unstyled">
                     <li class="mb-2">
@@ -43,14 +46,14 @@
             </div>
 
             <!-- Contact info -->
-            <div class="col-lg-3 col-md-6 mb-4">
+            <div class="col-lg-3 mb-4 text-center text-lg-start">
                 <h6 class="fw-bold mb-3 text-white">Kontak</h6>
                 <ul class="list-unstyled text-light">
-                    <li class="mb-3 d-flex align-items-start">
+                    <li class="mb-3 d-flex align-items-start justify-content-center justify-content-lg-start">
                         <i class="fas fa-envelope me-3 mt-1 text-white"></i>
                         <span>humas@sinjaikab.go.id</span>
                     </li>
-                    <li class="mb-3 d-flex align-items-start">
+                    <li class="mb-3 d-flex align-items-start justify-content-center justify-content-lg-start">
                         <i class="fas fa-map-marker-alt me-3 mt-1 text-white"></i>
                         <span>Jl. Persatuan Raya No. 101, Kel. Balangnipa, Kec. Sinjai Utara, Kab. Sinjai</span>
                     </li>
@@ -58,7 +61,7 @@
             </div>
 
             <!-- Banner -->
-            <div class="col-lg-3 col-md-6 mb-4">
+            <div class="col-lg-3 mb-4">
                 <img src="<?= base_url('poster.png') ?>" alt="Banner" class="img-fluid">
             </div>
         </div>
