@@ -15,11 +15,6 @@ class Home extends BaseController
         $posts = $postModel->getPosts(); // Get basic post data
         $data['posts'] = $postModel->withCategoriesAndTags($posts); // Enrich with categories and tags
 
-        $data['title'] = 'Humas Sinjai - Portal Berita Resmi Pemerintah Kabupaten Sinjai';
-        $data['description'] = 'Dapatkan informasi terbaru seputar kegiatan, program, dan perkembangan di Sinjai melalui portal berita resmi Pemerintah Kabupaten Sinjai.';
-        $data['keywords'] = 'Humas Sinjai, Berita Sinjai, Sinjai, Pemerintah Kabupaten Sinjai, informasi publik';
-        $data['image'] = base_url('meta.png');
-
         return view('home', $data);
     }
 
