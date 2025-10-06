@@ -14,16 +14,16 @@
             </nav>
             <h1 class="fw-bold border-bottom pb-2">Hasil Pencarian</h1>
             <p class="lead text-muted">
-                <?php if (!empty($query)): ?>
+                <?php if (!empty($query)) : ?>
                     Menampilkan hasil untuk: "<strong><?= esc($query) ?></strong>"
-                <?php else: ?>
+                <?php else : ?>
                     Masukkan kata kunci untuk mencari berita
                 <?php endif; ?>
             </p>
         </div>
     </div>
 
-    <?php if (!empty($posts)): ?>
+    <?php if (!empty($posts)) : ?>
         <!-- Search Info -->
         <div class="row mb-4">
             <div class="col-12">
@@ -35,13 +35,13 @@
         </div>
 
         <!-- Posts Grid -->
-        <div class="row">
-            <?php foreach ($posts as $post): ?>
+        <div class="row g-3">
+            <?php foreach ($posts as $post) : ?>
                 <div class="col-lg-4 col-md-6 mb-4">
                     <div class="card h-100 shadow-sm border-0">
-                        <?php if (!empty($post['thumbnail'])): ?>
+                        <?php if (!empty($post['thumbnail'])) : ?>
                             <img src="<?= esc($post['thumbnail']) ?>" class="card-img-top" alt="<?= esc($post['title']) ?>" style="height: 200px; object-fit: cover;">
-                        <?php else: ?>
+                        <?php else : ?>
                             <div class="card-img-top bg-secondary d-flex align-items-center justify-content-center" style="height: 200px;">
                                 <i class="fas fa-newspaper text-white fa-3x"></i>
                             </div>
@@ -104,21 +104,21 @@
         </div>
 
         <!-- Pagination -->
-        <?php if (isset($pager) && method_exists($pager, 'links')): ?>
+        <?php if (isset($pager) && method_exists($pager, 'links')) : ?>
             <div class="d-flex justify-content-center mt-5">
                 <?= $pager->links() ?>
             </div>
         <?php endif; ?>
 
-    <?php else: ?>
+    <?php else : ?>
         <!-- No Results -->
         <div class="text-center py-5">
             <i class="fas fa-search fa-3x text-muted mb-3"></i>
             <h4 class="text-muted">Tidak ada hasil ditemukan</h4>
             <p class="text-muted mb-4">
-                <?php if (!empty($query)): ?>
+                <?php if (!empty($query)) : ?>
                     Tidak ada berita yang sesuai dengan pencarian "<strong><?= esc($query) ?></strong>".
-                <?php else: ?>
+                <?php else : ?>
                     Silakan masukkan kata kunci pencarian.
                 <?php endif; ?>
             </p>

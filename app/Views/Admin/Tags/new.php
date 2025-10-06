@@ -26,7 +26,7 @@
                 <form action="<?= base_url('admin/tags') ?>" method="post" class="needs-validation" novalidate>
                     <?= csrf_field() ?>
 
-                    <div class="row g-4">
+                    <div class="row g-2 g-md-4">
                         <div class="col-12">
                             <div class="form-group">
                                 <label for="name" class="form-label fw-semibold text-dark">Nama Tag <span class="text-danger">*</span></label>

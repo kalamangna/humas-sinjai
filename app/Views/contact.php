@@ -5,8 +5,8 @@
 <!-- Hero Section -->
 <section class="bg-primary-gradient text-white py-5 mb-5">
     <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-8">
+        <div class="row g-4">
+            <div class="col-lg-8 text-center text-lg-start">
                 <h1 class="display-5 fw-bold mb-3">Hubungi Kami</h1>
                 <p class="lead mb-0">Kami siap melayani kebutuhan informasi Anda</p>
             </div>
@@ -18,7 +18,7 @@
 </section>
 
 <div class="container">
-    <div class="row">
+    <div class="row g-3">
         <!-- Contact Information -->
         <div class="col-lg-4 mb-4">
             <div class="card border-0 shadow-sm h-100">
@@ -101,7 +101,7 @@
                 <div class="card-body p-4">
                     <h3 class="fw-bold mb-4">Kirim Pesan</h3>
                     <form action="/contact/send" method="post">
-                        <div class="row">
+                        <div class="row g-3">
                             <div class="col-md-6 mb-3">
                                 <label for="name" class="form-label fw-semibold">Nama Lengkap</label>
                                 <input type="text" class="form-control" id="name" name="name" required placeholder="Masukkan nama lengkap">

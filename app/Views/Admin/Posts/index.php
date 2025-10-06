@@ -14,7 +14,7 @@
 <div class="card border-0 shadow-sm mb-4">
     <div class="card-body">
         <form action="<?= base_url('admin/posts') ?>" method="get">
-            <div class="row g-3">
+            <div class="row g-2 g-md-3">
                 <div class="col-md-4">
                     <input type="text" name="search" class="form-control" placeholder="Cari judul berita..." value="<?= esc($filters['search'] ?? '') ?>">
                 </div>

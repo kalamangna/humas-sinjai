@@ -12,13 +12,13 @@
         </ol>
     </nav>
 
-    <div class="row">
+    <div class="row g-3">
         <!-- Main Content -->
         <div class="col-lg-8">
             <article class="card border-0 shadow-sm mb-4">
                 <!-- Post Header -->
                 <div class="card-body p-4">
-                    <?php if (!empty($post['thumbnail'])): ?>
+                    <?php if (!empty($post['thumbnail'])) : ?>
                         <img src="<?= esc($post['thumbnail']) ?>" class="img-fluid rounded mb-4 w-100" alt="<?= esc($post['title']) ?>" style="max-height: 400px; object-fit: cover;">
                     <?php endif; ?>
 
@@ -43,7 +43,7 @@
                             </span>
                         </div>
 
-                        <?php if (!empty($post['author_name'])): ?>
+                        <?php if (!empty($post['author_name'])) : ?>
                             <div class="d-flex align-items-center">
                                 <i class="fas fa-user me-2"></i>
                                 <span><?= esc($post['author_name']) ?></span>
@@ -105,13 +105,13 @@
                     </div>
 
                     <!-- Tags -->
-                    <?php if (!empty($tags)): ?>
+                    <?php if (!empty($tags)) : ?>
                         <div class="mt-4 pt-4 border-top">
                             <h6 class="fw-bold mb-3 text-dark">
                                 <i class="fas fa-tags me-2"></i>Tags:
                             </h6>
                             <div class="d-flex flex-wrap gap-2">
-                                <?php foreach ($tags as $tag): ?>
+                                <?php foreach ($tags as $tag) : ?>
                                     <a href="<?= base_url('tag/' . esc($tag['slug'])) ?>" class="badge bg-primary text-decoration-none">
                                         <?= esc($tag['name']) ?>
                                     </a>
@@ -125,14 +125,14 @@
             <!-- Navigation Between Posts -->
             <div class="d-flex justify-content-between mb-4">
                 <div>
-                    <?php if (!empty($previous_post)): ?>
+                    <?php if (!empty($previous_post)) : ?>
                         <a href="<?= base_url('post/' . esc($previous_post['slug'])) ?>" class="btn btn-outline-primary">
                             <i class="fas fa-arrow-left me-2"></i>Post Sebelumnya
                         </a>
                     <?php endif; ?>
                 </div>
                 <div>
-                    <?php if (!empty($next_post)): ?>
+                    <?php if (!empty($next_post)) : ?>
                         <a href="<?= base_url('post/' . esc($next_post['slug'])) ?>" class="btn btn-outline-primary">
                             Post Selanjutnya<i class="fas fa-arrow-right ms-2"></i>
                         </a>
@@ -149,14 +149,14 @@
                     <h5 class="fw-bold mb-3 border-bottom pb-2 text-dark">
                         <i class="fas fa-link me-2"></i>Berita Terkait
                     </h5>
-                    <?php if (!empty($related_posts)): ?>
+                    <?php if (!empty($related_posts)) : ?>
                         <div class="list-group list-group-flush">
-                            <?php foreach ($related_posts as $related): ?>
+                            <?php foreach ($related_posts as $related) : ?>
                                 <a href="<?= base_url('post/' . esc($related['slug'])) ?>" class="list-group-item list-group-item-action border-0 px-0 py-3">
                                     <div class="d-flex align-items-start">
-                                        <?php if (!empty($related['thumbnail'])): ?>
+                                        <?php if (!empty($related['thumbnail'])) : ?>
                                             <img src="<?= esc($related['thumbnail']) ?>" class="rounded me-3" alt="<?= esc($related['title']) ?>" style="width: 60px; height: 60px; object-fit: cover;">
-                                        <?php else: ?>
+                                        <?php else : ?>
                                             <div class="bg-secondary rounded d-flex align-items-center justify-content-center me-3" style="width: 60px; height: 60px;">
                                                 <i class="fas fa-newspaper text-white"></i>
                                             </div>
@@ -171,7 +171,7 @@
                                 </a>
                             <?php endforeach; ?>
                         </div>
-                    <?php else: ?>
+                    <?php else : ?>
                         <p class="text-muted small mb-0">Tidak ada berita terkait.</p>
                     <?php endif; ?>
                 </div>

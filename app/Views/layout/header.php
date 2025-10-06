@@ -50,10 +50,10 @@
                     <?php
                     helper('url'); // Ensure the URL helper is loaded
                     $nav_items = [
-                        ['path' => '/', 'icon' => 'fas fa-home', 'text' => 'Beranda'],
-                        ['path' => 'posts', 'icon' => 'fas fa-newspaper', 'text' => 'Berita'],
-                        ['path' => 'about', 'icon' => 'fas fa-info-circle', 'text' => 'Tentang'],
-                        ['path' => 'contact', 'icon' => 'fas fa-envelope', 'text' => 'Kontak'],
+                        ['path' => '/', 'icon' => 'fas fa-fw fa-home', 'text' => 'Beranda'],
+                        ['path' => 'posts', 'icon' => 'fas fa-fw fa-newspaper', 'text' => 'Berita'],
+                        ['path' => 'about', 'icon' => 'fas fa-fw fa-info-circle', 'text' => 'Tentang'],
+                        ['path' => 'contact', 'icon' => 'fas fa-fw fa-envelope', 'text' => 'Kontak'],
                     ];
                     ?>
                     <?php foreach ($nav_items as $item) : ?>

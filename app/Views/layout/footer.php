@@ -1,7 +1,7 @@
 <!-- Footer -->
 <footer class="bg-primary-gradient text-white mt-5">
     <div class="container py-5">
-        <div class="row">
+        <div class="row g-3">
             <!-- Brand info -->
             <div class="col-lg-4 col-md-6 mb-4">
                 <div class="d-flex align-items-center mb-3">
@@ -9,7 +9,7 @@
                     <h5 class="fw-bold mb-0 text-white">Humas Sinjai</h5>
                 </div>
                 <p class="text-light mb-4">
-                    Portal berita resmi Pemerintah Kabupaten Sinjai.
+                    Portal Berita Resmi Pemerintah Kabupaten Sinjai <span class="fw-bold">#samasamaki</span>
                 </p>
                 <div class="d-flex gap-3">
                     <a href="#" class="text-white fs-5"><i class="fab fa-facebook"></i></a>

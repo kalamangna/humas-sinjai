@@ -24,7 +24,7 @@
                 <form action="<?= base_url('admin/posts') ?>" method="post" novalidate>
                     <?= csrf_field() ?>
 
-                    <div class="row g-4">
+                    <div class="row g-2 g-md-4">
                         <!-- Judul -->
                         <div class="col-12">
                             <div class="form-group">

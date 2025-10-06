@@ -14,21 +14,21 @@
                 </ol>
             </nav>
             <h1 class="fw-bold border-bottom pb-2">Tag: <?= esc($tag['name'] ?? '') ?></h1>
-            <?php if (!empty($tag['description'])): ?>
+            <?php if (!empty($tag['description'])) : ?>
                 <p class="lead text-muted"><?= esc($tag['description']) ?></p>
             <?php endif; ?>
         </div>
     </div>
 
     <!-- Posts Grid -->
-    <?php if (!empty($posts)): ?>
-        <div class="row">
-            <?php foreach ($posts as $post): ?>
+    <?php if (!empty($posts)) : ?>
+        <div class="row g-3">
+            <?php foreach ($posts as $post) : ?>
                 <div class="col-lg-6 mb-4">
                     <div class="card h-100 shadow-sm border-0">
-                        <?php if (!empty($post['thumbnail'])): ?>
+                        <?php if (!empty($post['thumbnail'])) : ?>
                             <img src="<?= esc($post['thumbnail']) ?>" class="card-img-top" alt="<?= esc($post['title']) ?>" style="height: 200px; object-fit: cover;">
-                        <?php else: ?>
+                        <?php else : ?>
                             <div class="card-img-top bg-secondary d-flex align-items-center justify-content-center" style="height: 200px;">
                                 <i class="fas fa-newspaper text-white fa-3x"></i>
                             </div>
@@ -106,7 +106,7 @@
             </div>
         <?php endif; ?>
 
-    <?php else: ?>
+    <?php else : ?>
         <!-- Empty State -->
         <div class="text-center py-5">
             <i class="fas fa-tag fa-3x text-muted mb-3"></i>

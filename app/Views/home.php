@@ -5,10 +5,10 @@
 <!-- Hero Section -->
 <section class="bg-primary-gradient text-white py-5 mb-5">
     <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-6">
-                <h1 class="display-5 fw-bold mb-3">Selamat Datang di Humas Sinjai</h1>
-                <p class="lead mb-4">Portal berita resmi Pemerintah Kabupaten Sinjai. Dapatkan informasi terbaru seputar kegiatan, program, dan perkembangan di Sinjai.</p>
+        <div class="row g-4">
+            <div class="col-lg-6 text-center text-lg-start">
+                <h1 class="display-5 fw-bold mb-3">Humas Sinjai</h1>
+                <p class="lead mb-4">Portal Berita Resmi Pemerintah Kabupaten Sinjai <span class="fw-bold">#samasamaki</span></p>
                 <a href="<?= base_url('about') ?>" class="btn btn-light btn-lg px-4">
                     <i class="fas fa-info-circle me-2"></i>Selengkapnya
                 </a>
@@ -30,7 +30,7 @@
         </div>
 
         <?php if (!empty($posts)): ?>
-            <div class="row">
+            <div class="row g-3">
                 <?php foreach ($posts as $index => $post): ?>
                     <?php if ($index < 6): // Tampilkan 6 post pertama 
                     ?>
@@ -133,7 +133,7 @@
             </div>
         </div>
 
-        <div class="row">
+        <div class="row g-3">
             <div class="col-md-4 mb-4">
                 <div class="text-center p-4">
                     <div class="bg-primary rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px;">
@@ -170,7 +170,7 @@
 <!-- Quick Stats -->
 <section class="py-4 bg-white">
     <div class="container">
-        <div class="row text-center">
+        <div class="row text-center g-3">
             <div class="col-md-3 col-6 mb-3">
                 <div class="border-end border-2">
                     <h3 class="fw-bold text-primary mb-1"><?= !empty($posts) ? count($posts) : 0 ?></h3>

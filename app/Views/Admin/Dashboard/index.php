@@ -11,7 +11,7 @@
 <?= $this->section('content') ?>
 
 <!-- Stats Cards -->
-<div class="row g-4 mb-5">
+<div class="row g-2 g-md-4 mb-5">
     <?php $isAdmin = session()->get('role') === 'admin'; ?>
     <!-- Posts Card -->
     <div class="<?= $isAdmin ? 'col-xl-3' : 'col-xl-4' ?> col-md-6">
@@ -166,7 +166,7 @@
                 </h5>
             </div>
             <div class="card-body">
-                <div class="row g-3">
+                <div class="row g-2 g-md-3">
                     <?php $isAdmin = session()->get('role') === 'admin'; ?>
                     <div class="<?= $isAdmin ? 'col-md-3' : 'col-md-4' ?> col-6">
                         <a href="<?= base_url('admin/posts/new') ?>" class="btn btn-primary w-100 d-flex flex-column align-items-center py-3 text-white text-decoration-none">
