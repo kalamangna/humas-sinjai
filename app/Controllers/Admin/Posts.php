@@ -79,7 +79,6 @@ class Posts extends BaseController
             'categories' => 'required',
             'tags'       => 'required',
             'status'     => 'required',
-            'thumbnail'  => 'uploaded[thumbnail]|max_size[thumbnail,2048]|is_image[thumbnail]|mime_in[thumbnail,image/jpg,image/jpeg,image/png,image/webp]',
         ];
 
         if (! $this->validate($validationRules)) {
@@ -90,15 +89,6 @@ class Posts extends BaseController
         $postCategoryModel = new PostCategoryModel();
         $postTagModel = new PostTagModel();
 
-        // Handle file upload
-        $file = $this->request->getFile('thumbnail');
-        $thumbnailName = null;
-        if ($file->isValid() && ! $file->hasMoved()) {
-            $thumbnailName = $file->getRandomName();
-            $file->move(FCPATH . 'uploads/thumbnails', $thumbnailName);
-            $thumbnailName = base_url('uploads/thumbnails/' . $thumbnailName);
-        }
-
         $postData = [
             'title'        => $this->request->getPost('title'),
             'slug'         => url_title($this->request->getPost('title'), '-', true),
@@ -106,7 +96,6 @@ class Posts extends BaseController
             'status'       => $this->request->getPost('status'),
             'user_id'      => session()->get('user_id'),
             'published_at' => date('Y-m-d H:i:s'),
-            'thumbnail'    => $thumbnailName,
         ];
 
         if ($postModel->save($postData)) {
