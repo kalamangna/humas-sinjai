@@ -8,7 +8,7 @@
         <div class="col-12">
             <nav aria-label="breadcrumb" class="my-4">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="/" class="text-decoration-none">Beranda</a></li>
+                    <li class="breadcrumb-item"><a href="<?= base_url('/') ?>" class="text-decoration-none">Beranda</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Hasil Pencarian</li>
                 </ol>
             </nav>
@@ -49,7 +49,7 @@
 
                         <div class="card-body d-flex flex-column">
                             <h5 class="card-title fw-bold">
-                                <a href="/post/<?= esc($post['slug']) ?>" class="text-decoration-none text-dark">
+                                <a href="<?= base_url('post/' . esc($post['slug'])) ?>" class="text-decoration-none text-dark">
                                     <?= esc($post['title']) ?>
                                 </a>
                             </h5>
@@ -90,7 +90,7 @@
                                 <?php if (!empty($post['categories'])) : ?>
                                     <div class="mt-2">
                                         <?php foreach ($post['categories'] as $category) : ?>
-                                            <a href="/category/<?= esc($category['slug']) ?>" class="badge bg-primary text-decoration-none me-1">
+                                            <a href="<?= base_url('category/' . esc($category['slug'])) ?>" class="badge bg-primary text-decoration-none me-1">
                                                 <?= esc($category['name']) ?>
                                             </a>
                                         <?php endforeach; ?>
@@ -123,13 +123,13 @@
                 <?php endif; ?>
             </p>
             <div class="d-flex gap-2 justify-content-center flex-wrap">
-                <a href="/" class="btn btn-primary">
+                <a href="<?= base_url('/') ?>" class="btn btn-primary">
                     <i class="fas fa-home me-2"></i>Kembali ke Beranda
                 </a>
-                <a href="/categories" class="btn btn-outline-primary">
+                <a href="<?= base_url('categories') ?>" class="btn btn-outline-primary">
                     <i class="fas fa-folder me-2"></i>Lihat Semua Kategori
                 </a>
-                <a href="/tags" class="btn btn-outline-primary">
+                <a href="<?= base_url('tags') ?>" class="btn btn-outline-primary">
                     <i class="fas fa-tags me-2"></i>Lihat Semua Tag
                 </a>
             </div>

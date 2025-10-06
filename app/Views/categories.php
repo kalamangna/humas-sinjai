@@ -8,7 +8,7 @@
     <?php if (!empty($categories)) : ?>
         <div class="list-group shadow-sm">
             <?php foreach ($categories as $category) : ?>
-                <a href="/category/<?= esc($category['slug']) ?>" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                <a href="<?= base_url('category/' . esc($category['slug'])) ?>" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
                     <span>
                         <i class="fas fa-folder-open me-2 text-primary"></i>
                         <?= esc($category['name']) ?>

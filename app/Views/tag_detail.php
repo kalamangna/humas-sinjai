@@ -8,8 +8,8 @@
         <div class="col-12">
             <nav aria-label="breadcrumb" class="my-4">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="/" class="text-decoration-none">Beranda</a></li>
-                    <li class="breadcrumb-item"><a href="/tags" class="text-decoration-none">Tags</a></li>
+                    <li class="breadcrumb-item"><a href="<?= base_url('/') ?>" class="text-decoration-none">Beranda</a></li>
+                    <li class="breadcrumb-item"><a href="<?= base_url('tags') ?>" class="text-decoration-none">Tags</a></li>
                     <li class="breadcrumb-item active" aria-current="page"><?= esc($tag['name'] ?? 'Tag') ?></li>
                 </ol>
             </nav>
@@ -36,7 +36,7 @@
 
                         <div class="card-body d-flex flex-column">
                             <h5 class="card-title fw-bold">
-                                <a href="/post/<?= esc($post['slug']) ?>" class="text-decoration-none text-dark">
+                                <a href="<?= base_url('post/' . esc($post['slug'])) ?>" class="text-decoration-none text-dark">
                                     <?= esc($post['title']) ?>
                                 </a>
                             </h5>
@@ -77,7 +77,7 @@
                                 <?php if (!empty($post['categories'])) : ?>
                                     <div class="mt-2">
                                         <?php foreach ($post['categories'] as $category) : ?>
-                                            <a href="/category/<?= esc($category['slug']) ?>" class="badge bg-primary text-decoration-none me-1">
+                                            <a href="<?= base_url('category/' . esc($category['slug'])) ?>" class="badge bg-primary text-decoration-none me-1">
                                                 <?= esc($category['name']) ?>
                                             </a>
                                         <?php endforeach; ?>
@@ -112,7 +112,7 @@
             <i class="fas fa-tag fa-3x text-muted mb-3"></i>
             <h4 class="text-muted">Belum ada berita</h4>
             <p class="text-muted">Tidak ada berita dengan tag <?= esc($tag['name'] ?? 'ini') ?>.</p>
-            <a href="/" class="btn btn-primary mt-3">
+            <a href="<?= base_url('/') ?>" class="btn btn-primary mt-3">
                 <i class="fas fa-arrow-left me-2"></i>Kembali ke Beranda
             </a>
         </div>

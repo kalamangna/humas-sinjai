@@ -6,8 +6,8 @@
     <!-- Breadcrumb -->
     <nav aria-label="breadcrumb" class="my-4">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="/" class="text-decoration-none">Beranda</a></li>
-            <li class="breadcrumb-item"><a href="/posts" class="text-decoration-none">Berita</a></li>
+            <li class="breadcrumb-item"><a href="<?= base_url('/') ?>" class="text-decoration-none">Beranda</a></li>
+            <li class="breadcrumb-item"><a href="<?= base_url('posts') ?>" class="text-decoration-none">Berita</a></li>
             <li class="breadcrumb-item active" aria-current="page"><?= esc($post['title'] ?? '') ?></li>
         </ol>
     </nav>
@@ -54,7 +54,7 @@
                             <div class="d-flex align-items-center">
                                 <i class="fas fa-folder me-2"></i>
                                 <?php foreach ($post['categories'] as $category) : ?>
-                                    <a href="/category/<?= esc($category['slug']) ?>" class="badge bg-primary text-decoration-none me-1">
+                                    <a href="<?= base_url('category/' . esc($category['slug'])) ?>" class="badge bg-primary text-decoration-none me-1">
                                         <?= esc($category['name']) ?>
                                     </a>
                                 <?php endforeach; ?>
@@ -112,7 +112,7 @@
                             </h6>
                             <div class="d-flex flex-wrap gap-2">
                                 <?php foreach ($tags as $tag): ?>
-                                    <a href="/tag/<?= esc($tag['slug']) ?>" class="badge bg-primary text-decoration-none">
+                                    <a href="<?= base_url('tag/' . esc($tag['slug'])) ?>" class="badge bg-primary text-decoration-none">
                                         <?= esc($tag['name']) ?>
                                     </a>
                                 <?php endforeach; ?>
@@ -126,14 +126,14 @@
             <div class="d-flex justify-content-between mb-4">
                 <div>
                     <?php if (!empty($previous_post)): ?>
-                        <a href="/post/<?= esc($previous_post['slug']) ?>" class="btn btn-outline-primary">
+                        <a href="<?= base_url('post/' . esc($previous_post['slug'])) ?>" class="btn btn-outline-primary">
                             <i class="fas fa-arrow-left me-2"></i>Post Sebelumnya
                         </a>
                     <?php endif; ?>
                 </div>
                 <div>
                     <?php if (!empty($next_post)): ?>
-                        <a href="/post/<?= esc($next_post['slug']) ?>" class="btn btn-outline-primary">
+                        <a href="<?= base_url('post/' . esc($next_post['slug'])) ?>" class="btn btn-outline-primary">
                             Post Selanjutnya<i class="fas fa-arrow-right ms-2"></i>
                         </a>
                     <?php endif; ?>
@@ -152,7 +152,7 @@
                     <?php if (!empty($related_posts)): ?>
                         <div class="list-group list-group-flush">
                             <?php foreach ($related_posts as $related): ?>
-                                <a href="/post/<?= esc($related['slug']) ?>" class="list-group-item list-group-item-action border-0 px-0 py-3">
+                                <a href="<?= base_url('post/' . esc($related['slug'])) ?>" class="list-group-item list-group-item-action border-0 px-0 py-3">
                                     <div class="d-flex align-items-start">
                                         <?php if (!empty($related['thumbnail'])): ?>
                                             <img src="<?= esc($related['thumbnail']) ?>" class="rounded me-3" alt="<?= esc($related['title']) ?>" style="width: 60px; height: 60px; object-fit: cover;">
@@ -186,7 +186,7 @@
                     <?php if (!empty($recent_posts)) : ?>
                         <div class="list-group list-group-flush">
                             <?php foreach ($recent_posts as $recent) : ?>
-                                <a href="/post/<?= esc($recent['slug']) ?>" class="list-group-item list-group-item-action border-0 px-0 py-3">
+                                <a href="<?= base_url('post/' . esc($recent['slug'])) ?>" class="list-group-item list-group-item-action border-0 px-0 py-3">
                                     <div class="d-flex align-items-start">
                                         <?php if (!empty($recent['thumbnail'])) : ?>
                                             <img src="<?= esc($recent['thumbnail']) ?>" class="rounded me-3" alt="<?= esc($recent['title']) ?>" style="width: 60px; height: 60px; object-fit: cover;">
