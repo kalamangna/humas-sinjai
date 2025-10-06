@@ -15,6 +15,11 @@ class Home extends BaseController
         $posts = $postModel->getPosts(); // Get basic post data
         $data['posts'] = $postModel->withCategoriesAndTags($posts); // Enrich with categories and tags
 
+        $data['title'] = 'Humas Sinjai - Portal Berita Resmi Pemerintah Kabupaten Sinjai';
+        $data['description'] = 'Dapatkan informasi terbaru seputar kegiatan, program, dan perkembangan di Sinjai melalui portal berita resmi Pemerintah Kabupaten Sinjai.';
+        $data['keywords'] = 'Humas Sinjai, Berita Sinjai, Sinjai, Pemerintah Kabupaten Sinjai, informasi publik';
+        $data['image'] = base_url('meta.png');
+
         return view('home', $data);
     }
 
@@ -32,6 +37,9 @@ class Home extends BaseController
         $data['post'] = $enrichedPost[0]; // Get the single enriched post
 
         $data['title'] = $data['post']['title'];
+        $data['description'] = substr(strip_tags($data['post']['content']), 0, 160);
+        $data['keywords'] = implode(', ', array_column($data['post']['tags'], 'name'));
+        $data['image'] = !empty($data['post']['thumbnail']) ? base_url($data['post']['thumbnail']) : base_url('meta.png');
 
         // Tags are now part of the post data
         $data['tags'] = $data['post']['tags'];
@@ -67,6 +75,8 @@ class Home extends BaseController
         }
 
         $data['title'] = 'Kategori: ' . $data['category']['name'];
+        $data['description'] = 'Telusuri semua berita dalam kategori ' . $data['category']['name'] . ' di Humas Sinjai.';
+        $data['keywords'] = 'Humas Sinjai, Berita Sinjai, ' . $data['category']['name'];
 
         return view('category_detail', $data);
     }
@@ -96,6 +106,8 @@ class Home extends BaseController
         }
 
         $data['title'] = 'Tag: ' . $data['tag']['name'];
+        $data['description'] = 'Telusuri semua berita dengan tag ' . $data['tag']['name'] . ' di Humas Sinjai.';
+        $data['keywords'] = 'Humas Sinjai, Berita Sinjai, ' . $data['tag']['name'];
 
         return view('tag_detail', $data);
     }
@@ -123,6 +135,8 @@ class Home extends BaseController
             'posts' => $postModel->withCategoriesAndTags($posts),
             'query' => $query,
             'title' => 'Hasil pencarian untuk: ' . $query,
+            'description' => 'Hasil pencarian untuk kata kunci ' . $query . ' di Humas Sinjai.',
+            'keywords' => 'pencarian, ' . $query,
         ];
 
         return view('search_results', $data);
@@ -138,6 +152,8 @@ class Home extends BaseController
             'posts' => $postModel->withCategoriesAndTags($posts),
             'pager' => $postModel->pager,
             'title' => 'Semua Berita',
+            'description' => 'Telusuri semua berita terbaru dari Humas Sinjai.',
+            'keywords' => 'berita, humas sinjai, sinjai, berita terbaru',
         ];
 
         return view('posts', $data);
@@ -154,6 +170,8 @@ class Home extends BaseController
                 ->orderBy('categories.name', 'ASC')
                 ->findAll(),
             'title' => 'Semua Kategori',
+            'description' => 'Telusuri semua kategori berita di Humas Sinjai.',
+            'keywords' => 'kategori, berita, humas sinjai, sinjai',
         ];
 
         return view('categories', $data);
@@ -170,6 +188,8 @@ class Home extends BaseController
                 ->orderBy('tags.name', 'ASC')
                 ->findAll(),
             'title' => 'Semua Tag',
+            'description' => 'Telusuri semua tag berita di Humas Sinjai.',
+            'keywords' => 'tag, berita, humas sinjai, sinjai',
         ];
 
         return view('tags', $data);

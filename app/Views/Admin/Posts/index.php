@@ -196,7 +196,7 @@
                                 <i class="fas fa-inbox fa-3x text-muted mb-3"></i>
                                 <h5 class="text-muted">Belum ada berita</h5>
                                 <p class="text-muted">Mulai dengan membuat berita pertama Anda.</p>
-                                <a href="<?= base_url('admin/posts/create') ?>" class="btn btn-primary">
+                                <a href="<?= base_url('admin/posts/new') ?>" class="btn btn-primary">
                                     <i class="fas fa-plus-circle me-2"></i>Tambah Berita Pertama
                                 </a>
                             </td>

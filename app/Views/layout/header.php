@@ -5,6 +5,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= isset($title) ? esc($title) . ' - ' : '' ?>Humas Sinjai</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="<?= isset($description) ? esc($description) : 'Portal berita resmi Pemerintah Kabupaten Sinjai. Dapatkan informasi terbaru seputar kegiatan, program, dan perkembangan di Sinjai.' ?>">
+    <meta name="keywords" content="<?= isset($keywords) ? esc($keywords) : 'Humas Sinjai, Berita Sinjai, Sinjai, Pemerintah Kabupaten Sinjai' ?>">
+    <meta name="author" content="<?= isset($author) ? esc($author) : 'Humas Sinjai' ?>">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="<?= isset($title) ? esc($title) : 'Humas Sinjai' ?>">
+    <meta property="og:description" content="<?= isset($description) ? esc($description) : 'Portal berita resmi Pemerintah Kabupaten Sinjai.' ?>">
+    <meta property="og:image" content="<?= isset($image) ? esc($image) : base_url('meta.png') ?>">
+    <meta property="og:url" content="<?= current_url() ?>">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="<?= isset($title) ? esc($title) : 'Humas Sinjai' ?>">
+    <meta name="twitter:description" content="<?= isset($description) ? esc($description) : 'Portal berita resmi Pemerintah Kabupaten Sinjai.' ?>">
+    <meta name="twitter:image" content="<?= isset($image) ? esc($image) : base_url('meta.png') ?>">
+
     <link rel="icon" href="<?= base_url('logo.png') ?>" type="image/png">
     <link rel="stylesheet" href="<?= base_url('css/custom.css') ?>">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
