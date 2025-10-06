@@ -10,6 +10,7 @@
     <meta name="description" content="<?= isset($description) ? esc($description) : 'Portal Berita Resmi Pemerintah Kabupaten Sinjai #samasamaki' ?>">
     <meta name="keywords" content="<?= isset($keywords) ? esc($keywords) : 'Humas Sinjai, Berita Sinjai, Sinjai, Pemerintah Kabupaten Sinjai' ?>">
     <meta name="author" content="<?= isset($author) ? esc($author) : 'Humas Sinjai' ?>">
+    <meta name="image" content="<?= isset($image) ? esc($image) : base_url('meta.png') ?>">
 
     <!-- Open Graph Meta Tags -->
     <meta property="og:title" content="<?= isset($title) ? esc($title) : 'Humas Sinjai' ?>">
