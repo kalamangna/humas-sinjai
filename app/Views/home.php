@@ -9,12 +9,12 @@
             <div class="col-lg-6">
                 <h1 class="display-5 fw-bold mb-3">Selamat Datang di Humas Sinjai</h1>
                 <p class="lead mb-4">Portal berita resmi Pemerintah Kabupaten Sinjai. Dapatkan informasi terbaru seputar kegiatan, program, dan perkembangan di Sinjai.</p>
-                <a href="/about" class="btn btn-light btn-lg px-4">
+                <a href="<?= base_url('about') ?>" class="btn btn-light btn-lg px-4">
                     <i class="fas fa-info-circle me-2"></i>Selengkapnya
                 </a>
             </div>
             <div class="col-lg-6 text-center">
-                <img src="/logo.png" alt="Logo Kabupaten Sinjai" class="img-fluid" style="max-width: 300px;">
+                <img src="<?= base_url('logo.png') ?>" alt="Logo Kabupaten Sinjai" class="img-fluid" style="max-width: 300px;">
             </div>
         </div>
     </div>
@@ -46,7 +46,7 @@
 
                                 <div class="card-body d-flex flex-column">
                                     <h5 class="card-title fw-bold">
-                                        <a href="/post/<?= esc($post['slug']) ?>" class="text-decoration-none text-dark">
+                                        <a href="<?= base_url('post/' . esc($post['slug'])) ?>" class="text-decoration-none text-dark">
                                             <?= esc($post['title']) ?>
                                         </a>
                                     </h5>
@@ -88,7 +88,7 @@
                                         <?php if (!empty($post['categories'])) : ?>
                                             <div class="mt-2">
                                                 <?php foreach ($post['categories'] as $category) : ?>
-                                                    <a href="/category/<?= esc($category['slug']) ?>" class="badge bg-primary text-decoration-none me-1">
+                                                    <a href="<?= base_url('category/' . esc($category['slug'])) ?>" class="badge bg-primary text-decoration-none me-1">
                                                         <?= esc($category['name']) ?>
                                                     </a>
                                                 <?php endforeach; ?>
@@ -105,7 +105,7 @@
             <!-- View All Button -->
             <div class="row mt-4">
                 <div class="col-12 text-center">
-                    <a href="/posts" class="btn btn-outline-primary btn-lg px-5">
+                    <a href="<?= base_url('posts') ?>" class="btn btn-outline-primary btn-lg px-5">
                         <i class="fas fa-list me-2"></i>Lihat Semua Berita
                     </a>
                 </div>
