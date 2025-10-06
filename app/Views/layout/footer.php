@@ -5,7 +5,7 @@
             <!-- Brand info -->
             <div class="col-lg-4 col-md-6 mb-4">
                 <div class="d-flex align-items-center mb-3">
-                    <img src="/logo.png" alt="Logo Sinjai" width="50" height="50" class="me-3">
+                    <img src="<?= base_url('logo.png') ?>" alt="Logo Sinjai" width="50" height="50" class="me-3">
                     <h5 class="fw-bold mb-0 text-white">Humas Sinjai</h5>
                 </div>
                 <p class="text-light mb-4">

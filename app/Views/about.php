@@ -11,7 +11,7 @@
                 <p class="lead mb-0">Menjadi pusat informasi terpercaya bagi masyarakat Kabupaten Sinjai</p>
             </div>
             <div class="col-lg-4 text-center">
-                <img src="/logo.png" alt="Logo Kabupaten Sinjai" class="img-fluid" style="max-width: 200px;">
+                <img src="<?= base_url('logo.png') ?>" alt="Logo Kabupaten Sinjai" class="img-fluid" style="max-width: 200px;">
             </div>
         </div>
     </div>
