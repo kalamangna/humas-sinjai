@@ -92,12 +92,12 @@
                             <tr>
                                 <td class="ps-4">
                                     <div class="d-flex align-items-center">
-                                        <div class="bg-primary rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px;">
+                                        <div class="bg-primary rounded-circle d-flex align-items-center justify-content-center me-3 flex-shrink-0" style="width: 40px; height: 40px;">
                                             <i class="fas fa-tag text-white"></i>
                                         </div>
-                                        <div>
+                                        <div class="flex-grow-1">
                                             <h6 class="fw-bold mb-0 text-dark"><?= esc($tag['name']) ?></h6>
-                                            <?php if (!empty($tag['description'])): ?>
+                                            <?php if (!empty($tag['description'])) : ?>
                                                 <small class="text-muted"><?= esc($tag['description']) ?></small>
                                             <?php endif; ?>
                                         </div>

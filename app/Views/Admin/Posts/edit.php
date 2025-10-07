@@ -30,7 +30,7 @@
                         <div class="col-12">
                             <div class="form-group">
                                 <label for="title" class="form-label fw-semibold text-dark">Judul Berita <span class="text-danger">*</span></label>
-                                <input type="text" name="title" class="form-control form-control-lg border-0 bg-light rounded-3 py-3 <?= (isset(session('errors')['title'])) ? 'is-invalid' : '' ?>"
+                                <input type="text" name="title" id="title" class="form-control form-control-lg border-0 bg-light rounded-3 py-3 <?= (isset(session('errors')['title'])) ? 'is-invalid' : '' ?>"
                                     value="<?= old('title', $post['title']) ?>" placeholder="Masukkan judul berita..." required>
                                 <?php if (isset(session('errors')['title'])) : ?>
                                     <div class="invalid-feedback">
@@ -44,7 +44,7 @@
                         <div class="col-12">
                             <div class="form-group">
                                 <label for="content" class="form-label fw-semibold text-dark">Konten <span class="text-danger">*</span></label>
-                                <textarea name="content" class="form-control border-0 bg-light rounded-3 <?= (isset(session('errors')['content'])) ? 'is-invalid' : '' ?>" rows="12"
+                                <textarea name="content" id="content" class="form-control border-0 bg-light rounded-3 <?= (isset(session('errors')['content'])) ? 'is-invalid' : '' ?>" rows="12"
                                     placeholder="Tulis konten berita di sini..." required><?= old('content', $post['content']) ?></textarea>
                                 <?php if (isset(session('errors')['content'])) : ?>
                                     <div class="invalid-feedback">
@@ -58,7 +58,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="form-label fw-semibold text-dark">Kategori <span class="text-danger">*</span></label>
-                                <div class="checkbox-group-container border-0 bg-light rounded-3 p-3 <?= (isset(session('errors')['categories'])) ? 'is-invalid' : '' ?>" style="max-height: 200px; overflow-y: auto;">
+                                <div id="category-list" class="checkbox-group-container border-0 bg-light rounded-3 p-3 <?= (isset(session('errors')['categories'])) ? 'is-invalid' : '' ?>" style="max-height: 200px; overflow-y: auto;">
                                     <?php foreach ($categories as $category) : ?>
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" name="categories[]" value="<?= $category['id'] ?>" id="cat_<?= $category['id'] ?>"
@@ -81,7 +81,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="form-label fw-semibold text-dark">Tags <span class="text-danger">*</span></label>
-                                <div class="checkbox-group-container border-0 bg-light rounded-3 p-3 <?= (isset(session('errors')['tags'])) ? 'is-invalid' : '' ?>" style="max-height: 200px; overflow-y: auto;">
+                                <div id="tag-list" class="checkbox-group-container border-0 bg-light rounded-3 p-3 <?= (isset(session('errors')['tags'])) ? 'is-invalid' : '' ?>" style="max-height: 200px; overflow-y: auto;">
                                     <?php foreach ($tags as $tag) : ?>
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" name="tags[]" value="<?= $tag['id'] ?>" id="tag_<?= $tag['id'] ?>"
@@ -105,7 +105,7 @@
                         <div class="col-12">
                             <div class="form-group">
                                 <label for="status" class="form-label fw-semibold text-dark">Status <span class="text-danger">*</span></label>
-                                <select name="status" class="form-select border-0 bg-light rounded-3 py-3 <?= (isset(session('errors')['status'])) ? 'is-invalid' : '' ?>" required>
+                                <select name="status" id="status" class="form-select border-0 bg-light rounded-3 py-3 <?= (isset(session('errors')['status'])) ? 'is-invalid' : '' ?>" required>
                                     <option value="published" <?= (old('status', $post['status']) == 'published') ? 'selected' : '' ?>>Published</option>
                                     <option value="draft" <?= (old('status', $post['status']) == 'draft') ? 'selected' : '' ?>>Draft</option>
                                 </select>

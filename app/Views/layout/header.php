@@ -46,7 +46,7 @@
             </button>
 
             <!-- Navbar items -->
-            <div class="collapse navbar-collapse" id="navbarNav">
+            <div class="collapse navbar-collapse py-2" id="navbarNav">
                 <ul class="navbar-nav me-auto">
                     <?php
                     helper('url'); // Ensure the URL helper is loaded

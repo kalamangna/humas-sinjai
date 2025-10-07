@@ -163,8 +163,6 @@ class Home extends BaseController
         return view('search_results', $data);
     }
 
-
-
     public function posts()
     {
         $postModel = new PostModel();

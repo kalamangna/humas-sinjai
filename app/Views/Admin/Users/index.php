@@ -107,8 +107,15 @@
                         <?php foreach ($users as $user) : ?>
                             <tr>
                                 <td class="ps-4">
-                                    <h6 class="fw-bold mb-0 text-dark"><?= esc($user['name']) ?></h6>
-                                    <small class="text-muted">ID: <?= $user['id'] ?></small>
+                                    <div class="d-flex align-items-center">
+                                        <div class="bg-primary rounded-circle d-flex align-items-center justify-content-center me-3 flex-shrink-0" style="width: 40px; height: 40px;">
+                                            <i class="fas fa-user text-white"></i>
+                                        </div>
+                                        <div class="flex-grow-1">
+                                            <h6 class="fw-bold mb-0 text-dark"><?= esc($user['name']) ?></h6>
+                                            <small class="text-muted">ID: <?= $user['id'] ?></small>
+                                        </div>
+                                    </div>
                                 </td>
                                 <td>
                                     <span class="text-dark"><?= esc($user['email']) ?></span>

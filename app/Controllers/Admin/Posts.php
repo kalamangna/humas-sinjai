@@ -66,8 +66,8 @@ class Posts extends BaseController
     {
         $categoryModel = new CategoryModel();
         $tagModel = new TagModel();
-        $data['categories'] = $categoryModel->findAll();
-        $data['tags'] = $tagModel->findAll();
+        $data['categories'] = $categoryModel->orderBy('name', 'ASC')->findAll();
+        $data['tags'] = $tagModel->orderBy('name', 'ASC')->findAll();
         return $this->render('Admin/Posts/new', $data);
     }
 
@@ -138,8 +138,8 @@ class Posts extends BaseController
         if (empty($data['post'])) {
             throw new \CodeIgniter\Exceptions\PageNotFoundException('Cannot find the post: ' . $id);
         }
-        $data['categories'] = $categoryModel->findAll();
-        $data['tags'] = $tagModel->findAll();
+        $data['categories'] = $categoryModel->orderBy('name', 'ASC')->findAll();
+        $data['tags'] = $tagModel->orderBy('name', 'ASC')->findAll();
         $data['post_categories'] = array_column($postCategoryModel->where('post_id', $id)->findAll(), 'category_id');
         $data['post_tags'] = array_column($tagModel->select('tags.id')->join('post_tags', 'post_tags.tag_id = tags.id')->where('post_tags.post_id', $id)->findAll(), 'id');
 
