@@ -107,15 +107,8 @@
                         <?php foreach ($users as $user) : ?>
                             <tr>
                                 <td class="ps-4">
-                                    <div class="d-flex align-items-center">
-                                        <div class="bg-primary rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px;">
-                                            <i class="fas fa-user text-white"></i>
-                                        </div>
-                                        <div>
-                                            <h6 class="fw-bold mb-0 text-dark"><?= esc($user['name']) ?></h6>
-                                            <small class="text-muted">ID: <?= $user['id'] ?></small>
-                                        </div>
-                                    </div>
+                                    <h6 class="fw-bold mb-0 text-dark"><?= esc($user['name']) ?></h6>
+                                    <small class="text-muted">ID: <?= $user['id'] ?></small>
                                 </td>
                                 <td>
                                     <span class="text-dark"><?= esc($user['email']) ?></span>
@@ -196,8 +189,8 @@
     <div class="d-flex flex-column flex-lg-row justify-content-center align-items-center justify-content-lg-between mt-4">
         <div class="text-muted small mb-2 mb-lg-0">
             <?php
-                $from = ($pager->getCurrentPage() - 1) * $pager->getPerPage() + 1;
-                $to = $from + count($users) - 1;
+            $from = ($pager->getCurrentPage() - 1) * $pager->getPerPage() + 1;
+            $to = $from + count($users) - 1;
             ?>
             Menampilkan <?= $from ?>-<?= $to ?> dari <?= $pager->getTotal() ?> pengguna
         </div>

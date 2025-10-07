@@ -19,7 +19,7 @@
                     <?= csrf_field() ?>
                     <input type="hidden" name="user_id" value="<?= esc($user['id']) ?>">
 
-                    <div class="row g-2 g-md-4">
+                    <div class="row g-3">
                         <div class="col-12">
                             <div class="form-group">
                                 <label for="name" class="form-label fw-semibold text-dark">Nama Lengkap <span class="text-danger">*</span></label>

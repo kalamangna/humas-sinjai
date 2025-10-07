@@ -37,7 +37,7 @@
         <!-- Posts Grid -->
         <div class="row g-3">
             <?php foreach ($posts as $post) : ?>
-                <div class="col-lg-4 col-md-6 mb-4">
+                <div class="col-lg-4 col-md-6">
                     <div class="card h-100 shadow-sm border-0">
                         <?php if (!empty($post['thumbnail'])) : ?>
                             <img src="<?= esc($post['thumbnail']) ?>" class="card-img-top" alt="<?= esc($post['title']) ?>" style="height: 200px; object-fit: cover;">
@@ -108,8 +108,8 @@
             <div class="d-flex flex-column flex-lg-row justify-content-center align-items-center justify-content-lg-between mt-5">
                 <div class="text-muted small mb-2 mb-lg-0">
                     <?php
-                        $from = ($pager->getCurrentPage() - 1) * $pager->getPerPage() + 1;
-                        $to = $from + count($posts) - 1;
+                    $from = ($pager->getCurrentPage() - 1) * $pager->getPerPage() + 1;
+                    $to = $from + count($posts) - 1;
                     ?>
                     Menampilkan <?= $from ?>-<?= $to ?> dari <?= $pager->getTotal() ?> berita
                 </div>

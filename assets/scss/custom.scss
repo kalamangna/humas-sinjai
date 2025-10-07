@@ -16,3 +16,33 @@ $secondary: #2a5298;
     border-color: darken($primary, 10%);
   }
 }
+
+.scroll-to-top {
+  position: fixed;
+  right: 15px;
+  bottom: 15px;
+  z-index: 996;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: $primary;
+  color: #fff;
+  transition: all 0.4s;
+  visibility: hidden;
+  opacity: 0;
+
+  &:hover {
+    background: darken($primary, 10%);
+    color: #fff;
+  }
+
+  &.active {
+    visibility: visible;
+    opacity: 1;
+  }
+
+  i {
+    font-size: 24px;
+    line-height: 0;
+  }
+}

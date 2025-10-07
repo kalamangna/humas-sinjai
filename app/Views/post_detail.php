@@ -122,29 +122,8 @@
                 </div>
             </article>
 
-            <!-- Navigation Between Posts -->
-            <div class="d-flex justify-content-between mb-4">
-                <div>
-                    <?php if (!empty($previous_post)) : ?>
-                        <a href="<?= base_url('post/' . esc($previous_post['slug'])) ?>" class="btn btn-outline-primary">
-                            <i class="fas fa-arrow-left me-2"></i>Post Sebelumnya
-                        </a>
-                    <?php endif; ?>
-                </div>
-                <div>
-                    <?php if (!empty($next_post)) : ?>
-                        <a href="<?= base_url('post/' . esc($next_post['slug'])) ?>" class="btn btn-outline-primary">
-                            Post Selanjutnya<i class="fas fa-arrow-right ms-2"></i>
-                        </a>
-                    <?php endif; ?>
-                </div>
-            </div>
-        </div>
-
-        <!-- Sidebar -->
-        <div class="col-lg-4">
             <!-- Related Posts -->
-            <div class="card border-0 shadow-sm mb-4">
+            <div class="card border-0 shadow-sm">
                 <div class="card-body p-4">
                     <h5 class="fw-bold mb-3 border-bottom pb-2 text-dark">
                         <i class="fas fa-link me-2"></i>Berita Terkait
@@ -176,7 +155,10 @@
                     <?php endif; ?>
                 </div>
             </div>
+        </div>
 
+        <!-- Sidebar -->
+        <div class="col-lg-4">
             <!-- Recent Posts -->
             <div class="card border-0 shadow-sm mb-4">
                 <div class="card-body p-4">
@@ -210,10 +192,8 @@
                     <?php endif; ?>
                 </div>
             </div>
-
-
-
         </div>
+
     </div>
 </div>
 

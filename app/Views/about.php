@@ -5,7 +5,7 @@
 <!-- Hero Section -->
 <section class="bg-primary-gradient text-white py-5 mb-5">
     <div class="container">
-        <div class="row g-4">
+        <div class="row g-3">
             <div class="col-12 text-center">
                 <h1 class="display-5 fw-bold mb-3">Tentang Humas Sinjai</h1>
                 <p class="lead mb-0">Menjadi pusat informasi terpercaya bagi masyarakat Kabupaten Sinjai</p>
@@ -59,7 +59,7 @@
                     </p>
 
                     <h4 class="fw-bold mb-3">Tugas dan Fungsi</h4>
-<div class="row g-3">
+                    <div class="row g-3">
                         <div class="col-md-6 mb-3">
                             <div class="d-flex align-items-start">
                                 <i class="fas fa-check-circle text-primary me-3 mt-1"></i>

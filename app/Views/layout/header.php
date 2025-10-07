@@ -27,6 +27,7 @@
     <link rel="icon" href="<?= base_url('logo.png') ?>" type="image/png">
     <link rel="stylesheet" href="<?= base_url('css/custom.css') ?>">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
 </head>
 
 <body class="bg-light">

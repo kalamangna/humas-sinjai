@@ -25,7 +25,7 @@
                     <input type="hidden" name="_method" value="PUT">
                     <?= csrf_field() ?>
 
-                    <div class="row g-2 g-md-4">
+                    <div class="row g-3">
                         <!-- Judul -->
                         <div class="col-12">
                             <div class="form-group">

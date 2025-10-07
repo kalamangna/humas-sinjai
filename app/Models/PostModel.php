@@ -16,7 +16,7 @@ class PostModel extends Model
     {
         $postCategoryModel = new \App\Models\PostCategoryModel();
         return $postCategoryModel
-            ->select('categories.name, categories.slug')
+            ->select('categories.id, categories.name, categories.slug')
             ->join('categories', 'categories.id = post_categories.category_id')
             ->where('post_id', $postId)
             ->findAll();
@@ -26,7 +26,7 @@ class PostModel extends Model
     {
         $postTagModel = new \App\Models\PostTagModel();
         return $postTagModel
-            ->select('tags.name, tags.slug')
+            ->select('tags.id, tags.name, tags.slug')
             ->join('tags', 'tags.id = post_tags.tag_id')
             ->where('post_id', $postId)
             ->findAll();

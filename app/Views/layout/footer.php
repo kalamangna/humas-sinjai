@@ -84,8 +84,32 @@
     </div>
 </footer>
 
+<!-- Scroll to Top Button -->
+<a href="#" class="scroll-to-top d-flex align-items-center justify-content-center text-decoration-none"><i class="fas fa-chevron-up"></i></a>
+
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const scrollTopButton = document.querySelector('.scroll-to-top');
+
+        if (scrollTopButton) {
+            const toggleScrollTop = function() {
+                window.scrollY > 100 ? scrollTopButton.classList.add('active') : scrollTopButton.classList.remove('active');
+            }
+            window.addEventListener('load', toggleScrollTop);
+            document.addEventListener('scroll', toggleScrollTop);
+            scrollTopButton.addEventListener('click', (e) => {
+                e.preventDefault();
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        }
+    });
+</script>
 </body>
 
 </html>

@@ -3,6 +3,9 @@
 <?= $this->section('page_title') ?>Dashboard<?= $this->endSection() ?>
 
 <?= $this->section('page_actions') ?>
+<a href="<?= base_url('/') ?>" target="_blank" class="btn btn-outline-primary btn-sm">
+    <i class="fas fa-eye me-2"></i>Lihat Situs
+</a>
 <button class="btn btn-outline-primary btn-sm" onclick="window.location.reload()">
     <i class="fas fa-sync-alt me-2"></i>Refresh
 </button>
@@ -11,7 +14,7 @@
 <?= $this->section('content') ?>
 
 <!-- Stats Cards -->
-<div class="row g-2 g-md-4 mb-5">
+<div class="row g-3 mb-5">
     <?php $isAdmin = session()->get('role') === 'admin'; ?>
     <!-- Posts Card -->
     <div class="<?= $isAdmin ? 'col-xl-3' : 'col-xl-4' ?> col-md-6">
@@ -154,23 +157,23 @@
                 </h5>
             </div>
             <div class="card-body">
-                <div class="row g-2 g-md-3">
+                <div class="row g-3">
                     <?php $isAdmin = session()->get('role') === 'admin'; ?>
-                    <div class="<?= $isAdmin ? 'col-md-3' : 'col-md-4' ?> col-6">
+                    <div class="<?= $isAdmin ? 'col-lg-3' : 'col-lg-4' ?> col-6">
                         <a href="<?= base_url('admin/posts/new') ?>" class="btn btn-primary w-100 d-flex flex-column align-items-center py-3 text-white text-decoration-none">
                             <i class="fas fa-plus-circle fs-2 mb-2"></i>
                             <span>Tambah Berita</span>
                             <small class="text-light opacity-75 mt-1">Berita baru</small>
                         </a>
                     </div>
-                    <div class="<?= $isAdmin ? 'col-md-3' : 'col-md-4' ?> col-6">
+                    <div class="<?= $isAdmin ? 'col-lg-3' : 'col-lg-4' ?> col-6">
                         <a href="<?= base_url('admin/categories/new') ?>" class="btn btn-success w-100 d-flex flex-column align-items-center py-3 text-white text-decoration-none">
                             <i class="fas fa-folder-plus fs-2 mb-2"></i>
                             <span>Tambah Kategori</span>
                             <small class="text-light opacity-75 mt-1">Kategori baru</small>
                         </a>
                     </div>
-                    <div class="<?= $isAdmin ? 'col-md-3' : 'col-md-4' ?> col-6">
+                    <div class="<?= $isAdmin ? 'col-lg-3' : 'col-lg-4' ?> col-6">
                         <a href="<?= base_url('admin/tags/new') ?>" class="btn btn-info w-100 d-flex flex-column align-items-center py-3 text-white text-decoration-none">
                             <i class="fas fa-tag fs-2 mb-2"></i>
                             <span>Tambah Tag</span>
@@ -178,7 +181,7 @@
                         </a>
                     </div>
                     <?php if ($isAdmin) : ?>
-                        <div class="col-md-3 col-6">
+                        <div class="col-lg-3 col-6">
                             <a href="<?= base_url('admin/users/new') ?>" class="btn btn-warning w-100 d-flex flex-column align-items-center py-3 text-white text-decoration-none">
                                 <i class="fas fa-user-plus fs-2 mb-2"></i>
                                 <span>Tambah Pengguna</span>

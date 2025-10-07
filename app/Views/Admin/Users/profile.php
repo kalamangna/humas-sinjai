@@ -15,7 +15,7 @@
             </div>
 
             <div class="card-body">
-                <div class="row g-2 g-md-4">
+                <div class="row g-3">
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="name" class="form-label fw-semibold text-dark">Nama Lengkap</label>

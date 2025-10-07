@@ -24,7 +24,7 @@
     <?php if (!empty($posts)) : ?>
         <div class="row g-3">
             <?php foreach ($posts as $post) : ?>
-                <div class="col-md-6 col-lg-4 mb-4">
+                <div class="col-md-6 col-lg-4">
                     <div class="card h-100 shadow-sm border-0">
                         <?php if (!empty($post['thumbnail'])) : ?>
                             <img src="<?= esc($post['thumbnail']) ?>" class="card-img-top" alt="<?= esc($post['title']) ?>" style="height: 200px; object-fit: cover;">

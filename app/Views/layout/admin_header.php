@@ -14,6 +14,11 @@
     <!-- Top Navigation -->
     <header class="navbar navbar-dark sticky-top shadow bg-primary-gradient">
         <div class="container-fluid">
+            <!-- Mobile Toggle -->
+            <button class="navbar-toggler d-lg-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu">
+                <i class="fas fa-bars"></i>
+            </button>
+
             <!-- Brand -->
             <a class="navbar-brand fw-bold d-flex align-items-center" href="<?= base_url('admin') ?>">
                 <img src="<?= base_url('logo.png') ?>" alt="Logo Sinjai" width="32" height="32" class="rounded-circle me-2">
@@ -21,13 +26,8 @@
                 <small class="badge bg-light text-primary ms-2">Admin</small>
             </a>
 
-            <!-- Mobile Toggle -->
-            <button class="navbar-toggler d-lg-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu">
-                <i class="fas fa-bars"></i>
-            </button>
-
             <!-- User Menu -->
-            <div class="dropdown">
+            <div class="dropdown ms-auto">
                 <a href="#" class="nav-link dropdown-toggle text-white d-flex align-items-center" data-bs-toggle="dropdown">
                     <i class="fas fa-user-circle me-2 fs-5"></i>
                     <span class="d-none d-sm-inline"><?= session()->get('name') ?? 'Admin' ?></span>

@@ -42,6 +42,32 @@ class Home extends BaseController
         // Fetch recent posts, excluding the current one
         $data['recent_posts'] = $postModel->where('id !=', $data['post']['id'])->orderBy('published_at', 'DESC')->limit(5)->findAll();
 
+        // Fetch related posts
+        $categoryIds = array_column($data['post']['categories'], 'id');
+        $tagIds = array_column($data['post']['tags'], 'id');
+
+        $relatedPosts = [];
+        if (!empty($categoryIds) || !empty($tagIds)) {
+            $builder = $postModel->where('posts.id !=', $data['post']['id']);
+
+            $builder->groupStart();
+            if (!empty($categoryIds)) {
+                $builder->whereIn('posts.id', function ($subquery) use ($categoryIds) {
+                    $subquery->select('post_id')->from('post_categories')->whereIn('category_id', $categoryIds);
+                });
+            }
+            if (!empty($tagIds)) {
+                $builder->orWhereIn('posts.id', function ($subquery) use ($tagIds) {
+                    $subquery->select('post_id')->from('post_tags')->whereIn('tag_id', $tagIds);
+                });
+            }
+            $builder->groupEnd();
+
+            $relatedPosts = $builder->orderBy('published_at', 'DESC')->limit(5)->findAll();
+        }
+
+        $data['related_posts'] = $postModel->withCategoriesAndTags($relatedPosts);
+
         return view('post_detail', $data);
     }
 

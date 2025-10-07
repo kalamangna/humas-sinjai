@@ -5,9 +5,9 @@
 <!-- Hero Section -->
 <section class="bg-primary-gradient text-white py-5 mb-5">
     <div class="container">
-        <div class="row align-items-center g-4">
+        <div class="row align-items-center g-3">
             <!-- Text Content -->
-            <div class="col-lg-6 text-center text-lg-start order-2 order-lg-1">
+            <div class="col-lg-6 text-center text-lg-start">
                 <h1 class="display-4 fw-bold mb-2">Humas Sinjai</h1>
                 <div class="mb-4">
                     <p class="lead fs-4 mb-2">Portal Berita Resmi <span class="d-block d-md-inline">Pemerintah Kabupaten Sinjai</span></p>
@@ -18,9 +18,9 @@
             </div>
 
             <!-- Banner Image -->
-            <div class="col-lg-6 text-center order-1 order-lg-2">
+            <div class="col-lg-6 text-center">
                 <img src="<?= base_url('banner.png') ?>" alt="Humas Sinjai - Portal Berita Resmi Kabupaten Sinjai"
-                    class="img-fluid rounded-3 shadow" style="max-height: 400px; object-fit: cover;">
+                    class="img-fluid rounded" style="max-height: 400px; object-fit: cover;">
             </div>
         </div>
     </div>
@@ -40,7 +40,7 @@
                 <?php foreach ($posts as $index => $post): ?>
                     <?php if ($index < 6): // Tampilkan 6 post pertama 
                     ?>
-                        <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="col-lg-4 col-md-6">
                             <div class="card h-100 shadow-sm border-0">
                                 <?php if (!empty($post['thumbnail'])): ?>
                                     <img src="<?= esc($post['thumbnail']) ?>" class="card-img-top" alt="<?= esc($post['title']) ?>" style="height: 200px; object-fit: cover;">
