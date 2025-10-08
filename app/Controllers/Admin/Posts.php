@@ -96,7 +96,7 @@ class Posts extends BaseController
         if ($file->isValid() && ! $file->hasMoved()) {
             $thumbnailName = $file->getRandomName();
             $file->move(FCPATH . 'uploads/thumbnails', $thumbnailName);
-            $thumbnailName = '/uploads/thumbnails/' . $thumbnailName;
+            $thumbnailName = 'uploads/thumbnails/' . $thumbnailName;
         }
 
         $postData = [
@@ -199,7 +199,7 @@ class Posts extends BaseController
 
             $thumbnailName = $file->getRandomName();
             $file->move(FCPATH . 'uploads/thumbnails', $thumbnailName);
-            $postData['thumbnail'] = '/uploads/thumbnails/' . $thumbnailName;
+            $postData['thumbnail'] = 'uploads/thumbnails/' . $thumbnailName;
         }
 
         if ($postModel->update($id, $postData)) {
