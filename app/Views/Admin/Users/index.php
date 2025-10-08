@@ -139,7 +139,7 @@
                                 </td>
                                 <td>
                                     <small class="text-muted">
-                                        <?= date('d M Y, H:i', strtotime($user['created_at'] ?? 'now')) ?>
+                                        <?= format_date($user['created_at'] ?? 'now') ?>
                                     </small>
                                 </td>
                                 <td class="text-end pe-4">

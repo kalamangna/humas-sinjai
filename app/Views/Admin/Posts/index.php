@@ -167,7 +167,7 @@
                                 </td>
                                 <td>
                                     <small class="text-muted">
-                                        <?= date('d M Y, H:i', strtotime($post['published_at'] ?? $post['created_at'])) ?>
+                                        <?= format_date($post['published_at'] ?? $post['created_at']) ?>
                                     </small>
                                 </td>
                                 <td class="text-end pe-4">

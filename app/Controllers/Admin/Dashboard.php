@@ -29,7 +29,7 @@ class Dashboard extends BaseController
                 ->orderBy('posts.published_at', 'DESC')
                 ->limit(5)
                 ->findAll(),
-            'lastPostUpdate' => $lastPost ? date('d M Y H:i', strtotime($lastPost['published_at'])) : 'N/A',
+            'lastPostUpdate' => $lastPost ? format_date($lastPost['published_at']) : 'N/A',
         ];
 
         return $this->render('Admin/Dashboard/index', $data);

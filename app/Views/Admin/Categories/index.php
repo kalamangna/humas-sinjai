@@ -84,7 +84,6 @@
                         <th class="border-0 ps-4">Nama Kategori</th>
                         <th class="border-0">Slug</th>
                         <th class="border-0">Jumlah Berita</th>
-                        <th class="border-0">Tanggal Dibuat</th>
                         <th class="border-0 text-end pe-4">Aksi</th>
                     </tr>
                 </thead>
@@ -111,11 +110,6 @@
                                 <td>
                                     <span class="badge bg-primary"><?= $category['post_count'] ?? '0' ?></span>
                                 </td>
-                                <td>
-                                    <small class="text-muted">
-                                        <?= date('d M Y, H:i', strtotime($category['created_at'] ?? 'now')) ?>
-                                    </small>
-                                </td>
                                 <td class="text-end pe-4">
                                     <div class="btn-group" role="group">
                                         <?php if (($category['post_count'] ?? 0) > 0): ?>
@@ -139,7 +133,7 @@
                         <?php endforeach; ?>
                     <?php else: ?>
                         <tr>
-                            <td colspan="5" class="text-center py-5">
+                            <td colspan="4" class="text-center py-5">
                                 <?php if (!empty($filters['search'])) : ?>
                                     <i class="fas fa-search fa-3x text-muted mb-3"></i>
                                     <h5 class="text-muted">Tidak ada kategori ditemukan</h5>

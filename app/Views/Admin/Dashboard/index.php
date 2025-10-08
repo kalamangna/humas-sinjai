@@ -129,7 +129,7 @@
                                     <tr>
                                         <td><?= esc($post['title']) ?></td>
                                         <td><?= esc($post['author_name'] ?? 'N/A') ?></td>
-                                        <td><?= date('d M Y H:i', strtotime($post['published_at'])) ?></td>
+                                        <td><?= format_date($post['published_at']) ?></td>
                                     </tr>
                                 <?php endforeach; ?>
                             </tbody>

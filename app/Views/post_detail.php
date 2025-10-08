@@ -38,7 +38,7 @@
                                 } else {
                                     $dateField = date('Y-m-d');
                                 }
-                                echo date('d M Y', strtotime($dateField));
+                                echo format_date($dateField, 'date_only');
                                 ?>
                             </span>
                         </div>
@@ -143,7 +143,7 @@
                                         <div class="flex-grow-1">
                                             <h6 class="fw-bold mb-1 text-dark"><?= esc($related['title']) ?></h6>
                                             <small class="text-muted">
-                                                <?= date('d M Y', strtotime($related['published_at'] ?? $related['created_at'] ?? 'now')) ?>
+                                                <?= format_date($related['published_at'] ?? $related['created_at'] ?? 'now', 'date_only') ?>
                                             </small>
                                         </div>
                                     </div>
@@ -180,7 +180,7 @@
                                         <div class="flex-grow-1">
                                             <h6 class="fw-bold mb-1 text-dark"><?= esc($recent['title']) ?></h6>
                                             <small class="text-muted">
-                                                <?= date('d M Y', strtotime($recent['published_at'] ?? $recent['created_at'] ?? 'now')) ?>
+                                                <?= format_date($recent['published_at'] ?? $recent['created_at'] ?? 'now', 'date_only') ?>
                                             </small>
                                         </div>
                                     </div>

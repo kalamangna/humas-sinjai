@@ -65,7 +65,7 @@
                                         } else {
                                             $dateField = date('Y-m-d'); // fallback to current date
                                         }
-                                        echo date('d M Y', strtotime($dateField));
+                                        echo format_date($dateField, 'date_only');
                                         ?>
                                     </span>
                                     <span>
