@@ -10,19 +10,19 @@
     <meta name="description" content="<?= isset($description) ? esc($description) : 'Portal Berita Resmi Pemerintah Kabupaten Sinjai #samasamaki' ?>">
     <meta name="keywords" content="<?= isset($keywords) ? esc($keywords) : 'Humas Sinjai, Berita Sinjai, Sinjai, Pemerintah Kabupaten Sinjai' ?>">
     <meta name="author" content="<?= isset($author) ? esc($author) : 'Humas Sinjai' ?>">
-    <meta name="image" content="<?= isset($image) ? esc($image) : base_url('meta.png') ?>">
+    <meta name="image" content="<?= isset($image) ? $image : base_url('meta.png') ?>">
 
     <!-- Open Graph Meta Tags -->
     <meta property="og:title" content="<?= isset($title) ? esc($title) : 'Humas Sinjai' ?>">
     <meta property="og:description" content="<?= isset($description) ? esc($description) : 'Portal Berita Resmi Pemerintah Kabupaten Sinjai #samasamaki' ?>">
-    <meta property="og:image" content="<?= isset($image) ? esc($image) : base_url('meta.png') ?>">
+    <meta property="og:image" content="<?= isset($image) ? $image : base_url('meta.png') ?>">
     <meta property="og:url" content="<?= current_url() ?>">
 
     <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="<?= isset($title) ? esc($title) : 'Humas Sinjai' ?>">
     <meta name="twitter:description" content="<?= isset($description) ? esc($description) : 'Portal Berita Resmi Pemerintah Kabupaten Sinjai #samasamaki' ?>">
-    <meta name="twitter:image" content="<?= isset($image) ? esc($image) : base_url('meta.png') ?>">
+    <meta name="twitter:image" content="<?= isset($image) ? $image : base_url('meta.png') ?>">
 
     <link rel="icon" href="<?= base_url('logo.png') ?>" type="image/png">
     <link rel="stylesheet" href="<?= base_url('css/custom.css') ?>">
