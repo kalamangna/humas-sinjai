@@ -42,6 +42,11 @@
                             <i class="fas fa-arrow-right me-2 small text-white"></i>Kontak
                         </a>
                     </li>
+                    <li class="mb-2">
+                        <a href="<?= base_url('rss') ?>" class="text-light text-decoration-none">
+                            <i class="fas fa-rss me-2 small text-white"></i>RSS
+                        </a>
+                    </li>
                 </ul>
             </div>
 

@@ -214,4 +214,18 @@ class Home extends BaseController
 
         return view('tags', $data);
     }
+
+    public function rss()
+    {
+        $postModel = new PostModel();
+        $posts = $postModel->orderBy('published_at', 'DESC')->limit(20)->findAll();
+
+        $this->response->setHeader('Content-Type', 'application/rss+xml');
+
+        $data = [
+            'posts' => $posts,
+        ];
+
+        return view('rss', $data);
+    }
 }

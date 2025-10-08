@@ -24,6 +24,7 @@ $routes->get('contact', 'Page::contact');
 $routes->get('search', 'Home::search');
 
 $routes->get('categories', 'Home::categories');
+$routes->get('rss', 'Home::rss');
 
 $routes->group('admin', ['filter' => 'auth'], function ($routes) {
     $routes->get('/', 'Admin\Dashboard::index');
