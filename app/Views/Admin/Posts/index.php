@@ -108,7 +108,8 @@
             <table class="table table-hover mb-0">
                 <thead class="bg-light">
                     <tr>
-                        <th class="border-0 ps-4">Judul Berita</th>
+                        <th class="border-0 ps-4">Thumbnail</th>
+                        <th class="border-0">Judul Berita</th>
                         <th class="border-0">Kategori</th>
                         <th class="border-0 text-center">Tag</th>
                         <th class="border-0">Status</th>
@@ -122,19 +123,17 @@
                         <?php foreach ($posts as $post) : ?>
                             <tr>
                                 <td class="ps-4">
-                                    <div class="d-flex align-items-start flex-column flex-lg-row">
-                                        <?php if (!empty($post['thumbnail'])) : ?>
-                                            <img src="<?= esc($post['thumbnail']) ?>" alt="<?= esc($post['title']) ?>" class="rounded me-lg-3 mb-2 mb-lg-0" style="width: 100px; height: 60px; object-fit: cover;">
-                                        <?php else : ?>
-                                            <div class="bg-secondary rounded d-flex align-items-center justify-content-center me-lg-3 mb-2 mb-lg-0" style="width: 100px; height: 60px;">
-                                                <i class="fas fa-newspaper text-white"></i>
-                                            </div>
-                                        <?php endif; ?>
-                                        <div>
-                                            <h6 class="fw-bold mb-1 text-dark"><?= esc($post['title']) ?></h6>
-                                            <small class="text-muted">/<?= esc($post['slug']) ?></small>
+                                    <?php if (!empty($post['thumbnail'])) : ?>
+                                        <img src="<?= esc($post['thumbnail']) ?>" alt="<?= esc($post['title']) ?>" class="rounded" style="width: 100px; height: 60px; object-fit: cover;">
+                                    <?php else : ?>
+                                        <div class="bg-secondary rounded d-flex align-items-center justify-content-center" style="width: 100px; height: 60px;">
+                                            <i class="fas fa-newspaper text-white"></i>
                                         </div>
-                                    </div>
+                                    <?php endif; ?>
+                                </td>
+                                <td>
+                                    <h6 class="fw-bold mb-1 text-dark"><?= esc($post['title']) ?></h6>
+                                    <small class="text-muted">/<?= esc($post['slug']) ?></small>
                                 </td>
                                 <td>
                                     <?php if (!empty($post['category_name'])) : ?>

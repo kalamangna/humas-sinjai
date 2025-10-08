@@ -34,7 +34,8 @@ class Home extends BaseController
         $data['title'] = $data['post']['title'];
         $data['description'] = substr(strip_tags($data['post']['content']), 0, 160);
         $data['keywords'] = implode(', ', array_column($data['post']['tags'], 'name'));
-        $data['image'] = !empty($data['post']['thumbnail']) ? base_url($data['post']['thumbnail']) : base_url('meta.png');
+        $data['image'] = !empty($data['post']['thumbnail']) ? $data['post']['thumbnail'] : base_url('meta.png');
+
 
         // Tags are now part of the post data
         $data['tags'] = $data['post']['tags'];
