@@ -102,6 +102,7 @@ class Posts extends BaseController
         $postData = [
             'title'        => $this->request->getPost('title'),
             'slug'         => url_title($this->request->getPost('title'), '-', true),
+            // TODO: Sanitize HTML content before saving to the database to prevent XSS attacks.
             'content'      => $this->request->getPost('content'),
             'status'       => $this->request->getPost('status'),
             'user_id'      => session()->get('user_id'),
@@ -184,6 +185,7 @@ class Posts extends BaseController
         $postData = [
             'title'   => $this->request->getPost('title'),
             'slug'    => url_title($this->request->getPost('title'), '-', true),
+            // TODO: Sanitize HTML content before saving to the database to prevent XSS attacks.
             'content' => $this->request->getPost('content'),
             'status'  => $this->request->getPost('status'),
             'user_id' => session()->get('user_id'),

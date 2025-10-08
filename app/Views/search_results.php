@@ -54,14 +54,7 @@
                                 </a>
                             </h5>
                             <p class="card-text text-muted flex-grow-1">
-                                <?php
-                                $content = strip_tags($post['content'] ?? '');
-                                if (strlen($content) > 120) {
-                                    echo esc(substr($content, 0, 120)) . '...';
-                                } else {
-                                    echo esc($content);
-                                }
-                                ?>
+                                <?= word_limiter(strip_tags($post['content']), 20) ?>
                             </p>
 
                             <div class="mt-auto">
