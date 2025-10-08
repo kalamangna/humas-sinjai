@@ -19,7 +19,7 @@
                 <!-- Post Header -->
                 <div class="card-body p-4">
                     <?php if (!empty($post['thumbnail'])) : ?>
-                        <img src="<?= esc($post['thumbnail']) ?>" class="img-fluid rounded mb-4 w-100" alt="<?= esc($post['title']) ?>" style="max-height: 400px; object-fit: cover;">
+                        <img src="<?= esc($post['thumbnail']) ?>" class="img-fluid rounded mb-4 w-100" alt="<?= esc($post['title']) ?>" style="max-height: 450px; object-fit: cover;">
                     <?php endif; ?>
 
                     <h1 class="fw-bold mb-3 text-dark"><?= esc($post['title']) ?></h1>

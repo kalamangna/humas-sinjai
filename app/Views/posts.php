@@ -11,7 +11,7 @@
                 <div class="col-md-6">
                     <div class="card h-100 shadow-sm border-0">
                         <?php if (!empty($post['thumbnail'])) : ?>
-                            <img src="<?= esc($post['thumbnail']) ?>" class="card-img-top" alt="<?= esc($post['title']) ?>" style="height: 200px; object-fit: cover;">
+                            <img src="<?= esc($post['thumbnail']) ?>" class="card-img-top" alt="<?= esc($post['title']) ?>" style="height: 250px; object-fit: cover;">
                         <?php else : ?>
                             <div class="card-img-top bg-secondary d-flex align-items-center justify-content-center" style="height: 200px;">
                                 <i class="fas fa-newspaper text-white fa-3x"></i>
