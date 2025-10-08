@@ -21,7 +21,7 @@
             </div>
 
             <div class="card-body">
-                <form action="<?= base_url('admin/posts/' . $post['id']) ?>" method="post" class="needs-validation" novalidate>
+                <form action="<?= base_url('admin/posts/' . $post['id']) ?>" method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
                     <input type="hidden" name="_method" value="PUT">
                     <?= csrf_field() ?>
 
@@ -51,6 +51,21 @@
                                         <?= session('errors')['content'] ?>
                                     </div>
                                 <?php endif; ?>
+                            </div>
+                        </div>
+
+                        <!-- Thumbnail -->
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label for="thumbnail" class="form-label fw-semibold text-dark">Thumbnail</label>
+                                <input type="file" name="thumbnail" id="thumbnail" class="form-control <?= (isset(session('errors')['thumbnail'])) ? 'is-invalid' : '' ?>" onchange="previewImage()">
+                                <small class="text-muted">Tipe file yang diizinkan: jpg, jpeg, png, webp. Ukuran maksimal: 2MB.</small>
+                                <?php if (isset(session('errors')['thumbnail'])) : ?>
+                                    <div class="invalid-feedback">
+                                        <?= session('errors')['thumbnail'] ?>
+                                    </div>
+                                <?php endif; ?>
+                                <img id="thumbnail-preview" src="<?= !empty($post['thumbnail']) ? base_url($post['thumbnail']) : '' ?>" alt="<?= esc($post['title']) ?>" class="img-fluid rounded mt-2" style="max-height: 200px; <?= !empty($post['thumbnail']) ? '' : 'display: none;' ?>">
                             </div>
                         </div>
 

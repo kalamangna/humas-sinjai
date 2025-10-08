@@ -8,6 +8,21 @@
     <link rel="icon" href="<?= base_url('logo.png') ?>" type="image/png">
     <link rel="stylesheet" href="<?= base_url('css/custom.css') ?>">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <script>
+        function previewImage() {
+            const thumbnail = document.querySelector('#thumbnail');
+            const thumbnailPreview = document.querySelector('#thumbnail-preview');
+
+            thumbnailPreview.style.display = 'block';
+
+            const oFReader = new FileReader();
+            oFReader.readAsDataURL(thumbnail.files[0]);
+
+            oFReader.onload = function(oFREvent) {
+                thumbnailPreview.src = oFREvent.target.result;
+            }
+        }
+    </script>
 </head>
 
 <body class="bg-light">

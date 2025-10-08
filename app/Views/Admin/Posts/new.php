@@ -21,7 +21,7 @@
             </div>
 
             <div class="card-body">
-                <form action="<?= base_url('admin/posts') ?>" method="post" novalidate>
+                <form action="<?= base_url('admin/posts') ?>" method="post" enctype="multipart/form-data" novalidate>
                     <?= csrf_field() ?>
 
                     <div class="row g-3">
@@ -50,6 +50,21 @@
                                         <?= session('errors')['content'] ?>
                                     </div>
                                 <?php endif; ?>
+                            </div>
+                        </div>
+
+                        <!-- Thumbnail -->
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label for="thumbnail" class="form-label fw-semibold text-dark">Thumbnail</label>
+                                <input type="file" name="thumbnail" id="thumbnail" class="form-control <?= (isset(session('errors')['thumbnail'])) ? 'is-invalid' : '' ?>" onchange="previewImage()">
+                                <small class="text-muted">Tipe file yang diizinkan: jpg, jpeg, png, webp. Ukuran maksimal: 2MB.</small>
+                                <?php if (isset(session('errors')['thumbnail'])) : ?>
+                                    <div class="invalid-feedback">
+                                        <?= session('errors')['thumbnail'] ?>
+                                    </div>
+                                <?php endif; ?>
+                                <img id="thumbnail-preview" class="img-fluid rounded mt-2" style="max-height: 200px; display: none;">
                             </div>
                         </div>
 
