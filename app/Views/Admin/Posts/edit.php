@@ -65,7 +65,10 @@
                                         <?= session('errors')['thumbnail'] ?>
                                     </div>
                                 <?php endif; ?>
-                                <img id="thumbnail-preview" src="<?= !empty($post['thumbnail']) ? base_url($post['thumbnail']) : '' ?>" alt="<?= esc($post['title']) ?>" class="img-fluid rounded mt-2" style="max-height: 200px; <?= !empty($post['thumbnail']) ? '' : 'display: none;' ?>">
+
+                                <div>
+                                    <img id="thumbnail-preview" src="<?= !empty($post['thumbnail']) ? $post['thumbnail'] : '' ?>" alt="<?= esc($post['title']) ?>" class="img-fluid rounded mt-2" style="max-height: 200px; <?= !empty($post['thumbnail']) ? '' : 'display: none;' ?>">
+                                </div>
                             </div>
                         </div>
 

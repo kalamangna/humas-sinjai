@@ -38,7 +38,7 @@ class Posts extends BaseController
             $builder->like('posts.title', $filters['search']);
         }
         if (!empty($filters['category'])) {
-            $builder->whereIn('posts.id', function($subquery) use ($filters) {
+            $builder->whereIn('posts.id', function ($subquery) use ($filters) {
                 $subquery->select('post_id')->from('post_categories')->where('category_id', $filters['category']);
             });
         }
@@ -96,7 +96,7 @@ class Posts extends BaseController
         if ($file->isValid() && ! $file->hasMoved()) {
             $thumbnailName = $file->getRandomName();
             $file->move(FCPATH . 'uploads/thumbnails', $thumbnailName);
-            $thumbnailName = 'uploads/thumbnails/' . $thumbnailName;
+            $thumbnailName = base_url('uploads/thumbnails/' . $thumbnailName);
         }
 
         $postData = [
@@ -199,7 +199,7 @@ class Posts extends BaseController
 
             $thumbnailName = $file->getRandomName();
             $file->move(FCPATH . 'uploads/thumbnails', $thumbnailName);
-            $postData['thumbnail'] = 'uploads/thumbnails/' . $thumbnailName;
+            $postData['thumbnail'] = base_url('uploads/thumbnails/' . $thumbnailName);
         }
 
         if ($postModel->update($id, $postData)) {
