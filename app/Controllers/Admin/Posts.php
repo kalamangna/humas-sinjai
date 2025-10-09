@@ -108,6 +108,7 @@ class Posts extends BaseController
             'user_id'      => session()->get('user_id'),
             'published_at' => date('Y-m-d H:i:s'),
             'thumbnail'    => $thumbnailName,
+            'thumbnail_caption' => $this->request->getPost('thumbnail_caption'),
         ];
 
         if ($postModel->save($postData)) {
@@ -189,6 +190,7 @@ class Posts extends BaseController
             'content' => $this->request->getPost('content'),
             'status'  => $this->request->getPost('status'),
             'user_id' => session()->get('user_id'),
+            'thumbnail_caption' => $this->request->getPost('thumbnail_caption'),
         ];
 
         // Handle file upload

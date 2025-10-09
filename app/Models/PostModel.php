@@ -8,7 +8,7 @@ class PostModel extends Model
 {
     protected $table = 'posts';
     protected $primaryKey = 'id';
-    protected $allowedFields = ['title', 'slug', 'content', 'thumbnail', 'status', 'user_id', 'published_at'];
+    protected $allowedFields = ['title', 'slug', 'content', 'thumbnail', 'thumbnail_caption', 'status', 'user_id', 'published_at'];
     protected $useTimestamps = true;
 
     // New methods for fetching related data

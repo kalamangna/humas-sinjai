@@ -57,7 +57,7 @@
                         <!-- Thumbnail -->
                         <div class="col-12">
                             <div class="form-group">
-                                <label for="thumbnail" class="form-label fw-semibold text-dark">Thumbnail</label>
+                                <label for="thumbnail" class="form-label fw-semibold text-dark">Gambar <span class="text-danger">*</span></label>
                                 <input type="file" name="thumbnail" id="thumbnail" class="form-control <?= (isset(session('errors')['thumbnail'])) ? 'is-invalid' : '' ?>" onchange="previewImage()">
                                 <small class="text-muted">Tipe file yang diizinkan: jpg, jpeg, png, webp. Ukuran maksimal: 2MB.</small>
                                 <?php if (isset(session('errors')['thumbnail'])) : ?>
@@ -69,6 +69,13 @@
                                 <div>
                                     <img id="thumbnail-preview" src="<?= !empty($post['thumbnail']) ? $post['thumbnail'] : '' ?>" alt="<?= esc($post['title']) ?>" class="img-fluid rounded mt-2" style="max-height: 200px; <?= !empty($post['thumbnail']) ? '' : 'display: none;' ?>">
                                 </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label for="thumbnail_caption" class="form-label fw-semibold text-dark">Keterangan Gambar</label>
+                                <input type="text" name="thumbnail_caption" id="thumbnail_caption" class="form-control" value="<?= old('thumbnail_caption', $post['thumbnail_caption'] ?? '') ?>">
                             </div>
                         </div>
 
@@ -98,7 +105,7 @@
 
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="form-label fw-semibold text-dark">Tags <span class="text-danger">*</span></label>
+                                <label class="form-label fw-semibold text-dark">Tag <span class="text-danger">*</span></label>
                                 <div id="tag-list" class="checkbox-group-container border-0 bg-light rounded-3 p-3 <?= (isset(session('errors')['tags'])) ? 'is-invalid' : '' ?>" style="max-height: 200px; overflow-y: auto;">
                                     <?php foreach ($tags as $tag) : ?>
                                         <div class="form-check">

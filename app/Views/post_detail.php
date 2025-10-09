@@ -19,7 +19,12 @@
                 <!-- Post Header -->
                 <div class="card-body p-4">
                     <?php if (!empty($post['thumbnail'])) : ?>
-                        <img src="<?= esc($post['thumbnail']) ?>" class="img-fluid rounded mb-4 w-100" alt="<?= esc($post['title']) ?>" style="max-height: 450px; object-fit: cover;">
+                        <figure class="w-100">
+                            <img src="<?= esc($post['thumbnail']) ?>" class="figure-img img-fluid rounded mb-2 w-100" alt="<?= esc($post['title']) ?>" style="max-height: 450px; object-fit: cover;">
+                            <?php if (!empty($post['thumbnail_caption'])) : ?>
+                                <figcaption class="figure-caption text-center"><?= esc($post['thumbnail_caption']) ?></figcaption>
+                            <?php endif; ?>
+                        </figure>
                     <?php endif; ?>
 
                     <h1 class="fw-bold mb-3 text-dark"><?= esc($post['title']) ?></h1>
@@ -60,11 +65,6 @@
                                 <?php endforeach; ?>
                             </div>
                         <?php endif; ?>
-
-                        <div class="d-flex align-items-center">
-                            <i class="fas fa-eye me-2"></i>
-                            <span><?= $post['views'] ?? 0 ?> dilihat</span>
-                        </div>
                     </div>
 
                     <!-- Post Content -->
