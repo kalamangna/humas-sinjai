@@ -11,7 +11,7 @@
 <?= $this->section('content') ?>
 
 <div class="row justify-content-center">
-    <div class="col-lg-8">
+    <div class="col-lg-12">
         <div class="card border-0 shadow-sm">
             <div class="card-header bg-transparent border-bottom-0 py-4">
                 <h4 class="fw-bold text-dark mb-0">
