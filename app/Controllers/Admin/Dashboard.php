@@ -12,20 +12,20 @@ class Dashboard extends BaseController
     public function index()
     {
         $postModel = new PostModel();
+        $categoryModel = new CategoryModel();
+        $tagModel = new TagModel();
+        $userModel = new UserModel();
 
         $lastPost = $postModel->orderBy('published_at', 'DESC')->first();
 
         $data = [
-            'postCount' => $this->data['total_posts'], // Use data from BaseController
-            'categoryCount' => $this->data['total_categories'],
-            'tagCount' => $this->data['total_tags'],
-            'userCount' => (new UserModel())->countAllResults(),
+            'postCount' => $postModel->countAllResults(),
+            'categoryCount' => $categoryModel->countAllResults(),
+            'tagCount' => $tagModel->countAllResults(),
+            'userCount' => $userModel->countAllResults(),
             'recentPosts' => $postModel
-                ->select('posts.title, posts.published_at, categories.name as category_name, users.name as author_name')
+                ->select('posts.title, posts.published_at, users.name as author_name')
                 ->join('users', 'users.id = posts.user_id', 'left')
-                ->join('post_categories', 'post_categories.post_id = posts.id', 'left')
-                ->join('categories', 'categories.id = post_categories.category_id', 'left')
-                ->groupBy('posts.id, users.name')
                 ->orderBy('posts.published_at', 'DESC')
                 ->limit(5)
                 ->findAll(),

@@ -115,6 +115,7 @@
                         <th class="border-0">Status</th>
                         <th class="border-0">Penulis</th>
                         <th class="border-0">Tanggal</th>
+                        <th class="border-0">Views</th>
                         <th class="border-0 text-end pe-4">Aksi</th>
                     </tr>
                 </thead>
@@ -170,6 +171,9 @@
                                         <?= format_date($post['published_at'] ?? $post['created_at']) ?>
                                     </small>
                                 </td>
+                                <td>
+                                    <span class="badge bg-secondary"><?= $post['views'] ?? '0' ?></span>
+                                </td>
                                 <td class="text-end pe-4">
                                     <div class="btn-group" role="group">
                                         <a href="<?= base_url('post/' . esc($post['slug'])) ?>" target="_blank" class="btn btn-sm btn-outline-primary" data-bs-toggle="tooltip" title="Lihat">
@@ -191,7 +195,7 @@
                         <?php endforeach; ?>
                     <?php else: ?>
                         <tr>
-                            <td colspan="7" class="text-center py-5">
+                            <td colspan="8" class="text-center py-5">
                                 <?php if (!empty($filters['search']) || !empty($filters['category']) || !empty($filters['author'])) : ?>
                                     <i class="fas fa-search fa-3x text-muted mb-3"></i>
                                     <h5 class="text-muted">Tidak ada berita ditemukan</h5>

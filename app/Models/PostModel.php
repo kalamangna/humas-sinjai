@@ -8,7 +8,7 @@ class PostModel extends Model
 {
     protected $table = 'posts';
     protected $primaryKey = 'id';
-    protected $allowedFields = ['title', 'slug', 'content', 'thumbnail', 'thumbnail_caption', 'status', 'user_id', 'published_at'];
+    protected $allowedFields = ['title', 'slug', 'content', 'thumbnail', 'thumbnail_caption', 'status', 'user_id', 'published_at', 'views'];
     protected $useTimestamps = true;
 
     // New methods for fetching related data
@@ -54,5 +54,10 @@ class PostModel extends Model
         }
 
         return $builder->where(['posts.slug' => $slug])->first();
+    }
+
+    public function incrementViews($id)
+    {
+        $this->where('id', $id)->set('views', 'views+1', false)->update();
     }
 }

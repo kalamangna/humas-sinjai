@@ -31,6 +31,8 @@ class Home extends BaseController
         $enrichedPost = $postModel->withCategoriesAndTags([$post]);
         $data['post'] = $enrichedPost[0]; // Get the single enriched post
 
+        $postModel->incrementViews($data['post']['id']);
+
         $data['title'] = $data['post']['title'];
         $data['description'] = substr(strip_tags($data['post']['content']), 0, 160);
         $data['keywords'] = implode(', ', array_column($data['post']['tags'], 'name'));
