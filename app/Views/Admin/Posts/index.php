@@ -115,7 +115,7 @@
                         <th class="border-0">Status</th>
                         <th class="border-0">Penulis</th>
                         <th class="border-0">Tanggal</th>
-                        <th class="border-0">Views</th>
+                        <th class="border-0">Dilihat</th>
                         <th class="border-0 text-end pe-4">Aksi</th>
                     </tr>
                 </thead>
