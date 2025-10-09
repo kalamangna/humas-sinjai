@@ -21,13 +21,14 @@ class PostSeeder extends Seeder
 
         for ($i = 0; $i < 30; $i++) {
             $title = $faker->sentence();
-            
+
             // 1. Create the post
             $postData = [
                 'title'       => $title,
                 'slug'        => strtolower(url_title($title, '-', true)),
                 'content'     => $faker->paragraphs(3, true),
                 'thumbnail'   => 'https://picsum.photos/seed/' . uniqid() . '/800/400',
+                'thumbnail_caption' => $faker->sentence(),
                 'status'      => 'published',
                 'user_id'     => $faker->randomElement($userIds), // Assign a random user
                 'published_at' => $faker->dateTimeThisYear()->setTimezone(new \DateTimeZone('UTC'))->format('Y-m-d H:i:s'),

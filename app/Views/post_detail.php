@@ -22,7 +22,7 @@
                         <figure class="w-100">
                             <img src="<?= esc($post['thumbnail']) ?>" class="figure-img img-fluid rounded mb-2 w-100" alt="<?= esc($post['title']) ?>" style="max-height: 450px; object-fit: cover;">
                             <?php if (!empty($post['thumbnail_caption'])) : ?>
-                                <figcaption class="figure-caption text-center"><?= esc($post['thumbnail_caption']) ?></figcaption>
+                                <figcaption class="figure-caption"><?= esc($post['thumbnail_caption']) ?></figcaption>
                             <?php endif; ?>
                         </figure>
                     <?php endif; ?>

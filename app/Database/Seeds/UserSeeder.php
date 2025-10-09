@@ -15,13 +15,13 @@ class UserSeeder extends Seeder
             [
                 'name'     => 'Admin',
                 'email'    => 'admin@sinjaikab.go.id',
-                'password' => password_hash('password', PASSWORD_DEFAULT),
+                'password' => password_hash('admin', PASSWORD_DEFAULT),
                 'role'     => 'admin',
             ],
             [
                 'name'     => 'Humas Sinjai',
                 'email'    => 'humas@sinjaikab.go.id',
-                'password' => password_hash('password', PASSWORD_DEFAULT),
+                'password' => password_hash('humas', PASSWORD_DEFAULT),
                 'role'     => 'author',
             ],
         ];
