@@ -25,12 +25,12 @@
     </script>
     <script src="https://cdn.tiny.cloud/1/d0biv5p4ggrqsdl9idntd4aoeda7o4wcf12azjs82dojzezj/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
     <script>
-        tinymce.init({
-            selector: 'textarea#content',
-            plugins: 'code table lists',
-            toolbar: 'undo redo | blocks | bold italic | alignleft aligncenter alignright | indent outdent | bullist numlist | code | table'
-        });
-    </script>
+              tinymce.init({
+                selector: 'textarea#content',
+                plugins: 'code table lists image',
+                toolbar: 'undo redo | blocks | bold italic | alignleft aligncenter alignright | indent outdent | bullist numlist | code | table | image',
+                images_upload_url: '<?= base_url('admin/posts/upload_image') ?>',
+              });    </script>
 </head>
 
 <body class="bg-light">

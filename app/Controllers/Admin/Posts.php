@@ -244,4 +244,20 @@ class Posts extends BaseController
 
         return redirect()->to(base_url('admin/posts'))->with('error', 'Error deleting post.');
     }
+
+    public function upload_image()
+    {
+        $file = $this->request->getFile('file');
+
+        if ($file->isValid() && ! $file->hasMoved()) {
+            $newName = $file->getRandomName();
+            $file->move(FCPATH . 'uploads/posts', $newName);
+
+            $url = base_url('uploads/posts/' . $newName);
+
+            return $this->response->setJSON(['location' => $url]);
+        }
+
+        return $this->response->setStatusCode(500, 'Image upload failed.');
+    }
 }

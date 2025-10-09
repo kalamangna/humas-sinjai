@@ -11900,4 +11900,9 @@ textarea.form-control-lg {
   line-height: 0;
 }
 
+.text-muted img {
+  max-width: 100%;
+  height: auto;
+}
+
 /*# sourceMappingURL=custom.css.map */

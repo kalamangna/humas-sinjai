@@ -29,6 +29,7 @@ $routes->get('rss', 'Home::rss');
 $routes->group('admin', ['filter' => 'auth'], function ($routes) {
     $routes->get('/', 'Admin\Dashboard::index');
     $routes->resource('posts', ['controller' => 'Admin\Posts']);
+    $routes->post('posts/upload_image', 'Admin\Posts::upload_image');
     $routes->resource('categories', ['controller' => 'Admin\Categories']);
     $routes->resource('tags', ['controller' => 'Admin\Tags']);
     $routes->resource('users', ['controller' => 'Admin\Users', 'placeholder' => '(:num)', 'filter' => 'admin']);
