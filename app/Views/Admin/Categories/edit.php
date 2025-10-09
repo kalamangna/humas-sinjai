@@ -28,12 +28,23 @@
                     <?= csrf_field() ?>
 
                     <div class="row g-3">
-                        <div class="col-12">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label for="name" class="form-label fw-semibold text-dark">Nama Kategori <span class="text-danger">*</span></label>
                                 <input type="text" name="name" class="form-control form-control-lg border-0 bg-light rounded-3 py-3"
                                     value="<?= old('name', $category['name']) ?>" placeholder="Masukkan nama kategori..." required>
                                 <div class="invalid-feedback">Harap masukkan nama kategori.</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="parent_id" class="form-label fw-semibold text-dark">Parent</label>
+                                <select name="parent_id" id="parent_id" class="form-select form-select-lg border-0 bg-light rounded-3 py-3">
+                                    <option value="">Tidak ada</option>
+                                    <?php foreach ($categories as $cat) : ?>
+                                        <option value="<?= $cat['id'] ?>" <?= old('parent_id', $category['parent_id']) == $cat['id'] ? 'selected' : '' ?>><?= esc($cat['name']) ?></option>
+                                    <?php endforeach; ?>
+                                </select>
                             </div>
                         </div>
                     </div>

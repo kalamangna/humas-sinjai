@@ -114,6 +114,22 @@
             });
         }
     });
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const dropdownSubmenus = document.querySelectorAll('.dropdown-submenu a.dropdown-toggle');
+
+        dropdownSubmenus.forEach(function(submenu) {
+            submenu.addEventListener('click', function(e) {
+                e.stopPropagation();
+                e.preventDefault();
+
+                const submenuEl = this.nextElementSibling;
+                if (submenuEl) {
+                    submenuEl.classList.toggle('show');
+                }
+            });
+        });
+    });
 </script>
 </body>
 

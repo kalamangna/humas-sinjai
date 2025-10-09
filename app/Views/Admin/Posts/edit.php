@@ -85,13 +85,19 @@
                                 <label class="form-label fw-semibold text-dark">Kategori <span class="text-danger">*</span></label>
                                 <div id="category-list" class="checkbox-group-container border-0 bg-light rounded-3 p-3 <?= (isset(session('errors')['categories'])) ? 'is-invalid' : '' ?>" style="max-height: 200px; overflow-y: auto;">
                                     <?php foreach ($categories as $category) : ?>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="categories[]" value="<?= $category['id'] ?>" id="cat_<?= $category['id'] ?>"
-                                                <?= in_array($category['id'], old('categories', $post_categories)) ? 'checked' : '' ?>>
-                                            <label class="form-check-label" for="cat_<?= $category['id'] ?>">
-                                                <?= esc($category['name']) ?>
-                                            </label>
-                                        </div>
+                                        <h6 class="fw-bold mt-3"><?= esc($category['name']) ?></h6>
+                                        <?php if (!empty($category['children'])) : ?>
+                                            <div class="ms-3">
+                                                <?php foreach ($category['children'] as $child) : ?>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" name="categories[]" value="<?= $child['id'] ?>" id="cat_<?= $child['id'] ?>" <?= in_array($child['id'], old('categories', $post_categories)) ? 'checked' : '' ?>>
+                                                        <label class="form-check-label" for="cat_<?= $child['id'] ?>">
+                                                            <?= esc($child['name']) ?>
+                                                        </label>
+                                                    </div>
+                                                <?php endforeach; ?>
+                                            </div>
+                                        <?php endif; ?>
                                     <?php endforeach; ?>
                                 </div>
                                 <small class="text-muted">Pilih satu atau lebih kategori.</small>

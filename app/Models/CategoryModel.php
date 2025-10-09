@@ -8,5 +8,5 @@ class CategoryModel extends Model
 {
     protected $table = 'categories';
     protected $primaryKey = 'id';
-    protected $allowedFields = ['name', 'slug'];
+    protected $allowedFields = ['name', 'slug', 'parent_id'];
 }

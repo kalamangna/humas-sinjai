@@ -42,28 +42,39 @@
 
             <!-- Mobile toggle button -->
             <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <i class="fas fa-bars text-white"></i>
+                <i class="fas fa-fw fa-bars text-white"></i>
             </button>
 
             <!-- Navbar items -->
             <div class="collapse navbar-collapse py-2" id="navbarNav">
                 <ul class="navbar-nav me-auto">
-                    <?php
-                    helper('url'); // Ensure the URL helper is loaded
-                    $nav_items = [
-                        ['path' => '/', 'icon' => 'fas fa-fw fa-home', 'text' => 'Beranda'],
-                        ['path' => 'posts', 'icon' => 'fas fa-fw fa-newspaper', 'text' => 'Berita'],
-                        ['path' => 'about', 'icon' => 'fas fa-fw fa-info-circle', 'text' => 'Tentang'],
-                        ['path' => 'contact', 'icon' => 'fas fa-fw fa-envelope', 'text' => 'Kontak'],
-                    ];
-                    ?>
-                    <?php foreach ($nav_items as $item) : ?>
-                        <li class="nav-item">
-                            <a class="nav-link <?= url_is($item['path']) ? 'active' : '' ?>" href="<?= site_url($item['path']) ?>">
-                                <i class="<?= $item['icon'] ?> me-2"></i><?= $item['text'] ?>
-                            </a>
-                        </li>
-                    <?php endforeach; ?>
+                    <li class="nav-item">
+                        <a class="nav-link <?= url_is('/') ? 'active' : '' ?>" href="<?= base_url('/') ?>"><i class="fas fa-fw fa-home me-2"></i>Beranda</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link <?= url_is('posts') ? 'active' : '' ?>" href="<?= base_url('posts') ?>"><i class="fas fa-fw fa-newspaper me-2"></i>Semua Berita</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-fw fa-folder me-2"></i>Kategori
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <?php foreach ($categories as $category) : ?>
+                                <?php if (isset($subCategories[$category['id']])) : ?>
+                                    <li class="dropdown-submenu">
+                                        <a class="dropdown-item dropdown-toggle" href="#"><?= esc($category['name']) ?></a>
+                                        <ul class="dropdown-menu">
+                                            <?php foreach ($subCategories[$category['id']] as $subCategory) : ?>
+                                                <li><a class="dropdown-item" href="<?= base_url('category/' . $subCategory['slug']) ?>"><?= esc($subCategory['name']) ?></a></li>
+                                            <?php endforeach; ?>
+                                        </ul>
+                                    </li>
+                                <?php else : ?>
+                                    <li><a class="dropdown-item" href="<?= base_url('category/' . $category['slug']) ?>"><?= esc($category['name']) ?></a></li>
+                                <?php endif; ?>
+                            <?php endforeach; ?>
+                        </ul>
+                    </li>
                 </ul>
 
                 <!-- Search form -->
@@ -71,7 +82,7 @@
                     <div class="input-group">
                         <input class="form-control" type="search" placeholder="Cari berita..." aria-label="Search" name="q" required>
                         <button class="btn btn-light" type="submit">
-                            <i class="fas fa-search"></i>
+                            <i class="fas fa-fw fa-search"></i>
                         </button>
                     </div>
                 </form>
@@ -82,13 +93,13 @@
     <!-- Main content container -->
     <?php if (session()->getFlashdata('error')) : ?>
         <div class="alert alert-danger d-flex align-items-center" role="alert">
-            <i class="fas fa-exclamation-triangle me-2"></i>
+            <i class="fas fa-fw fa-exclamation-triangle me-2"></i>
             <?= session()->getFlashdata('error') ?>
         </div>
     <?php endif; ?>
     <?php if (session()->getFlashdata('success')) : ?>
         <div class="alert alert-success d-flex align-items-center" role="alert">
-            <i class="fas fa-check-circle me-2"></i>
+            <i class="fas fa-fw fa-check-circle me-2"></i>
             <?= session()->getFlashdata('success') ?>
         </div>
     <?php endif; ?>

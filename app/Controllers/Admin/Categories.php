@@ -17,8 +17,9 @@ class Categories extends BaseController
         ];
 
         $builder = $categoryModel
-            ->select('categories.*, COUNT(post_categories.post_id) as post_count')
+            ->select('categories.*, parent.name as parent_name, COUNT(post_categories.post_id) as post_count')
             ->join('post_categories', 'post_categories.category_id = categories.id', 'left')
+            ->join('categories as parent', 'parent.id = categories.parent_id', 'left')
             ->groupBy('categories.id');
 
         if (!empty($filters['search'])) {
@@ -39,7 +40,9 @@ class Categories extends BaseController
 
     public function new()
     {
-        return $this->render('Admin/Categories/new');
+        $categoryModel = new CategoryModel();
+        $data['categories'] = $categoryModel->orderBy('name', 'ASC')->findAll();
+        return $this->render('Admin/Categories/new', $data);
     }
 
     public function create()
@@ -49,6 +52,7 @@ class Categories extends BaseController
         $data = [
             'name' => $this->request->getPost('name'),
             'slug' => url_title($this->request->getPost('name'), '-', true),
+            'parent_id' => $this->request->getPost('parent_id'),
         ];
 
         if ($categoryModel->save($data)) {
@@ -62,6 +66,7 @@ class Categories extends BaseController
     {
         $categoryModel = new CategoryModel();
         $data['category'] = $categoryModel->find($id);
+        $data['categories'] = $categoryModel->orderBy('name', 'ASC')->findAll();
 
         if (empty($data['category'])) {
             throw new \CodeIgniter\Exceptions\PageNotFoundException('Cannot find the category: ' . $id);
@@ -76,6 +81,7 @@ class Categories extends BaseController
         $data = [
             'name' => $this->request->getPost('name'),
             'slug' => url_title($this->request->getPost('name'), '-', true),
+            'parent_id' => $this->request->getPost('parent_id'),
         ];
 
         if ($categoryModel->update($id, $data)) {

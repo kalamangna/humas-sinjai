@@ -83,6 +83,7 @@
                     <tr>
                         <th class="border-0 ps-4">Nama Kategori</th>
                         <th class="border-0">Slug</th>
+                        <th class="border-0">Parent</th>
                         <th class="border-0">Jumlah Berita</th>
                         <th class="border-0 text-end pe-4">Aksi</th>
                     </tr>
@@ -106,6 +107,9 @@
                                 </td>
                                 <td>
                                     <code class="text-muted">/<?= esc($category['slug']) ?></code>
+                                </td>
+                                <td>
+                                    <?= esc($category['parent_name'] ?? '-') ?>
                                 </td>
                                 <td>
                                     <span class="badge bg-primary"><?= $category['post_count'] ?? '0' ?></span>
@@ -133,7 +137,7 @@
                         <?php endforeach; ?>
                     <?php else: ?>
                         <tr>
-                            <td colspan="4" class="text-center py-5">
+                            <td colspan="5" class="text-center py-5">
                                 <?php if (!empty($filters['search'])) : ?>
                                     <i class="fas fa-search fa-3x text-muted mb-3"></i>
                                     <h5 class="text-muted">Tidak ada kategori ditemukan</h5>

@@ -66,7 +66,24 @@ class Posts extends BaseController
     {
         $categoryModel = new CategoryModel();
         $tagModel = new TagModel();
-        $data['categories'] = $categoryModel->orderBy('name', 'ASC')->findAll();
+
+        $allCategories = $categoryModel->orderBy('name', 'ASC')->findAll();
+
+        $categories = [];
+        foreach ($allCategories as $category) {
+            if ($category['parent_id'] === null) {
+                $children = [];
+                foreach ($allCategories as $subCategory) {
+                    if ($subCategory['parent_id'] == $category['id']) {
+                        $children[] = $subCategory;
+                    }
+                }
+                $category['children'] = $children;
+                $categories[] = $category;
+            }
+        }
+
+        $data['categories'] = $categories;
         $data['tags'] = $tagModel->orderBy('name', 'ASC')->findAll();
         return $this->render('Admin/Posts/new', $data);
     }
@@ -117,6 +134,16 @@ class Posts extends BaseController
             // Sync categories
             $categoryIds = $this->request->getPost('categories') ?? [];
             if (! empty($categoryIds)) {
+                $allCategories = (new CategoryModel())->findAll();
+                $categoryMap = array_column($allCategories, 'parent_id', 'id');
+                $parentIds = [];
+                foreach ($categoryIds as $catId) {
+                    if (isset($categoryMap[$catId]) && $categoryMap[$catId] !== null) {
+                        $parentIds[] = $categoryMap[$catId];
+                    }
+                }
+                $categoryIds = array_unique(array_merge($categoryIds, $parentIds));
+
                 $catsToInsert = [];
                 foreach ($categoryIds as $catId) {
                     $catsToInsert[] = ['post_id' => $postId, 'category_id' => $catId];
@@ -151,7 +178,24 @@ class Posts extends BaseController
         if (empty($data['post'])) {
             throw new \CodeIgniter\Exceptions\PageNotFoundException('Cannot find the post: ' . $id);
         }
-        $data['categories'] = $categoryModel->orderBy('name', 'ASC')->findAll();
+
+        $allCategories = $categoryModel->orderBy('name', 'ASC')->findAll();
+
+        $categories = [];
+        foreach ($allCategories as $category) {
+            if ($category['parent_id'] === null) {
+                $children = [];
+                foreach ($allCategories as $subCategory) {
+                    if ($subCategory['parent_id'] == $category['id']) {
+                        $children[] = $subCategory;
+                    }
+                }
+                $category['children'] = $children;
+                $categories[] = $category;
+            }
+        }
+
+        $data['categories'] = $categories;
         $data['tags'] = $tagModel->orderBy('name', 'ASC')->findAll();
         $data['post_categories'] = array_column($postCategoryModel->where('post_id', $id)->findAll(), 'category_id');
         $data['post_tags'] = array_column($tagModel->select('tags.id')->join('post_tags', 'post_tags.tag_id = tags.id')->where('post_tags.post_id', $id)->findAll(), 'id');
@@ -211,6 +255,16 @@ class Posts extends BaseController
             $categoryIds = $this->request->getPost('categories') ?? [];
             $postCategoryModel->where('post_id', $id)->delete();
             if (! empty($categoryIds)) {
+                $allCategories = (new CategoryModel())->findAll();
+                $categoryMap = array_column($allCategories, 'parent_id', 'id');
+                $parentIds = [];
+                foreach ($categoryIds as $catId) {
+                    if (isset($categoryMap[$catId]) && $categoryMap[$catId] !== null) {
+                        $parentIds[] = $categoryMap[$catId];
+                    }
+                }
+                $categoryIds = array_unique(array_merge($categoryIds, $parentIds));
+
                 $catsToInsert = [];
                 foreach ($categoryIds as $catId) {
                     $catsToInsert[] = ['post_id' => $id, 'category_id' => $catId];
