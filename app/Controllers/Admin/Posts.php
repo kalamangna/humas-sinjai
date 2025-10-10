@@ -95,13 +95,19 @@ class Posts extends BaseController
             'title'      => 'required|min_length[3]|max_length[255]',
             'content'    => 'required',
             'categories' => 'required',
-            'tags'       => 'required',
             'status'     => 'required',
             'thumbnail'  => 'uploaded[thumbnail]|max_size[thumbnail,2048]|is_image[thumbnail]|mime_in[thumbnail,image/jpg,image/jpeg,image/png,image/webp]',
         ];
 
         if (! $this->validate($validationRules)) {
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+        }
+
+        $tags = $this->request->getPost('tags');
+        $newTags = $this->request->getPost('new_tags');
+
+        if (empty($tags) && empty($newTags)) {
+            return redirect()->back()->withInput()->with('errors', ['tags' => 'The tags field is required.']);
         }
 
         $postModel = new PostModel();
@@ -144,6 +150,24 @@ class Posts extends BaseController
 
             // Sync tags
             $tagIds = $this->request->getPost('tags') ?? [];
+            $newTags = $this->request->getPost('new_tags') ?? [];
+            if (!empty($newTags)) {
+                $tagModel = new TagModel();
+                foreach ($newTags as $tagName) {
+                    $slug = url_title($tagName, '-', true);
+                    $tag = $tagModel->where('slug', $slug)->first();
+                    if (!$tag) {
+                        $tagId = $tagModel->insert([
+                            'name' => $tagName,
+                            'slug' => $slug,
+                        ]);
+                        $tagIds[] = $tagId;
+                    } else {
+                        $tagIds[] = $tag['id'];
+                    }
+                }
+            }
+
             if (! empty($tagIds)) {
                 $tagsToInsert = [];
                 foreach ($tagIds as $tagId) {
@@ -203,7 +227,6 @@ class Posts extends BaseController
             'title'      => 'required|min_length[3]|max_length[255]',
             'content'    => 'required',
             'categories' => 'required',
-            'tags'       => 'required',
             'status'     => 'required',
         ];
 
@@ -213,6 +236,13 @@ class Posts extends BaseController
 
         if (! $this->validate($validationRules)) {
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+        }
+
+        $tags = $this->request->getPost('tags');
+        $newTags = $this->request->getPost('new_tags');
+
+        if (empty($tags) && empty($newTags)) {
+            return redirect()->back()->withInput()->with('errors', ['tags' => 'The tags field is required.']);
         }
 
         $postCategoryModel = new PostCategoryModel();
@@ -255,6 +285,25 @@ class Posts extends BaseController
 
             // Sync tags
             $tagIds = $this->request->getPost('tags') ?? [];
+            $newTags = $this->request->getPost('new_tags') ?? [];
+            if (!empty($newTags)) {
+                $tagModel = new TagModel();
+                foreach ($newTags as $tagName) {
+                    $slug = url_title($tagName, '-', true);
+                    $tag = $tagModel->where('slug', $slug)->first();
+                    if (!$tag) {
+                        $tagId = $tagModel->insert([
+                            'name' => $tagName,
+                            'slug' => $slug,
+                        ]);
+                        $tagIds[] = $tagId;
+                    } else {
+                        if (!in_array($tag['id'], $tagIds)) {
+                            $tagIds[] = $tag['id'];
+                        }
+                    }
+                }
+            }
             $postTagModel->where('post_id', $id)->delete();
             if (! empty($tagIds)) {
                 $tagsToInsert = [];

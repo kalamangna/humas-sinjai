@@ -79,9 +79,9 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="form-label fw-semibold text-dark">Kategori <span class="text-danger">*</span></label>
-                                <div id="category-list" class="checkbox-group-container border-0 bg-light rounded-3 p-3 <?= (isset(session('errors')['categories'])) ? 'is-invalid' : '' ?>" style="max-height: 200px; overflow-y: auto;">
+                                <div id="category-list" class="checkbox-group-container form-control p-3 <?= (isset(session('errors')['categories'])) ? 'is-invalid' : '' ?>" style="height: 200px; overflow-y: auto;">
                                     <?php foreach ($categories as $category) : ?>
-                                        <h6 class="fw-bold mt-3"><?= esc($category['name']) ?></h6>
+                                        <h6 class="fw-bold"><?= esc($category['name']) ?></h6>
                                         <?php if (!empty($category['children'])) : ?>
                                             <div class="ms-3">
                                                 <?php foreach ($category['children'] as $child) : ?>
@@ -108,7 +108,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="form-label fw-semibold text-dark">Tag <span class="text-danger">*</span></label>
-                                <div id="tag-list" class="checkbox-group-container border-0 bg-light rounded-3 p-3 <?= (isset(session('errors')['tags'])) ? 'is-invalid' : '' ?>">
+                                <div id="tag-list" class="checkbox-group-container form-control p-3 <?= (isset(session('errors')['tags'])) ? 'is-invalid' : '' ?>" style="height: 200px; overflow-y: auto;">
                                     <?php foreach ($tags as $tag) : ?>
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" name="tags[]" value="<?= $tag['id'] ?>" id="tag_<?= $tag['id'] ?>"
@@ -125,6 +125,12 @@
                                         <?= session('errors')['tags'] ?>
                                     </div>
                                 <?php endif; ?>
+                            </div>
+                            <div class="form-group mt-3">
+                                <button type="button" id="suggest-tags-btn" class="btn btn-outline-primary btn-sm">
+                                    <i class="fas fa-wand-magic-sparkles me-2"></i>Sarankan Tag
+                                </button>
+                                <div id="suggested-tags" class="mt-2"></div>
                             </div>
                         </div>
 
@@ -165,5 +171,96 @@
 </div>
 
 <?= $this->include('layout/admin_validation_script') ?>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const suggestBtn = document.getElementById('suggest-tags-btn');
+        const suggestedTagsContainer = document.getElementById('suggested-tags');
+        const titleInput = document.getElementById('title');
+
+        suggestBtn.addEventListener('click', function() {
+            try {
+                const contentInput = tinymce.get('content');
+                if (!contentInput) {
+                    alert('Editor is not ready yet.');
+                    return;
+                }
+
+                const title = titleInput.value;
+                const content = contentInput.getContent();
+
+                if (!title || !content) {
+                    alert('Judul dan konten harus diisi untuk menyarankan tag.');
+                    return;
+                }
+
+                suggestBtn.disabled = true;
+                suggestBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Menyarankan...';
+
+                fetch('<?= base_url('api/tags/suggest') ?>', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                            'X-Requested-With': 'XMLHttpRequest'
+                        },
+                        body: new URLSearchParams({
+                            '<?= csrf_token() ?>': '<?= csrf_hash() ?>',
+                            'title': title,
+                            'content': content
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        suggestedTagsContainer.innerHTML = '';
+                        if (data.length > 0) {
+                            data.forEach(tag => {
+                                const badge = document.createElement('span');
+                                badge.className = 'badge bg-primary me-1 mb-1';
+                                badge.style.cursor = 'pointer';
+                                badge.textContent = tag;
+                                badge.addEventListener('click', function() {
+                                    // Check if a checkbox with this tag already exists
+                                    let existingCheckbox = null;
+                                    document.querySelectorAll('#tag-list .form-check-label').forEach(label => {
+                                        if (label.textContent.trim().toLowerCase() === tag.toLowerCase()) {
+                                            existingCheckbox = label.previousElementSibling;
+                                        }
+                                    });
+
+                                    if (existingCheckbox) {
+                                        existingCheckbox.checked = true;
+                                    } else {
+                                        // Create a new checkbox
+                                        const newTagId = 'new_tag_' + tag.replace(/\s+/g, '_');
+                                        const newCheckbox = document.createElement('div');
+                                        newCheckbox.className = 'form-check';
+                                        newCheckbox.innerHTML = `
+                                        <input class="form-check-input" type="checkbox" name="new_tags[]" value="${tag}" id="${newTagId}" checked>
+                                        <label class="form-check-label" for="${newTagId}">${tag}</label>
+                                    `;
+                                        document.getElementById('tag-list').appendChild(newCheckbox);
+                                    }
+                                });
+                                suggestedTagsContainer.appendChild(badge);
+                            });
+                        } else {
+                            suggestedTagsContainer.innerHTML = '<p class="text-muted small">Tidak ada tag yang disarankan.</p>';
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        suggestedTagsContainer.innerHTML = '<p class="text-danger small">Gagal menyarankan tag.</p>';
+                    })
+                    .finally(() => {
+                        suggestBtn.disabled = false;
+                        suggestBtn.innerHTML = '<i class="fas fa-wand-magic-sparkles me-2"></i>Sarankan Tag';
+                    });
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred while getting the editor content.');
+            }
+        });
+    });
+</script>
 
 <?= $this->endSection() ?>

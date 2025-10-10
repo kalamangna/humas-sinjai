@@ -26,6 +26,8 @@ $routes->get('search', 'Home::search');
 $routes->get('categories', 'Home::categories');
 $routes->get('rss', 'Home::rss');
 
+$routes->post('api/tags/suggest', 'Api\TagSuggestion::suggest');
+
 $routes->group('admin', ['filter' => 'auth'], function ($routes) {
     $routes->get('/', 'Admin\Dashboard::index');
     $routes->resource('posts', ['controller' => 'Admin\Posts']);
