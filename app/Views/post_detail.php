@@ -132,11 +132,11 @@
                         <div class="row g-3">
                             <?php foreach ($related_posts as $related) : ?>
                                 <div class="col-12 col-md-6">
-                                    <a href="<?= base_url('post/' . esc($related['slug'])) ?>" class="card text-white">
+                                    <a href="<?= base_url('post/' . esc($related['slug'])) ?>" class="card text-white h-100">
                                         <img src="<?= esc($related['thumbnail']) ?>" class="card-img" alt="<?= esc($related['title']) ?>">
                                         <div class="card-img-overlay bg-dark bg-opacity-50 d-flex flex-column justify-content-end">
                                             <h6 class="card-title fw-bold"><?= esc($related['title']) ?></h6>
-                                            <small><?= format_date($related['published_at'] ?? $related['created_at'] ?? 'now', 'date_only') ?></small>
+                                            <small><i class="fas fa-calendar me-2"></i><?= format_date($related['published_at'] ?? $related['created_at'] ?? 'now', 'date_only') ?></small>
                                         </div>
                                     </a>
                                 </div>
@@ -161,11 +161,11 @@
                         <div class="row g-3">
                             <?php foreach ($recent_posts as $recent) : ?>
                                 <div class="col-12">
-                                    <a href="<?= base_url('post/' . esc($recent['slug'])) ?>" class="card text-white">
+                                    <a href="<?= base_url('post/' . esc($recent['slug'])) ?>" class="card text-white h-100">
                                         <img src="<?= esc($recent['thumbnail']) ?>" class="card-img" alt="<?= esc($recent['title']) ?>">
                                         <div class="card-img-overlay bg-dark bg-opacity-50 d-flex flex-column justify-content-end">
                                             <h6 class="card-title fw-bold"><?= esc($recent['title']) ?></h6>
-                                            <small><?= format_date($recent['published_at'] ?? $recent['created_at'] ?? 'now', 'date_only') ?></small>
+                                            <small><i class="fas fa-calendar me-2"></i><?= format_date($recent['published_at'] ?? $recent['created_at'] ?? 'now', 'date_only') ?></small>
                                         </div>
                                     </a>
                                 </div>
@@ -187,11 +187,11 @@
                         <div class="row g-3">
                             <?php foreach ($popular_posts as $popular) : ?>
                                 <div class="col-12">
-                                    <a href="<?= base_url('post/' . esc($popular['slug'])) ?>" class="card text-white">
+                                    <a href="<?= base_url('post/' . esc($popular['slug'])) ?>" class="card text-white h-100">
                                         <img src="<?= esc($popular['thumbnail']) ?>" class="card-img" alt="<?= esc($popular['title']) ?>">
                                         <div class="card-img-overlay bg-dark bg-opacity-50 d-flex flex-column justify-content-end">
                                             <h6 class="card-title fw-bold"><?= esc($popular['title']) ?></h6>
-                                            <small><?= $popular['views'] ?> dilihat</small>
+                                            <small><i class="fas fa-eye me-2"></i><?= $popular['views'] ?> dilihat</small>
                                         </div>
                                     </a>
                                 </div>
