@@ -42,11 +42,11 @@ class Home extends BaseController
         // Tags are now part of the post data
         $data['tags'] = $data['post']['tags'];
 
-        // Fetch recent posts, excluding the current one
-        $data['recent_posts'] = $postModel->where('id !=', $data['post']['id'])->orderBy('published_at', 'DESC')->limit(5)->findAll();
+        // Fetch recent posts
+        $data['recent_posts'] = $postModel->orderBy('published_at', 'DESC')->limit(5)->findAll();
 
-        // Fetch popular posts, excluding the current one
-        $data['popular_posts'] = $postModel->where('id !=', $data['post']['id'])->orderBy('views', 'DESC')->limit(5)->findAll();
+        // Fetch popular posts
+        $data['popular_posts'] = $postModel->orderBy('views', 'DESC')->limit(5)->findAll();
 
         // Fetch related posts
         $categoryIds = array_column($data['post']['categories'], 'id');
