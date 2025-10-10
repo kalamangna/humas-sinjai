@@ -15,7 +15,7 @@
     <div class="row g-3">
         <!-- Main Content -->
         <div class="col-lg-8">
-            <article class="card border-0 shadow-sm mb-4">
+            <article class="card border-0 shadow-sm mb-3">
                 <!-- Post Header -->
                 <div class="card-body p-4">
                     <?php if (!empty($post['thumbnail'])) : ?>
@@ -132,15 +132,17 @@
                         <div class="list-group list-group-flush">
                             <?php foreach ($related_posts as $related) : ?>
                                 <a href="<?= base_url('post/' . esc($related['slug'])) ?>" class="list-group-item list-group-item-action border-0 px-0 py-3">
-                                    <div class="d-block">
-                                        <?php if (!empty($related['thumbnail'])) : ?>
-                                            <img src="<?= esc($related['thumbnail']) ?>" class="img-fluid rounded mb-2" alt="<?= esc($related['title']) ?>">
-                                        <?php else : ?>
-                                            <div class="bg-secondary rounded d-flex align-items-center justify-content-center mb-2" style="height: 150px;">
-                                                <i class="fas fa-newspaper text-white"></i>
-                                            </div>
-                                        <?php endif; ?>
-                                        <div class="flex-grow-1">
+                                    <div class="row g-3">
+                                        <div class="col-2">
+                                            <?php if (!empty($related['thumbnail'])) : ?>
+                                                <img src="<?= esc($related['thumbnail']) ?>" class="img-fluid rounded mb-2" alt="<?= esc($related['title']) ?>">
+                                            <?php else : ?>
+                                                <div class="bg-secondary rounded d-flex align-items-center justify-content-center mb-2" style="height: 150px;">
+                                                    <i class="fas fa-newspaper text-white"></i>
+                                                </div>
+                                            <?php endif; ?>
+                                        </div>
+                                        <div class="col-10">
                                             <h6 class="fw-bold mb-1 text-dark"><?= esc($related['title']) ?></h6>
                                             <small class="text-muted">
                                                 <?= format_date($related['published_at'] ?? $related['created_at'] ?? 'now', 'date_only') ?>
@@ -160,7 +162,7 @@
         <!-- Sidebar -->
         <div class="col-lg-4">
             <!-- Recent Posts -->
-            <div class="card border-0 shadow-sm mb-4">
+            <div class="card border-0 shadow-sm mb-3">
                 <div class="card-body p-4">
                     <h5 class="fw-bold mb-3 border-bottom pb-2 text-dark">
                         <i class="fas fa-history me-2"></i>Berita Terbaru
@@ -169,15 +171,17 @@
                         <div class="list-group list-group-flush">
                             <?php foreach ($recent_posts as $recent) : ?>
                                 <a href="<?= base_url('post/' . esc($recent['slug'])) ?>" class="list-group-item list-group-item-action border-0 px-0 py-3">
-                                    <div class="d-block">
-                                        <?php if (!empty($recent['thumbnail'])) : ?>
-                                            <img src="<?= esc($recent['thumbnail']) ?>" class="img-fluid rounded mb-2" alt="<?= esc($recent['title']) ?>">
-                                        <?php else : ?>
-                                            <div class="bg-secondary rounded d-flex align-items-center justify-content-center mb-2" style="height: 150px;">
-                                                <i class="fas fa-newspaper text-white"></i>
-                                            </div>
-                                        <?php endif; ?>
-                                        <div class="flex-grow-1">
+                                    <div class="row g-3">
+                                        <div class="col-2 col-lg-12">
+                                            <?php if (!empty($recent['thumbnail'])) : ?>
+                                                <img src="<?= esc($recent['thumbnail']) ?>" class="img-fluid rounded mb-2" alt="<?= esc($recent['title']) ?>">
+                                            <?php else : ?>
+                                                <div class="bg-secondary rounded d-flex align-items-center justify-content-center mb-2" style="height: 150px;">
+                                                    <i class="fas fa-newspaper text-white"></i>
+                                                </div>
+                                            <?php endif; ?>
+                                        </div>
+                                        <div class="col-10 col-lg-12">
                                             <h6 class="fw-bold mb-1 text-dark"><?= esc($recent['title']) ?></h6>
                                             <small class="text-muted">
                                                 <?= format_date($recent['published_at'] ?? $recent['created_at'] ?? 'now', 'date_only') ?>
@@ -203,15 +207,17 @@
                         <div class="list-group list-group-flush">
                             <?php foreach ($popular_posts as $popular) : ?>
                                 <a href="<?= base_url('post/' . esc($popular['slug'])) ?>" class="list-group-item list-group-item-action border-0 px-0 py-3">
-                                    <div class="d-block">
-                                        <?php if (!empty($popular['thumbnail'])) : ?>
-                                            <img src="<?= esc($popular['thumbnail']) ?>" class="img-fluid rounded mb-2" alt="<?= esc($popular['title']) ?>">
-                                        <?php else : ?>
-                                            <div class="bg-secondary rounded d-flex align-items-center justify-content-center mb-2" style="height: 150px;">
-                                                <i class="fas fa-newspaper text-white"></i>
-                                            </div>
-                                        <?php endif; ?>
-                                        <div class="flex-grow-1">
+                                    <div class="row g-3">
+                                        <div class="col-2 col-lg-12">
+                                            <?php if (!empty($popular['thumbnail'])) : ?>
+                                                <img src="<?= esc($popular['thumbnail']) ?>" class="img-fluid rounded mb-2" alt="<?= esc($popular['title']) ?>">
+                                            <?php else : ?>
+                                                <div class="bg-secondary rounded d-flex align-items-center justify-content-center mb-2" style="height: 150px;">
+                                                    <i class="fas fa-newspaper text-white"></i>
+                                                </div>
+                                            <?php endif; ?>
+                                        </div>
+                                        <div class="col-10 col-lg-12">
                                             <h6 class="fw-bold mb-1 text-dark"><?= esc($popular['title']) ?></h6>
                                             <small class="text-muted">
                                                 <?= $popular['views'] ?> dilihat
