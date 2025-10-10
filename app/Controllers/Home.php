@@ -184,13 +184,27 @@ class Home extends BaseController
     public function categories()
     {
         $categoryModel = new CategoryModel();
+        $allCategories = $categoryModel
+            ->select('categories.*, COUNT(post_categories.post_id) as post_count')
+            ->join('post_categories', 'post_categories.category_id = categories.id', 'left')
+            ->groupBy('categories.id')
+            ->orderBy('categories.name', 'ASC')
+            ->findAll();
+
+        $categories = [];
+        $subCategories = [];
+
+        foreach ($allCategories as $category) {
+            if ($category['parent_id'] === null) {
+                $categories[] = $category;
+            } else {
+                $subCategories[$category['parent_id']][] = $category;
+            }
+        }
+
         $data = [
-            'categories' => $categoryModel
-                ->select('categories.*, COUNT(post_categories.post_id) as post_count')
-                ->join('post_categories', 'post_categories.category_id = categories.id', 'left')
-                ->groupBy('categories.id')
-                ->orderBy('categories.name', 'ASC')
-                ->findAll(),
+            'categories' => $categories,
+            'subCategories' => $subCategories,
             'title' => 'Semua Kategori',
             'description' => 'Telusuri semua kategori berita di Humas Sinjai.',
             'keywords' => 'kategori, berita, humas sinjai, sinjai',

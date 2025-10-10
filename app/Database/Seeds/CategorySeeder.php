@@ -13,16 +13,32 @@ class CategorySeeder extends Seeder
         $faker = Factory::create();
         $categoryModel = new CategoryModel(); // Instantiate the model
 
+        // Create 5 parent categories
         for ($i = 0; $i < 5; $i++) {
             $name = $faker->unique()->word;
             $slug = strtolower(url_title($name, '-', true));
 
-            // Check if category already exists by slug
             if ($categoryModel->where('slug', $slug)->first() === null) {
                 $categoryModel->save([
                     'name' => $name,
                     'slug' => $slug,
                 ]);
+
+                $parentId = $categoryModel->getInsertID();
+
+                // Create 2 subcategories for each parent
+                for ($j = 0; $j < 2; $j++) {
+                    $name = $faker->unique()->word;
+                    $slug = strtolower(url_title($name, '-', true));
+
+                    if ($categoryModel->where('slug', $slug)->first() === null) {
+                        $categoryModel->save([
+                            'name' => $name,
+                            'slug' => $slug,
+                            'parent_id' => $parentId,
+                        ]);
+                    }
+                }
             }
         }
     }

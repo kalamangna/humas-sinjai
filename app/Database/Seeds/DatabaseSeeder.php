@@ -15,7 +15,6 @@ class DatabaseSeeder extends Seeder
         $this->call('CategorySeeder');
         $this->call('TagSeeder');
         $this->call('PostSeeder');
-        $this->call('PostTagSeeder');
 
         $this->db->enableForeignKeyChecks();
     }

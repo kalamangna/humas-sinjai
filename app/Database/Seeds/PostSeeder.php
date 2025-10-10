@@ -3,50 +3,68 @@
 namespace App\Database\Seeds;
 
 use CodeIgniter\Database\Seeder;
+use App\Models\PostModel;
+use App\Models\CategoryModel;
+use App\Models\TagModel;
+use App\Models\PostCategoryModel;
+use App\Models\PostTagModel;
+use App\Models\UserModel;
 use Faker\Factory;
 
 class PostSeeder extends Seeder
 {
     public function run()
     {
+        $postModel = new PostModel();
+        $categoryModel = new CategoryModel();
+        $tagModel = new TagModel();
+        $postCategoryModel = new PostCategoryModel();
+        $postTagModel = new PostTagModel();
+        $userModel = new UserModel();
         $faker = Factory::create();
-        $postModel = new \App\Models\PostModel();
-        $categoryModel = new \App\Models\CategoryModel();
-        $postCategoryModel = new \App\Models\PostCategoryModel();
-        $userModel = new \App\Models\UserModel();
 
-        // Get all category and user IDs
-        $categoryIds = array_column($categoryModel->select('id')->findAll(), 'id');
-        $userIds = array_column($userModel->select('id')->findAll(), 'id');
+        $categories = $categoryModel->findAll();
+        $tags = $tagModel->findAll();
+        $users = $userModel->findAll();
 
-        for ($i = 0; $i < 30; $i++) {
+        if (empty($categories) || empty($tags) || empty($users)) {
+            echo "Please create some categories, tags, and users first.\n";
+            return;
+        }
+
+        for ($i = 0; $i < 50; $i++) {
             $title = $faker->sentence();
-
-            // 1. Create the post
             $postData = [
-                'title'       => $title,
-                'slug'        => strtolower(url_title($title, '-', true)),
-                'content'     => $faker->paragraphs(3, true),
-                'thumbnail'   => 'https://picsum.photos/seed/' . uniqid() . '/800/400',
-                'thumbnail_caption' => $faker->sentence(),
-                'status'      => 'published',
-                'user_id'     => $faker->randomElement($userIds), // Assign a random user
-                'published_at' => $faker->dateTimeThisYear()->setTimezone(new \DateTimeZone('UTC'))->format('Y-m-d H:i:s'),
+                'title' => $title,
+                'slug' => url_title($title, '-', true),
+                'content' => $faker->paragraphs(10, true),
+                'status' => 'published',
+                'user_id' => $faker->randomElement($users)['id'],
+                'published_at' => $faker->dateTimeThisYear()->format('Y-m-d H:i:s'),
+                'thumbnail' => 'https://picsum.photos/seed/' . $faker->uuid . '/800/600',
             ];
-            $postModel->save($postData);
 
-            // 2. Get the new post ID
-            $postId = $postModel->getInsertID();
+            $postId = $postModel->insert($postData);
 
-            // 3. Associate categories
-            $numCategories = $faker->numberBetween(1, 3);
-            $shuffledCatIds = $faker->randomElements($categoryIds, $numCategories);
+            if ($postId) {
+                // Assign categories
+                $randomCategories = $faker->randomElements($categories, $faker->numberBetween(1, 3));
+                foreach ($randomCategories as $category) {
+                    $postCategoryModel->insert([
+                        'post_id' => $postId,
+                        'category_id' => $category['id'],
+                    ]);
+                }
 
-            $catsToInsert = [];
-            foreach ($shuffledCatIds as $catId) {
-                $catsToInsert[] = ['post_id' => $postId, 'category_id' => $catId];
+                // Assign tags
+                $randomTags = $faker->randomElements($tags, $faker->numberBetween(2, 5));
+                foreach ($randomTags as $tag) {
+                    $postTagModel->insert([
+                        'post_id' => $postId,
+                        'tag_id' => $tag['id'],
+                    ]);
+                }
             }
-            $postCategoryModel->insertBatch($catsToInsert);
         }
     }
 }

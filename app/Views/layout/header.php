@@ -60,19 +60,40 @@
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <?php foreach ($categories as $category) : ?>
+                                <li>
+                                    <h6 class="dropdown-header">
+                                        <i class="fas fa-fw fa-folder me-2"></i><?= esc($category['name']) ?>
+                                    </h6>
+                                </li>
                                 <?php if (isset($subCategories[$category['id']])) : ?>
-                                    <li class="dropdown-submenu">
-                                        <a class="dropdown-item dropdown-toggle" href="#"><?= esc($category['name']) ?></a>
-                                        <ul class="dropdown-menu">
-                                            <?php foreach ($subCategories[$category['id']] as $subCategory) : ?>
-                                                <li><a class="dropdown-item" href="<?= base_url('category/' . $subCategory['slug']) ?>"><?= esc($subCategory['name']) ?></a></li>
-                                            <?php endforeach; ?>
-                                        </ul>
+                                    <?php foreach ($subCategories[$category['id']] as $subCategory) : ?>
+                                        <li>
+                                            <a class="dropdown-item" href="<?= base_url('category/' . $subCategory['slug']) ?>">
+                                                <i class="fas fa-fw fa-file-alt me-2"></i><?= esc($subCategory['name']) ?>
+                                            </a>
+                                        </li>
+                                    <?php endforeach; ?>
+                                <?php else: ?>
+                                    <li>
+                                        <a class="dropdown-item" href="<?= base_url('category/' . $category['slug']) ?>">
+                                            <i class="fas fa-fw fa-tag me-2"></i>Semua <?= esc($category['name']) ?>
+                                        </a>
                                     </li>
-                                <?php else : ?>
-                                    <li><a class="dropdown-item" href="<?= base_url('category/' . $category['slug']) ?>"><?= esc($category['name']) ?></a></li>
+                                <?php endif; ?>
+                                <?php if ($category !== end($categories)): ?>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
                                 <?php endif; ?>
                             <?php endforeach; ?>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li>
+                                <a class="dropdown-item text-primary" href="<?= base_url('categories') ?>">
+                                    <i class="fas fa-fw fa-list me-2"></i>Semua Kategori
+                                </a>
+                            </li>
                         </ul>
                     </li>
                 </ul>

@@ -109,31 +109,36 @@
     <div class="col-lg-6">
         <div class="card border-0 shadow-sm h-100">
             <div class="card-header bg-transparent border-bottom-0 py-3">
-                <h5 class="fw-bold text-dark mb-0"><i class="fas fa-fire me-2"></i>Berita Terpopuler</h5>
+                <h5 class="fw-bold text-dark mb-0">
+                    <i class="fas fa-fire me-2"></i>Berita Terpopuler
+                </h5>
             </div>
             <div class="card-body">
-                <table class="table table-hover table-striped">
-                    <thead>
-                        <tr>
-                            <th>Judul</th>
-                            <th class="text-end">Dilihat</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php if (!empty($popularPosts)) : ?>
-                            <?php foreach ($popularPosts as $post) : ?>
+                <?php if (!empty($popularPosts)) : ?>
+                    <div class="table-responsive">
+                        <table class="table table-hover table-striped">
+                            <thead>
                                 <tr>
-                                    <td><?= esc($post['title']) ?></td>
-                                    <td class="text-end"><?= $post['views'] ?></td>
+                                    <th>Judul</th>
+                                    <th class="text-end">Dilihat</th>
                                 </tr>
-                            <?php endforeach; ?>
-                        <?php else : ?>
-                            <tr>
-                                <td colspan="2" class="text-center">Belum ada berita yang dilihat.</td>
-                            </tr>
-                        <?php endif; ?>
-                    </tbody>
-                </table>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($popularPosts as $post) : ?>
+                                    <tr>
+                                        <td><?= esc($post['title']) ?></td>
+                                        <td class="text-end"><?= $post['views'] ?></td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    <?php else : ?>
+                        <div class="text-center py-4">
+                            <i class="fas fa-inbox fa-2x text-muted mb-3"></i>
+                            <p class="text-muted mb-0">Belum ada berita.</p>
+                        </div>
+                    <?php endif; ?>
+                    </div>
             </div>
         </div>
     </div>

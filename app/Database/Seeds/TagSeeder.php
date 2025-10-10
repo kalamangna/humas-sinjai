@@ -3,22 +3,23 @@
 namespace App\Database\Seeds;
 
 use CodeIgniter\Database\Seeder;
-use App\Models\TagModel; // Import the TagModel
+use App\Models\TagModel;
+use Faker\Factory;
 
 class TagSeeder extends Seeder
 {
     public function run()
     {
-        $tagModel = new TagModel(); // Instantiate the model
+        $tagModel = new TagModel();
+        $faker = Factory::create();
 
-        $tagsData = ['news', 'hot', 'trending', 'viral', 'popular'];
+        for ($i = 0; $i < 20; $i++) {
+            $name = $faker->unique()->word;
+            $slug = strtolower(url_title($name, '-', true));
 
-        foreach ($tagsData as $tagName) {
-            $slug = url_title($tagName, '-', true);
-            // Check if tag already exists by slug
             if ($tagModel->where('slug', $slug)->first() === null) {
                 $tagModel->save([
-                    'name' => $tagName,
+                    'name' => $name,
                     'slug' => $slug,
                 ]);
             }
