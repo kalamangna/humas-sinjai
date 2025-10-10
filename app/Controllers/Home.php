@@ -45,6 +45,9 @@ class Home extends BaseController
         // Fetch recent posts, excluding the current one
         $data['recent_posts'] = $postModel->where('id !=', $data['post']['id'])->orderBy('published_at', 'DESC')->limit(5)->findAll();
 
+        // Fetch popular posts, excluding the current one
+        $data['popular_posts'] = $postModel->where('id !=', $data['post']['id'])->orderBy('views', 'DESC')->limit(5)->findAll();
+
         // Fetch related posts
         $categoryIds = array_column($data['post']['categories'], 'id');
         $tagIds = array_column($data['post']['tags'], 'id');

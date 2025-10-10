@@ -108,7 +108,7 @@
             <table class="table table-hover mb-0">
                 <thead class="bg-light">
                     <tr>
-                        <th class="border-0 ps-4">Thumbnail</th>
+                        <th class="border-0 ps-4">Gambar</th>
                         <th class="border-0">Judul Berita</th>
                         <th class="border-0">Kategori</th>
                         <th class="border-0 text-center">Tag</th>

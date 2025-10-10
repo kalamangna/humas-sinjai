@@ -192,6 +192,40 @@
                     <?php endif; ?>
                 </div>
             </div>
+
+            <!-- Popular Posts -->
+            <div class="card border-0 shadow-sm">
+                <div class="card-body p-4">
+                    <h5 class="fw-bold mb-3 border-bottom pb-2 text-dark">
+                        <i class="fas fa-fire me-2"></i>Berita Terpopuler
+                    </h5>
+                    <?php if (!empty($popular_posts)) : ?>
+                        <div class="list-group list-group-flush">
+                            <?php foreach ($popular_posts as $popular) : ?>
+                                <a href="<?= base_url('post/' . esc($popular['slug'])) ?>" class="list-group-item list-group-item-action border-0 px-0 py-3">
+                                    <div class="d-block">
+                                        <?php if (!empty($popular['thumbnail'])) : ?>
+                                            <img src="<?= esc($popular['thumbnail']) ?>" class="img-fluid rounded mb-2" alt="<?= esc($popular['title']) ?>">
+                                        <?php else : ?>
+                                            <div class="bg-secondary rounded d-flex align-items-center justify-content-center mb-2" style="height: 150px;">
+                                                <i class="fas fa-newspaper text-white"></i>
+                                            </div>
+                                        <?php endif; ?>
+                                        <div class="flex-grow-1">
+                                            <h6 class="fw-bold mb-1 text-dark"><?= esc($popular['title']) ?></h6>
+                                            <small class="text-muted">
+                                                <?= $popular['views'] ?> dilihat
+                                            </small>
+                                        </div>
+                                    </div>
+                                </a>
+                            <?php endforeach; ?>
+                        </div>
+                    <?php else : ?>
+                        <p class="text-muted small mb-0">Tidak ada berita populer.</p>
+                    <?php endif; ?>
+                </div>
+            </div>
         </div>
 
     </div>
