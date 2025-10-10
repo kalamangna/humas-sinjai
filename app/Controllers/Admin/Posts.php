@@ -85,6 +85,7 @@ class Posts extends BaseController
 
         $data['categories'] = $categories;
         $data['tags'] = $tagModel->orderBy('name', 'ASC')->findAll();
+        $data['post_categories'] = [];
         return $this->render('Admin/Posts/new', $data);
     }
 

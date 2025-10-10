@@ -86,7 +86,7 @@
                                             <div class="ms-3">
                                                 <?php foreach ($category['children'] as $child) : ?>
                                                     <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" name="categories[]" value="<?= $child['id'] ?>" id="cat_<?= $child['id'] ?>" <?= in_array($child['id'], old('categories', $post_categories)) ? 'checked' : '' ?>>
+                                                        <input class="form-check-input" type="checkbox" name="categories[]" value="<?= $child['id'] ?>" id="cat_<?= $child['id'] ?>" <?= in_array($child['id'], old('categories', [])) ? 'checked' : '' ?>>
                                                         <label class="form-check-label" for="cat_<?= $child['id'] ?>">
                                                             <?= esc($child['name']) ?>
                                                         </label>
