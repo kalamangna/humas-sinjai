@@ -83,7 +83,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="form-label fw-semibold text-dark">Kategori <span class="text-danger">*</span></label>
-                                <div id="category-list" class="checkbox-group-container border-0 bg-light rounded-3 p-3 <?= (isset(session('errors')['categories'])) ? 'is-invalid' : '' ?>" style="max-height: 200px; overflow-y: auto;">
+                                <div id="category-list" class="checkbox-group-container border-0 bg-light rounded-3 p-3 <?= (isset(session('errors')['categories'])) ? 'is-invalid' : '' ?>">
                                     <?php foreach ($categories as $category) : ?>
                                         <h6 class="fw-bold mt-3"><?= esc($category['name']) ?></h6>
                                         <?php if (!empty($category['children'])) : ?>
@@ -112,7 +112,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="form-label fw-semibold text-dark">Tag <span class="text-danger">*</span></label>
-                                <div id="tag-list" class="checkbox-group-container border-0 bg-light rounded-3 p-3 <?= (isset(session('errors')['tags'])) ? 'is-invalid' : '' ?>" style="max-height: 200px; overflow-y: auto;">
+                                <div id="tag-list" class="checkbox-group-container border-0 bg-light rounded-3 p-3 <?= (isset(session('errors')['tags'])) ? 'is-invalid' : '' ?>">
                                     <?php foreach ($tags as $tag) : ?>
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" name="tags[]" value="<?= $tag['id'] ?>" id="tag_<?= $tag['id'] ?>"

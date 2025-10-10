@@ -134,16 +134,6 @@ class Posts extends BaseController
             // Sync categories
             $categoryIds = $this->request->getPost('categories') ?? [];
             if (! empty($categoryIds)) {
-                $allCategories = (new CategoryModel())->findAll();
-                $categoryMap = array_column($allCategories, 'parent_id', 'id');
-                $parentIds = [];
-                foreach ($categoryIds as $catId) {
-                    if (isset($categoryMap[$catId]) && $categoryMap[$catId] !== null) {
-                        $parentIds[] = $categoryMap[$catId];
-                    }
-                }
-                $categoryIds = array_unique(array_merge($categoryIds, $parentIds));
-
                 $catsToInsert = [];
                 foreach ($categoryIds as $catId) {
                     $catsToInsert[] = ['post_id' => $postId, 'category_id' => $catId];
@@ -255,16 +245,6 @@ class Posts extends BaseController
             $categoryIds = $this->request->getPost('categories') ?? [];
             $postCategoryModel->where('post_id', $id)->delete();
             if (! empty($categoryIds)) {
-                $allCategories = (new CategoryModel())->findAll();
-                $categoryMap = array_column($allCategories, 'parent_id', 'id');
-                $parentIds = [];
-                foreach ($categoryIds as $catId) {
-                    if (isset($categoryMap[$catId]) && $categoryMap[$catId] !== null) {
-                        $parentIds[] = $categoryMap[$catId];
-                    }
-                }
-                $categoryIds = array_unique(array_merge($categoryIds, $parentIds));
-
                 $catsToInsert = [];
                 foreach ($categoryIds as $catId) {
                     $catsToInsert[] = ['post_id' => $id, 'category_id' => $catId];
