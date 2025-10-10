@@ -129,27 +129,17 @@
                         <i class="fas fa-link me-2"></i>Berita Terkait
                     </h5>
                     <?php if (!empty($related_posts)) : ?>
-                        <div class="list-group list-group-flush">
+                        <div class="row g-3">
                             <?php foreach ($related_posts as $related) : ?>
-                                <a href="<?= base_url('post/' . esc($related['slug'])) ?>" class="list-group-item list-group-item-action border-0 px-0 py-3">
-                                    <div class="row g-3">
-                                        <div class="col-2">
-                                            <?php if (!empty($related['thumbnail'])) : ?>
-                                                <img src="<?= esc($related['thumbnail']) ?>" class="img-fluid rounded mb-2" alt="<?= esc($related['title']) ?>">
-                                            <?php else : ?>
-                                                <div class="bg-secondary rounded d-flex align-items-center justify-content-center mb-2" style="height: 150px;">
-                                                    <i class="fas fa-newspaper text-white"></i>
-                                                </div>
-                                            <?php endif; ?>
+                                <div class="col-12 col-md-6">
+                                    <a href="<?= base_url('post/' . esc($related['slug'])) ?>" class="card text-white">
+                                        <img src="<?= esc($related['thumbnail']) ?>" class="card-img" alt="<?= esc($related['title']) ?>">
+                                        <div class="card-img-overlay bg-dark bg-opacity-50 d-flex flex-column justify-content-end">
+                                            <h6 class="card-title fw-bold"><?= esc($related['title']) ?></h6>
+                                            <small><?= format_date($related['published_at'] ?? $related['created_at'] ?? 'now', 'date_only') ?></small>
                                         </div>
-                                        <div class="col-10">
-                                            <h6 class="fw-bold mb-1 text-dark"><?= esc($related['title']) ?></h6>
-                                            <small class="text-muted">
-                                                <?= format_date($related['published_at'] ?? $related['created_at'] ?? 'now', 'date_only') ?>
-                                            </small>
-                                        </div>
-                                    </div>
-                                </a>
+                                    </a>
+                                </div>
                             <?php endforeach; ?>
                         </div>
                     <?php else : ?>
@@ -168,27 +158,17 @@
                         <i class="fas fa-history me-2"></i>Berita Terbaru
                     </h5>
                     <?php if (!empty($recent_posts)) : ?>
-                        <div class="list-group list-group-flush">
+                        <div class="row g-3">
                             <?php foreach ($recent_posts as $recent) : ?>
-                                <a href="<?= base_url('post/' . esc($recent['slug'])) ?>" class="list-group-item list-group-item-action border-0 px-0 py-3">
-                                    <div class="row g-3">
-                                        <div class="col-2 col-lg-12">
-                                            <?php if (!empty($recent['thumbnail'])) : ?>
-                                                <img src="<?= esc($recent['thumbnail']) ?>" class="img-fluid rounded mb-2" alt="<?= esc($recent['title']) ?>">
-                                            <?php else : ?>
-                                                <div class="bg-secondary rounded d-flex align-items-center justify-content-center mb-2" style="height: 150px;">
-                                                    <i class="fas fa-newspaper text-white"></i>
-                                                </div>
-                                            <?php endif; ?>
+                                <div class="col-12">
+                                    <a href="<?= base_url('post/' . esc($recent['slug'])) ?>" class="card text-white">
+                                        <img src="<?= esc($recent['thumbnail']) ?>" class="card-img" alt="<?= esc($recent['title']) ?>">
+                                        <div class="card-img-overlay bg-dark bg-opacity-50 d-flex flex-column justify-content-end">
+                                            <h6 class="card-title fw-bold"><?= esc($recent['title']) ?></h6>
+                                            <small><?= format_date($recent['published_at'] ?? $recent['created_at'] ?? 'now', 'date_only') ?></small>
                                         </div>
-                                        <div class="col-10 col-lg-12">
-                                            <h6 class="fw-bold mb-1 text-dark"><?= esc($recent['title']) ?></h6>
-                                            <small class="text-muted">
-                                                <?= format_date($recent['published_at'] ?? $recent['created_at'] ?? 'now', 'date_only') ?>
-                                            </small>
-                                        </div>
-                                    </div>
-                                </a>
+                                    </a>
+                                </div>
                             <?php endforeach; ?>
                         </div>
                     <?php else : ?>
@@ -204,27 +184,17 @@
                         <i class="fas fa-fire me-2"></i>Berita Terpopuler
                     </h5>
                     <?php if (!empty($popular_posts)) : ?>
-                        <div class="list-group list-group-flush">
+                        <div class="row g-3">
                             <?php foreach ($popular_posts as $popular) : ?>
-                                <a href="<?= base_url('post/' . esc($popular['slug'])) ?>" class="list-group-item list-group-item-action border-0 px-0 py-3">
-                                    <div class="row g-3">
-                                        <div class="col-2 col-lg-12">
-                                            <?php if (!empty($popular['thumbnail'])) : ?>
-                                                <img src="<?= esc($popular['thumbnail']) ?>" class="img-fluid rounded mb-2" alt="<?= esc($popular['title']) ?>">
-                                            <?php else : ?>
-                                                <div class="bg-secondary rounded d-flex align-items-center justify-content-center mb-2" style="height: 150px;">
-                                                    <i class="fas fa-newspaper text-white"></i>
-                                                </div>
-                                            <?php endif; ?>
+                                <div class="col-12">
+                                    <a href="<?= base_url('post/' . esc($popular['slug'])) ?>" class="card text-white">
+                                        <img src="<?= esc($popular['thumbnail']) ?>" class="card-img" alt="<?= esc($popular['title']) ?>">
+                                        <div class="card-img-overlay bg-dark bg-opacity-50 d-flex flex-column justify-content-end">
+                                            <h6 class="card-title fw-bold"><?= esc($popular['title']) ?></h6>
+                                            <small><?= $popular['views'] ?> dilihat</small>
                                         </div>
-                                        <div class="col-10 col-lg-12">
-                                            <h6 class="fw-bold mb-1 text-dark"><?= esc($popular['title']) ?></h6>
-                                            <small class="text-muted">
-                                                <?= $popular['views'] ?> dilihat
-                                            </small>
-                                        </div>
-                                    </div>
-                                </a>
+                                    </a>
+                                </div>
                             <?php endforeach; ?>
                         </div>
                     <?php else : ?>

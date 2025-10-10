@@ -69,7 +69,7 @@ class Home extends BaseController
             }
             $builder->groupEnd();
 
-            $relatedPosts = $builder->orderBy('published_at', 'DESC')->limit(5)->findAll();
+            $relatedPosts = $builder->orderBy('published_at', 'DESC')->limit(6)->findAll();
         }
 
         $data['related_posts'] = $postModel->withCategoriesAndTags($relatedPosts);
