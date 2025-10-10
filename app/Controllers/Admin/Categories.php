@@ -49,10 +49,12 @@ class Categories extends BaseController
     {
         $categoryModel = new CategoryModel();
 
+        $parentId = $this->request->getPost('parent_id');
+
         $data = [
             'name' => $this->request->getPost('name'),
             'slug' => url_title($this->request->getPost('name'), '-', true),
-            'parent_id' => $this->request->getPost('parent_id'),
+            'parent_id' => empty($parentId) ? null : $parentId,
         ];
 
         if ($categoryModel->save($data)) {
@@ -78,10 +80,11 @@ class Categories extends BaseController
     public function update($id = null)
     { 
         $categoryModel = new CategoryModel();
+        $parentId = $this->request->getPost('parent_id');
         $data = [
             'name' => $this->request->getPost('name'),
             'slug' => url_title($this->request->getPost('name'), '-', true),
-            'parent_id' => $this->request->getPost('parent_id'),
+            'parent_id' => empty($parentId) ? null : $parentId,
         ];
 
         if ($categoryModel->update($id, $data)) {

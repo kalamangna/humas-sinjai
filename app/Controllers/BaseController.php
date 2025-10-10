@@ -53,5 +53,24 @@ abstract class BaseController extends Controller
 
         // Preload any models, libraries, etc, here.
 
+        $categoryModel = new \App\Models\CategoryModel();
+        $allCategories = $categoryModel->orderBy('name', 'ASC')->findAll();
+
+        $categories = [];
+        $subCategories = [];
+
+        foreach ($allCategories as $category) {
+            if ($category['parent_id'] === null) {
+                $categories[] = $category;
+            } else {
+                $subCategories[$category['parent_id']][] = $category;
+            }
+        }
+
+        $this->view = service('renderer');
+        $this->view->setData([
+            'categories' => $categories,
+            'subCategories' => $subCategories,
+        ]);
     }
 }

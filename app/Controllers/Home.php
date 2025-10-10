@@ -15,8 +15,6 @@ class Home extends BaseController
         $posts = $postModel->getPosts(); // Get basic post data
         $data['posts'] = $postModel->withCategoriesAndTags($posts); // Enrich with categories and tags
 
-        $data = array_merge($data, $this->_getCategoryTree());
-
         return view('home', $data);
     }
 
@@ -76,8 +74,6 @@ class Home extends BaseController
 
         $data['related_posts'] = $postModel->withCategoriesAndTags($relatedPosts);
 
-        $data = array_merge($data, $this->_getCategoryTree());
-
         return view('post_detail', $data);
     }
 
@@ -108,8 +104,6 @@ class Home extends BaseController
         $data['title'] = 'Kategori: ' . $data['category']['name'];
         $data['description'] = 'Telusuri semua berita dalam kategori ' . $data['category']['name'] . ' di Humas Sinjai.';
         $data['keywords'] = 'Humas Sinjai, Berita Sinjai, ' . $data['category']['name'];
-
-        $data = array_merge($data, $this->_getCategoryTree());
 
         return view('category_detail', $data);
     }
@@ -142,8 +136,6 @@ class Home extends BaseController
         $data['description'] = 'Telusuri semua berita dengan tag ' . $data['tag']['name'] . ' di Humas Sinjai.';
         $data['keywords'] = 'Humas Sinjai, Berita Sinjai, ' . $data['tag']['name'];
 
-        $data = array_merge($data, $this->_getCategoryTree());
-
         return view('tag_detail', $data);
     }
 
@@ -174,8 +166,6 @@ class Home extends BaseController
             'keywords' => 'pencarian, ' . $query,
         ];
 
-        $data = array_merge($data, $this->_getCategoryTree());
-
         return view('search_results', $data);
     }
 
@@ -191,17 +181,37 @@ class Home extends BaseController
             'keywords' => 'berita, humas sinjai, sinjai, berita terbaru',
         ];
 
-        $data = array_merge($data, $this->_getCategoryTree());
-
         return view('posts', $data);
     }
 
     public function categories()
     {
-        $data = $this->_getCategoryTree();
-        $data['title'] = 'Semua Kategori';
-        $data['description'] = 'Telusuri semua kategori berita di Humas Sinjai.';
-        $data['keywords'] = 'kategori, berita, humas sinjai, sinjai';
+        $categoryModel = new CategoryModel();
+        $allCategories = $categoryModel
+            ->select('categories.*, COUNT(post_categories.post_id) as post_count')
+            ->join('post_categories', 'post_categories.category_id = categories.id', 'left')
+            ->groupBy('categories.id')
+            ->orderBy('categories.name', 'ASC')
+            ->findAll();
+
+        $categories = [];
+        $subCategories = [];
+
+        foreach ($allCategories as $category) {
+            if ($category['parent_id'] === null) {
+                $categories[] = $category;
+            } else {
+                $subCategories[$category['parent_id']][] = $category;
+            }
+        }
+
+        $data = [
+            'categories' => $categories,
+            'subCategories' => $subCategories,
+            'title' => 'Semua Kategori',
+            'description' => 'Telusuri semua kategori berita di Humas Sinjai.',
+            'keywords' => 'kategori, berita, humas sinjai, sinjai',
+        ];
 
         return view('categories', $data);
     }
@@ -221,8 +231,6 @@ class Home extends BaseController
             'keywords' => 'tag, berita, humas sinjai, sinjai',
         ];
 
-        $data = array_merge($data, $this->_getCategoryTree());
-
         return view('tags', $data);
     }
 
@@ -238,27 +246,5 @@ class Home extends BaseController
         ];
 
         return view('rss', $data);
-    }
-
-    private function _getCategoryTree()
-    {
-        $categoryModel = new \App\Models\CategoryModel();
-        $allCategories = $categoryModel->orderBy('name', 'ASC')->findAll();
-
-        $categories = [];
-        $subCategories = [];
-
-        foreach ($allCategories as $category) {
-            if ($category['parent_id'] === null) {
-                $categories[] = $category;
-            } else {
-                $subCategories[$category['parent_id']][] = $category;
-            }
-        }
-
-        return [
-            'categories' => $categories,
-            'subCategories' => $subCategories,
-        ];
     }
 }
