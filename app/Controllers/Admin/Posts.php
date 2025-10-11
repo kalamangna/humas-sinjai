@@ -149,11 +149,15 @@ class Posts extends BaseController
             }
 
             // Sync tags
-            $tagIds = $this->request->getPost('tags') ?? [];
-            $newTags = $this->request->getPost('new_tags') ?? [];
-            if (!empty($newTags)) {
+            $tags = $this->request->getPost('tags');
+            $tagIds = [];
+            if (!empty($tags)) {
                 $tagModel = new TagModel();
-                foreach ($newTags as $tagName) {
+                $tagNames = explode(',', $tags);
+                foreach ($tagNames as $tagName) {
+                    $tagName = trim($tagName);
+                    if (empty($tagName)) continue;
+
                     $slug = url_title($tagName, '-', true);
                     $tag = $tagModel->where('slug', $slug)->first();
                     if (!$tag) {
@@ -284,11 +288,15 @@ class Posts extends BaseController
             }
 
             // Sync tags
-            $tagIds = $this->request->getPost('tags') ?? [];
-            $newTags = $this->request->getPost('new_tags') ?? [];
-            if (!empty($newTags)) {
+            $tags = $this->request->getPost('tags');
+            $tagIds = [];
+            if (!empty($tags)) {
                 $tagModel = new TagModel();
-                foreach ($newTags as $tagName) {
+                $tagNames = explode(',', $tags);
+                foreach ($tagNames as $tagName) {
+                    $tagName = trim($tagName);
+                    if (empty($tagName)) continue;
+
                     $slug = url_title($tagName, '-', true);
                     $tag = $tagModel->where('slug', $slug)->first();
                     if (!$tag) {
@@ -298,9 +306,7 @@ class Posts extends BaseController
                         ]);
                         $tagIds[] = $tagId;
                     } else {
-                        if (!in_array($tag['id'], $tagIds)) {
-                            $tagIds[] = $tag['id'];
-                        }
+                        $tagIds[] = $tag['id'];
                     }
                 }
             }

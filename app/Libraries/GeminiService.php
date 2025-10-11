@@ -87,7 +87,17 @@ class GeminiService
     private function buildPrompt(string $title, string $content): string
     {
         return sprintf(
-            "Berikan 10 tag singkat yang relevan, dipisahkan dengan koma, untuk berita dengan judul berikut: \"%s\" dan konten berikut: \"%s\". Pastikan tag tersebut umum digunakan dalam konteks berita di Indonesia.",
+            "Berdasarkan judul dan konten berita di bawah ini, hasilkan 10 tag SEO singkat dan relevan.
+
+            Aturan:
+            - Tampilkan hanya daftar tag, pisahkan dengan koma.
+            - Jangan berikan penjelasan, pengantar, atau kalimat tambahan.
+            - Jangan beri nomor atau bullet.
+            - Gunakan kata atau frasa pendek yang umum dipakai di berita Indonesia.
+            - Mulai langsung dari daftar tag, tanpa teks lain.
+
+            Judul: \"%s\"
+            Konten: \"%s\"",
             $title,
             $content
         );

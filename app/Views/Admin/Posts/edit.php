@@ -112,18 +112,15 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="form-label fw-semibold text-dark">Tag <span class="text-danger">*</span></label>
-                                <div id="tag-list" class="checkbox-group-container form-control p-3 <?= (isset(session('errors')['tags'])) ? 'is-invalid' : '' ?>" style="height: 200px; overflow-y: auto;">
+                                <div id="tag-container" class="form-control" style="min-height: 100px;">
                                     <?php foreach ($tags as $tag) : ?>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="tags[]" value="<?= $tag['id'] ?>" id="tag_<?= $tag['id'] ?>"
-                                                <?= in_array($tag['id'], old('tags', $post_tags)) ? 'checked' : '' ?>>
-                                            <label class="form-check-label" for="tag_<?= $tag['id'] ?>">
-                                                <?= esc($tag['name']) ?>
-                                            </label>
-                                        </div>
+                                        <?php if (in_array($tag['id'], old('tags', $post_tags))) : ?>
+                                            <span class="tag-badge badge bg-primary me-1 mb-1"><?= esc($tag['name']) ?> <i class="fas fa-times-circle ms-1" style="cursor: pointer;"></i></span>
+                                        <?php endif; ?>
                                     <?php endforeach; ?>
                                 </div>
-                                <small class="text-muted">Pilih satu atau lebih tag.</small>
+                                <input type="hidden" name="tags" id="tags-input" value="<?= implode(',', old('tags', $post_tags)) ?>">
+                                <small class="text-muted">Klik pada tag untuk menghapusnya.</small>
                                 <?php if (isset(session('errors')['tags'])) : ?>
                                     <div class="invalid-feedback d-block">
                                         <?= session('errors')['tags'] ?>
@@ -134,7 +131,6 @@
                                 <button type="button" id="suggest-tags-btn" class="btn btn-outline-primary btn-sm">
                                     <i class="fas fa-wand-magic-sparkles me-2"></i>Sarankan Tag
                                 </button>
-                                <div id="suggested-tags" class="mt-2"></div>
                             </div>
                         </div>
 
@@ -180,7 +176,51 @@
     document.addEventListener('DOMContentLoaded', function() {
         const suggestBtn = document.getElementById('suggest-tags-btn');
         const suggestedTagsContainer = document.getElementById('suggested-tags');
+        const tagContainer = document.getElementById('tag-container');
+        const tagsInput = document.getElementById('tags-input');
         const titleInput = document.getElementById('title');
+        
+        function updateTagsInput() {
+            const tags = [];
+            tagContainer.querySelectorAll('.tag-badge').forEach(badge => {
+                tags.push(badge.textContent.slice(0, -1).trim());
+            });
+            tagsInput.value = tags.join(',');
+        }
+
+        function createTag(tag) {
+            // Check if tag already exists
+            let exists = false;
+            tagContainer.querySelectorAll('.tag-badge').forEach(badge => {
+                if (badge.textContent.slice(0, -1).trim().toLowerCase() === tag.toLowerCase()) {
+                    exists = true;
+                }
+            });
+
+            if (exists) {
+                return;
+            }
+
+            const badge = document.createElement('span');
+            badge.className = 'tag-badge badge bg-primary me-1 mb-1';
+            badge.innerHTML = `${tag} <i class="fas fa-times-circle ms-1" style="cursor: pointer;"></i>`;
+            
+            badge.querySelector('i').addEventListener('click', function() {
+                badge.remove();
+                updateTagsInput();
+            });
+
+            tagContainer.appendChild(badge);
+            updateTagsInput();
+        }
+
+        // Add event listeners to existing tags
+        tagContainer.querySelectorAll('.tag-badge i').forEach(icon => {
+            icon.addEventListener('click', function() {
+                icon.parentElement.remove();
+                updateTagsInput();
+            });
+        });
 
         suggestBtn.addEventListener('click', function() {
             try {
@@ -202,63 +242,35 @@
                 suggestBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Menyarankan...';
 
                 fetch('<?= base_url('api/tags/suggest') ?>', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/x-www-form-urlencoded',
-                            'X-Requested-With': 'XMLHttpRequest'
-                        },
-                        body: new URLSearchParams({
-                            '<?= csrf_token() ?>': '<?= csrf_hash() ?>',
-                            'title': title,
-                            'content': content
-                        })
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'X-Requested-With': 'XMLHttpRequest'
+                    },
+                    body: new URLSearchParams({
+                        '<?= csrf_token() ?>': '<?= csrf_hash() ?>',
+                        'title': title,
+                        'content': content
                     })
-                    .then(response => response.json())
-                    .then(data => {
-                        suggestedTagsContainer.innerHTML = '';
-                        if (data.length > 0) {
-                            data.forEach(tag => {
-                                const badge = document.createElement('span');
-                                badge.className = 'badge bg-primary me-1 mb-1';
-                                badge.style.cursor = 'pointer';
-                                badge.textContent = tag;
-                                badge.addEventListener('click', function() {
-                                    // Check if a checkbox with this tag already exists
-                                    let existingCheckbox = null;
-                                    document.querySelectorAll('#tag-list .form-check-label').forEach(label => {
-                                        if (label.textContent.trim().toLowerCase() === tag.toLowerCase()) {
-                                            existingCheckbox = label.previousElementSibling;
-                                        }
-                                    });
-
-                                    if (existingCheckbox) {
-                                        existingCheckbox.checked = true;
-                                    } else {
-                                        // Create a new checkbox
-                                        const newTagId = 'new_tag_' + tag.replace(/\s+/g, '_');
-                                        const newCheckbox = document.createElement('div');
-                                        newCheckbox.className = 'form-check';
-                                        newCheckbox.innerHTML = `
-                                        <input class="form-check-input" type="checkbox" name="new_tags[]" value="${tag}" id="${newTagId}" checked>
-                                        <label class="form-check-label" for="${newTagId}">${tag}</label>
-                                    `;
-                                        document.getElementById('tag-list').appendChild(newCheckbox);
-                                    }
-                                });
-                                suggestedTagsContainer.appendChild(badge);
-                            });
-                        } else {
-                            suggestedTagsContainer.innerHTML = '<p class="text-muted small">Tidak ada tag yang disarankan.</p>';
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                        suggestedTagsContainer.innerHTML = '<p class="text-danger small">Gagal menyarankan tag.</p>';
-                    })
-                    .finally(() => {
-                        suggestBtn.disabled = false;
-                        suggestBtn.innerHTML = '<i class="fas fa-wand-magic-sparkles me-2"></i>Sarankan Tag';
-                    });
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.length > 0) {
+                        data.forEach(tag => {
+                            createTag(tag);
+                        });
+                    } else {
+                        alert('Tidak ada tag yang disarankan.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    suggestedTagsContainer.innerHTML = '<p class="text-danger small">Gagal menyarankan tag.</p>';
+                })
+                .finally(() => {
+                    suggestBtn.disabled = false;
+                    suggestBtn.innerHTML = '<i class="fas fa-wand-magic-sparkles me-2"></i>Sarankan Tag';
+                });
             } catch (error) {
                 console.error('Error:', error);
                 alert('An error occurred while getting the editor content.');

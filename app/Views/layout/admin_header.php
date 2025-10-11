@@ -56,32 +56,39 @@
                 <small class="badge bg-light text-primary ms-2">Admin</small>
             </a>
 
-            <!-- User Menu -->
-            <div class="dropdown ms-auto">
-                <a href="#" class="nav-link dropdown-toggle text-white d-flex align-items-center" data-bs-toggle="dropdown">
-                    <i class="fas fa-user-circle me-2 fs-5"></i>
-                    <span class="d-none d-sm-inline"><?= session()->get('name') ?? 'Admin' ?></span>
+            <div class="d-flex align-items-center ms-auto">
+                <!-- View Site Button -->
+                <a href="<?= base_url('/') ?>" target="_blank" class="btn btn-outline-light btn-sm me-3">
+                    <i class="fas fa-eye"></i> <span class="d-none d-md-inline ms-md-2">Lihat Situs</span>
                 </a>
-                <ul class="dropdown-menu dropdown-menu-end shadow border-0">
-                    <li>
-                        <a class="dropdown-item" href="<?= base_url('admin/profile') ?>">
-                            <i class="fas fa-fw fa-user me-2"></i>Profil
-                        </a>
-                    </li>
-                    <li>
-                        <a class="dropdown-item" href="<?= base_url('admin/settings') ?>">
-                            <i class="fas fa-fw fa-cog me-2"></i>Pengaturan
-                        </a>
-                    </li>
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
-                    <li>
-                        <a class="dropdown-item text-danger" href="<?= base_url('logout') ?>">
-                            <i class="fas fa-fw fa-sign-out-alt me-2"></i>Logout
-                        </a>
-                    </li>
-                </ul>
+
+                <!-- User Menu -->
+                <div class="dropdown">
+                    <a href="#" class="nav-link dropdown-toggle text-white d-flex align-items-center" data-bs-toggle="dropdown">
+                        <i class="fas fa-user-circle me-2 fs-5"></i>
+                        <span class="d-none d-sm-inline"><?= session()->get('name') ?? 'Admin' ?></span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end shadow border-0">
+                        <li>
+                            <a class="dropdown-item" href="<?= base_url('admin/profile') ?>">
+                                <i class="fas fa-fw fa-user me-2"></i>Profil
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="<?= base_url('admin/settings') ?>">
+                                <i class="fas fa-fw fa-cog me-2"></i>Pengaturan
+                            </a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li>
+                            <a class="dropdown-item text-danger" href="<?= base_url('logout') ?>">
+                                <i class="fas fa-fw fa-sign-out-alt me-2"></i>Logout
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
     </header>

@@ -3,9 +3,6 @@
 <?= $this->section('page_title') ?>Dashboard<?= $this->endSection() ?>
 
 <?= $this->section('page_actions') ?>
-<a href="<?= base_url('/') ?>" target="_blank" class="btn btn-outline-primary btn-sm">
-    <i class="fas fa-eye me-2"></i>Lihat Situs
-</a>
 <button class="btn btn-outline-primary btn-sm" onclick="window.location.reload()">
     <i class="fas fa-sync-alt me-2"></i>Refresh
 </button>
