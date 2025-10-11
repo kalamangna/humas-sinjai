@@ -41,10 +41,14 @@ class PostModel extends Model
         return $posts;
     }
 
-    public function getPosts($slug = false, $paginate = false)
+    public function getPosts($slug = false, $paginate = false, $publishedOnly = true)
     {
         $builder = $this->select('posts.*, users.name as author_name')
             ->join('users', 'users.id = posts.user_id', 'left');
+
+        if ($publishedOnly) {
+            $builder->where('posts.status', 'published');
+        }
 
         if ($slug === false) {
             if ($paginate) {

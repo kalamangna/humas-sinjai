@@ -125,20 +125,7 @@
                         </div>
 
                         <!-- Status -->
-                        <div class="col-12">
-                            <div class="form-group">
-                                <label for="status" class="form-label fw-semibold text-dark">Status <span class="text-danger">*</span></label>
-                                <select name="status" id="status" class="form-select border-0 bg-light rounded-3 py-3 <?= (isset(session('errors')['status'])) ? 'is-invalid' : '' ?>">
-                                    <option value="published" <?= old('status') == 'published' ? 'selected' : '' ?>>Published</option>
-                                    <option value="draft" <?= old('status') == 'draft' ? 'selected' : '' ?>>Draft</option>
-                                </select>
-                                <?php if (isset(session('errors')['status'])) : ?>
-                                    <div class="invalid-feedback">
-                                        <?= session('errors')['status'] ?>
-                                    </div>
-                                <?php endif; ?>
-                            </div>
-                        </div>
+                        <input type="hidden" name="status" id="status" value="published">
                     </div>
 
                     <!-- Action Buttons -->
@@ -148,8 +135,11 @@
                                 <a href="<?= base_url('admin/posts') ?>" class="btn btn-outline-secondary px-4">
                                     <i class="fas fa-times me-2"></i>Batal
                                 </a>
+                                <button type="submit" class="btn btn-outline-primary px-4" onclick="document.getElementById('status').value = 'draft'">
+                                    <i class="fas fa-save me-2"></i>Simpan Draft
+                                </button>
                                 <button type="submit" class="btn btn-primary px-4">
-                                    <i class="fas fa-save me-2"></i>Simpan Berita
+                                    <i class="fas fa-paper-plane me-2"></i>Publish
                                 </button>
                             </div>
                         </div>

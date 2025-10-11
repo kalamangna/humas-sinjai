@@ -176,9 +176,11 @@
                                 </td>
                                 <td class="text-end pe-4">
                                     <div class="btn-group" role="group">
-                                        <a href="<?= base_url('post/' . esc($post['slug'])) ?>" target="_blank" class="btn btn-sm btn-outline-primary" data-bs-toggle="tooltip" title="Lihat">
-                                            <i class="fas fa-eye"></i>
-                                        </a>
+                                        <?php if ($post['status'] === 'published') : ?>
+                                            <a href="<?= base_url('post/' . esc($post['slug'])) ?>" target="_blank" class="btn btn-sm btn-outline-primary" data-bs-toggle="tooltip" title="Lihat">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                        <?php endif; ?>
                                         <a href="<?= base_url('admin/posts/' . $post['id'] . '/edit') ?>" class="btn btn-sm btn-outline-warning" data-bs-toggle="tooltip" title="Edit">
                                             <i class="fas fa-edit"></i>
                                         </a>

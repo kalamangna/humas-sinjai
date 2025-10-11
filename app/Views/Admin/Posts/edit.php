@@ -113,13 +113,11 @@
                             <div class="form-group">
                                 <label class="form-label fw-semibold text-dark">Tag <span class="text-danger">*</span></label>
                                 <div id="tag-container" class="form-control" style="min-height: 100px;">
-                                    <?php foreach ($tags as $tag) : ?>
-                                        <?php if (in_array($tag['id'], old('tags', $post_tags))) : ?>
-                                            <span class="tag-badge badge bg-primary me-1 mb-1"><?= esc($tag['name']) ?> <i class="fas fa-times-circle ms-1" style="cursor: pointer;"></i></span>
-                                        <?php endif; ?>
+                                    <?php foreach ($post_tag_names as $tagName) : ?>
+                                        <span class="tag-badge badge bg-primary me-1 mb-1"><?= esc($tagName) ?> <i class="fas fa-times-circle ms-1" style="cursor: pointer;"></i></span>
                                     <?php endforeach; ?>
                                 </div>
-                                <input type="hidden" name="tags" id="tags-input" value="<?= implode(',', old('tags', $post_tags)) ?>">
+                                <input type="hidden" name="tags" id="tags-input" value="<?= implode(',', old('tags', $post_tag_names)) ?>">
                                 <small class="text-muted">Klik pada tag untuk menghapusnya.</small>
                                 <?php if (isset(session('errors')['tags'])) : ?>
                                     <div class="invalid-feedback d-block">
@@ -135,20 +133,7 @@
                         </div>
 
                         <!-- Status -->
-                        <div class="col-12">
-                            <div class="form-group">
-                                <label for="status" class="form-label fw-semibold text-dark">Status <span class="text-danger">*</span></label>
-                                <select name="status" id="status" class="form-select border-0 bg-light rounded-3 py-3 <?= (isset(session('errors')['status'])) ? 'is-invalid' : '' ?>" required>
-                                    <option value="published" <?= (old('status', $post['status']) == 'published') ? 'selected' : '' ?>>Published</option>
-                                    <option value="draft" <?= (old('status', $post['status']) == 'draft') ? 'selected' : '' ?>>Draft</option>
-                                </select>
-                                <?php if (isset(session('errors')['status'])) : ?>
-                                    <div class="invalid-feedback">
-                                        <?= session('errors')['status'] ?>
-                                    </div>
-                                <?php endif; ?>
-                            </div>
-                        </div>
+                        <input type="hidden" name="status" id="status" value="<?= old('status', $post['status']) ?>">
                     </div>
 
                     <!-- Action Buttons -->
@@ -158,8 +143,11 @@
                                 <a href="<?= base_url('admin/posts') ?>" class="btn btn-outline-secondary px-4">
                                     <i class="fas fa-times me-2"></i>Batal
                                 </a>
-                                <button type="submit" class="btn btn-primary px-4">
-                                    <i class="fas fa-save me-2"></i>Perbarui Berita
+                                <button type="submit" class="btn btn-outline-primary px-4" onclick="document.getElementById('status').value = 'draft'">
+                                    <i class="fas fa-save me-2"></i>Simpan Draft
+                                </button>
+                                <button type="submit" class="btn btn-primary px-4" onclick="document.getElementById('status').value = 'published'">
+                                    <i class="fas fa-paper-plane me-2"></i>Publish
                                 </button>
                             </div>
                         </div>

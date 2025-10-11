@@ -217,7 +217,10 @@ class Posts extends BaseController
         $data['categories'] = $categories;
         $data['tags'] = $tagModel->orderBy('name', 'ASC')->findAll();
         $data['post_categories'] = array_column($postCategoryModel->where('post_id', $id)->findAll(), 'category_id');
-        $data['post_tags'] = array_column($tagModel->select('tags.id')->join('post_tags', 'post_tags.tag_id = tags.id')->where('post_tags.post_id', $id)->findAll(), 'id');
+
+        $post_tags = $tagModel->select('tags.id, tags.name')->join('post_tags', 'post_tags.tag_id = tags.id')->where('post_tags.post_id', $id)->findAll();
+        $data['post_tag_ids'] = array_column($post_tags, 'id');
+        $data['post_tag_names'] = array_column($post_tags, 'name');
 
         return $this->render('Admin/Posts/edit', $data);
     }

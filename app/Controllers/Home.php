@@ -43,10 +43,10 @@ class Home extends BaseController
         $data['tags'] = $data['post']['tags'];
 
         // Fetch recent posts
-        $data['recent_posts'] = $postModel->orderBy('published_at', 'DESC')->limit(5)->findAll();
+        $data['recent_posts'] = $postModel->where('status', 'published')->orderBy('published_at', 'DESC')->limit(5)->findAll();
 
         // Fetch popular posts
-        $data['popular_posts'] = $postModel->orderBy('views', 'DESC')->limit(5)->findAll();
+        $data['popular_posts'] = $postModel->where('status', 'published')->orderBy('views', 'DESC')->limit(5)->findAll();
 
         // Fetch related posts
         $categoryIds = array_column($data['post']['categories'], 'id');
@@ -54,7 +54,7 @@ class Home extends BaseController
 
         $relatedPosts = [];
         if (!empty($categoryIds) || !empty($tagIds)) {
-            $builder = $postModel->where('posts.id !=', $data['post']['id']);
+            $builder = $postModel->where('posts.id !=', $data['post']['id'])->where('status', 'published');
 
             $builder->groupStart();
             if (!empty($categoryIds)) {
@@ -96,7 +96,7 @@ class Home extends BaseController
 
         if (!empty($postIds)) {
             // 2. Fetch those posts and all their associated categories
-            $posts = $postModel->whereIn('posts.id', $postIds)->orderBy('posts.published_at', 'DESC')->paginate(10);
+            $posts = $postModel->whereIn('posts.id', $postIds)->where('status', 'published')->orderBy('posts.published_at', 'DESC')->paginate(10);
             $data['posts'] = $postModel->withCategoriesAndTags($posts);
             $data['pager'] = $postModel->pager;
         }
@@ -127,7 +127,7 @@ class Home extends BaseController
 
         if (!empty($postIds)) {
             // 2. Fetch those posts and all their associated categories
-            $posts = $postModel->whereIn('posts.id', $postIds)->orderBy('posts.published_at', 'DESC')->paginate(10);
+            $posts = $postModel->whereIn('posts.id', $postIds)->where('status', 'published')->orderBy('posts.published_at', 'DESC')->paginate(10);
             $data['posts'] = $postModel->withCategoriesAndTags($posts);
             $data['pager'] = $postModel->pager;
         }
@@ -157,7 +157,7 @@ class Home extends BaseController
 
         $postModel = new PostModel();
         $query = $this->request->getGet('q');
-        $posts = $postModel->like('title', $query)->orLike('content', $query)->orderBy('posts.published_at', 'DESC')->findAll();
+        $posts = $postModel->where('status', 'published')->like('title', $query)->orLike('content', $query)->orderBy('posts.published_at', 'DESC')->findAll();
         $data = [
             'posts' => $postModel->withCategoriesAndTags($posts),
             'query' => $query,
@@ -172,7 +172,7 @@ class Home extends BaseController
     public function posts()
     {
         $postModel = new PostModel();
-        $posts = $postModel->getPosts(false, true, 10); // Get paginated basic post data
+        $posts = $postModel->getPosts(false, true); // Get paginated basic post data
         $data = [
             'posts' => $postModel->withCategoriesAndTags($posts),
             'pager' => $postModel->pager,
@@ -237,7 +237,7 @@ class Home extends BaseController
     public function rss()
     {
         $postModel = new PostModel();
-        $posts = $postModel->orderBy('published_at', 'DESC')->limit(20)->findAll();
+        $posts = $postModel->where('status', 'published')->orderBy('published_at', 'DESC')->limit(20)->findAll();
 
         $this->response->setHeader('Content-Type', 'application/rss+xml');
 
