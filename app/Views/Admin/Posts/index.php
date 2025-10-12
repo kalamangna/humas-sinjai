@@ -115,15 +115,16 @@
             <table class="table table-hover mb-0">
                 <thead class="bg-light">
                     <tr>
-                        <th class="border-0 ps-4">Gambar</th>
-                        <th class="border-0">Judul Berita</th>
-                        <th class="border-0">Kategori</th>
-                        <th class="border-0 text-center">Tag</th>
-                        <th class="border-0">Status</th>
-                        <th class="border-0">Penulis</th>
-                        <th class="border-0">Tanggal</th>
-                        <th class="border-0">Dilihat</th>
-                        <th class="border-0 text-end pe-4">Aksi</th>
+                        <th class="border-0 ps-4 align-middle">Gambar</th>
+                        <th class="border-0 align-middle">Judul Berita</th>
+                        <th class="border-0 align-middle">Kategori</th>
+                        <th class="border-0 text-center align-middle">Tag</th>
+                        <th class="border-0 align-middle">Status</th>
+                        <th class="border-0 align-middle">Penulis</th>
+                        <th class="border-0 align-middle">Tanggal Dibuat</th>
+                        <th class="border-0 align-middle">Tanggal Publikasi</th>
+                        <th class="border-0 align-middle">Dilihat</th>
+                        <th class="border-0 text-end pe-4 align-middle">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -175,7 +176,12 @@
                                 </td>
                                 <td>
                                     <small class="text-muted">
-                                        <?= format_date($post['published_at'] ?? $post['created_at']) ?>
+                                        <?= format_date($post['created_at']) ?>
+                                    </small>
+                                </td>
+                                <td>
+                                    <small class="text-muted">
+                                        <?= $post['published_at'] ? format_date($post['published_at']) : '-' ?>
                                     </small>
                                 </td>
                                 <td>
@@ -204,7 +210,7 @@
                         <?php endforeach; ?>
                     <?php else: ?>
                         <tr>
-                            <td colspan="9" class="text-center py-5">
+                            <td colspan="10" class="text-center py-5">
                                 <?php if (!empty($filters['search']) || !empty($filters['category']) || !empty($filters['author']) || !empty($filters['status'])) : ?>
                                     <i class="fas fa-search fa-3x text-muted mb-3"></i>
                                     <h5 class="text-muted">Tidak ada berita ditemukan</h5>
