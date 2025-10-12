@@ -79,6 +79,13 @@
                             </div>
                         </div>
 
+                        <div class="col-12" id="published_at_container" style="display: <?= old('status', $post['status']) === 'published' ? 'block' : 'none' ?>;">
+                            <div class="form-group">
+                                <label for="published_at" class="form-label fw-semibold text-dark">Tanggal Publikasi</label>
+                                <input type="datetime-local" name="published_at" id="published_at" class="form-control" value="<?= old('published_at', $post['published_at'] ? date('Y-m-d\TH:i', strtotime($post['published_at'])) : '') ?>">
+                            </div>
+                        </div>
+
                         <!-- Kategori & Tags -->
                         <div class="col-md-6">
                             <div class="form-group">
@@ -143,12 +150,18 @@
                                 <a href="<?= base_url('admin/posts') ?>" class="btn btn-outline-secondary px-4">
                                     <i class="fas fa-times me-2"></i>Batal
                                 </a>
-                                <button type="submit" class="btn btn-outline-primary px-4" onclick="document.getElementById('status').value = 'draft'">
-                                    <i class="fas fa-save me-2"></i>Simpan Draft
-                                </button>
-                                <button type="submit" class="btn btn-primary px-4" onclick="document.getElementById('status').value = 'published'">
-                                    <i class="fas fa-paper-plane me-2"></i>Publish
-                                </button>
+                                <?php if ($post['status'] === 'published') : ?>
+                                    <button type="submit" class="btn btn-primary px-4">
+                                        <i class="fas fa-save me-2"></i>Perbarui Berita
+                                    </button>
+                                <?php else : ?>
+                                    <button type="submit" class="btn btn-outline-primary px-4" onclick="document.getElementById('status').value = 'draft'">
+                                        <i class="fas fa-save me-2"></i>Simpan Draft
+                                    </button>
+                                    <button type="submit" class="btn btn-primary px-4" onclick="document.getElementById('status').value = 'published'">
+                                        <i class="fas fa-paper-plane me-2"></i>Publish
+                                    </button>
+                                <?php endif; ?>
                             </div>
                         </div>
                     </div>
@@ -162,12 +175,42 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
+        const statusInput = document.getElementById('status');
+        const publishedAtContainer = document.getElementById('published_at_container');
+
+        function togglePublishedAt(status) {
+            if (status === 'published') {
+                publishedAtContainer.style.display = 'block';
+            } else {
+                publishedAtContainer.style.display = 'none';
+            }
+        }
+
+        togglePublishedAt(statusInput.value);
+
+        // This is a hack to listen to the change of the hidden status input
+        const observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                if (mutation.type === "attributes") {
+                    togglePublishedAt(statusInput.value);
+                }
+            });
+        });
+
+        observer.observe(statusInput, {
+            attributes: true //configure it to listen to attribute changes
+        });
+    });
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
         const suggestBtn = document.getElementById('suggest-tags-btn');
         const suggestedTagsContainer = document.getElementById('suggested-tags');
         const tagContainer = document.getElementById('tag-container');
         const tagsInput = document.getElementById('tags-input');
         const titleInput = document.getElementById('title');
-        
+
         function updateTagsInput() {
             const tags = [];
             tagContainer.querySelectorAll('.tag-badge').forEach(badge => {
@@ -192,7 +235,7 @@
             const badge = document.createElement('span');
             badge.className = 'tag-badge badge bg-primary me-1 mb-1';
             badge.innerHTML = `${tag} <i class="fas fa-times-circle ms-1" style="cursor: pointer;"></i>`;
-            
+
             badge.querySelector('i').addEventListener('click', function() {
                 badge.remove();
                 updateTagsInput();
@@ -230,35 +273,35 @@
                 suggestBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Menyarankan...';
 
                 fetch('<?= base_url('api/tags/suggest') ?>', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded',
-                        'X-Requested-With': 'XMLHttpRequest'
-                    },
-                    body: new URLSearchParams({
-                        '<?= csrf_token() ?>': '<?= csrf_hash() ?>',
-                        'title': title,
-                        'content': content
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                            'X-Requested-With': 'XMLHttpRequest'
+                        },
+                        body: new URLSearchParams({
+                            '<?= csrf_token() ?>': '<?= csrf_hash() ?>',
+                            'title': title,
+                            'content': content
+                        })
                     })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.length > 0) {
-                        data.forEach(tag => {
-                            createTag(tag);
-                        });
-                    } else {
-                        alert('Tidak ada tag yang disarankan.');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    suggestedTagsContainer.innerHTML = '<p class="text-danger small">Gagal menyarankan tag.</p>';
-                })
-                .finally(() => {
-                    suggestBtn.disabled = false;
-                    suggestBtn.innerHTML = '<i class="fas fa-wand-magic-sparkles me-2"></i>Sarankan Tag';
-                });
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.length > 0) {
+                            data.forEach(tag => {
+                                createTag(tag);
+                            });
+                        } else {
+                            alert('Tidak ada tag yang disarankan.');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        suggestedTagsContainer.innerHTML = '<p class="text-danger small">Gagal menyarankan tag.</p>';
+                    })
+                    .finally(() => {
+                        suggestBtn.disabled = false;
+                        suggestBtn.innerHTML = '<i class="fas fa-wand-magic-sparkles me-2"></i>Sarankan Tag';
+                    });
             } catch (error) {
                 console.error('Error:', error);
                 alert('An error occurred while getting the editor content.');

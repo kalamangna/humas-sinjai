@@ -15,10 +15,10 @@
     <div class="card-body">
         <form action="<?= base_url('admin/posts') ?>" method="get">
             <div class="row g-3">
-                <div class="col-md-3">
+                <div class="col-md-4 col-lg-3">
                     <input type="text" name="search" class="form-control" placeholder="Cari judul berita..." value="<?= esc($filters['search'] ?? '') ?>">
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-4 col-lg-3">
                     <select name="category" class="form-select">
                         <option value="">Semua Kategori</option>
                         <?php foreach ($categories as $category) : ?>
@@ -26,7 +26,7 @@
                         <?php endforeach; ?>
                     </select>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-4 col-lg-3">
                     <select name="author" class="form-select">
                         <option value="">Semua Penulis</option>
                         <?php foreach ($users as $user) : ?>
@@ -34,7 +34,14 @@
                         <?php endforeach; ?>
                     </select>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-4 col-lg-3">
+                    <select name="status" class="form-select">
+                        <option value="">Semua Status</option>
+                        <option value="published" <?= ($filters['status'] ?? '') == 'published' ? 'selected' : '' ?>>Published</option>
+                        <option value="draft" <?= ($filters['status'] ?? '') == 'draft' ? 'selected' : '' ?>>Draft</option>
+                    </select>
+                </div>
+                <div class="col-md-4 col-lg-3">
                     <div class="d-grid d-md-flex gap-2">
                         <button type="submit" class="btn btn-primary w-100">Filter</button>
                         <a href="<?= base_url('admin/posts') ?>" class="btn btn-outline-secondary w-100">Reset</a>
@@ -197,8 +204,8 @@
                         <?php endforeach; ?>
                     <?php else: ?>
                         <tr>
-                            <td colspan="8" class="text-center py-5">
-                                <?php if (!empty($filters['search']) || !empty($filters['category']) || !empty($filters['author'])) : ?>
+                            <td colspan="9" class="text-center py-5">
+                                <?php if (!empty($filters['search']) || !empty($filters['category']) || !empty($filters['author']) || !empty($filters['status'])) : ?>
                                     <i class="fas fa-search fa-3x text-muted mb-3"></i>
                                     <h5 class="text-muted">Tidak ada berita ditemukan</h5>
                                     <p class="text-muted">Tidak ada berita yang sesuai dengan kriteria pencarian Anda.</p>

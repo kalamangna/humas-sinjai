@@ -22,6 +22,7 @@ class Posts extends BaseController
             'search'   => $this->request->getGet('search'),
             'category' => $this->request->getGet('category'),
             'author'   => $this->request->getGet('author'),
+            'status'   => $this->request->getGet('status'),
         ];
 
         // Base query for filtering
@@ -45,9 +46,12 @@ class Posts extends BaseController
         if (!empty($filters['author'])) {
             $builder->where('posts.user_id', $filters['author']);
         }
+        if (!empty($filters['status'])) {
+            $builder->where('posts.status', $filters['status']);
+        }
 
         $data = [
-            'posts'           => $builder->orderBy('posts.published_at', 'DESC')->paginate(10, 'posts'),
+            'posts'           => $builder->orderBy('posts.created_at', 'DESC')->paginate(10, 'posts'),
             'pager'           => $postModel->pager,
             'filters'         => $filters,
             'categories'      => $categoryModel->findAll(),
@@ -123,17 +127,21 @@ class Posts extends BaseController
             $thumbnailName = base_url('uploads/thumbnails/' . $thumbnailName);
         }
 
+        $status = $this->request->getPost('status');
         $postData = [
             'title'        => $this->request->getPost('title'),
             'slug'         => url_title($this->request->getPost('title'), '-', true),
             // TODO: Sanitize HTML content before saving to the database to prevent XSS attacks.
             'content'      => $this->request->getPost('content'),
-            'status'       => $this->request->getPost('status'),
+            'status'       => $status,
             'user_id'      => session()->get('user_id'),
-            'published_at' => date('Y-m-d H:i:s'),
             'thumbnail'    => $thumbnailName,
             'thumbnail_caption' => $this->request->getPost('thumbnail_caption'),
         ];
+
+        if ($status === 'published') {
+            $postData['published_at'] = date('Y-m-d H:i:s');
+        }
 
         if ($postModel->save($postData)) {
             $postId = $postModel->getInsertID();
@@ -255,15 +263,26 @@ class Posts extends BaseController
         $postCategoryModel = new PostCategoryModel();
         $postTagModel = new PostTagModel();
 
+        $status = $this->request->getPost('status');
         $postData = [
             'title'   => $this->request->getPost('title'),
             'slug'    => url_title($this->request->getPost('title'), '-', true),
             // TODO: Sanitize HTML content before saving to the database to prevent XSS attacks.
             'content' => $this->request->getPost('content'),
-            'status'  => $this->request->getPost('status'),
+            'status'  => $status,
             'user_id' => session()->get('user_id'),
             'thumbnail_caption' => $this->request->getPost('thumbnail_caption'),
         ];
+
+        if ($status === 'published') {
+            if ($this->request->getPost('published_at')) {
+                $postData['published_at'] = $this->request->getPost('published_at');
+            } elseif (empty($post['published_at'])) {
+                $postData['published_at'] = date('Y-m-d H:i:s');
+            }
+        } else {
+            $postData['published_at'] = null;
+        }
 
         // Handle file upload
         $file = $this->request->getFile('thumbnail');
