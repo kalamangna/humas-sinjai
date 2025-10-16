@@ -10,27 +10,27 @@ use Google\Analytics\Data\V1beta\Metric;
 
 class Analytics extends BaseController
 {
-    public function index()
+    public function overviewView()
     {
         return $this->render('Admin/Analytics/overview');
     }
 
-    public function top_pages()
+    public function topPagesView()
     {
         return $this->render('Admin/Analytics/top_pages');
     }
 
-    public function traffic_sources()
+    public function trafficSourcesView()
     {
         return $this->render('Admin/Analytics/traffic_sources');
     }
 
-    public function geo()
+    public function geoView()
     {
         return $this->render('Admin/Analytics/geo');
     }
 
-    public function device_category()
+    public function deviceCategoryView()
     {
         return $this->render('Admin/Analytics/device_category');
     }
@@ -91,7 +91,7 @@ class Analytics extends BaseController
         }
     }
 
-    public function getTopPages()
+    public function topPages()
     {
         try {
             $propertyId = getenv('GA4_PROPERTY_ID');
@@ -156,7 +156,7 @@ class Analytics extends BaseController
         }
     }
 
-    public function getTrafficSources()
+    public function trafficSources()
     {
         try {
             $propertyId = getenv('GA4_PROPERTY_ID');
@@ -214,7 +214,7 @@ class Analytics extends BaseController
         }
     }
 
-    public function getGeo()
+    public function geo()
     {
         try {
             $propertyId = getenv('GA4_PROPERTY_ID');
@@ -272,7 +272,7 @@ class Analytics extends BaseController
         }
     }
 
-    public function getDeviceCategory()
+    public function deviceCategory()
     {
         try {
             $propertyId = getenv('GA4_PROPERTY_ID');

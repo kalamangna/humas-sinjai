@@ -30,20 +30,20 @@ $routes->get('sitemap.xml', 'Home::sitemap');
 $routes->post('api/tags/suggest', 'Api\TagSuggestion::suggest');
 
 $routes->get('api/analytics/overview', 'Admin\\Analytics::overview');
-$routes->get('api/analytics/top-pages', 'Admin\\Analytics::getTopPages');
-$routes->get('api/analytics/traffic-sources', 'Admin\\Analytics::getTrafficSources');
-$routes->get('api/analytics/geo', 'Admin\\Analytics::getGeo');
-$routes->get('api/analytics/device-category', 'Admin\\Analytics::getDeviceCategory');
+$routes->get('api/analytics/top-pages', 'Admin\\Analytics::topPages');
+$routes->get('api/analytics/traffic-sources', 'Admin\\Analytics::trafficSources');
+$routes->get('api/analytics/geo', 'Admin\\Analytics::geo');
+$routes->get('api/analytics/device-category', 'Admin\\Analytics::deviceCategory');
 
 $routes->get('auth/login', 'Auth\\Login::index');
 $routes->post('auth/login', 'Auth\\Login::login');
 
 $routes->group('admin', ['filter' => 'admin'], static function ($routes) {
-    $routes->get('analytics/overview', 'Admin\\Analytics::index');
-    $routes->get('analytics/top-pages', 'Admin\\Analytics::top_pages');
-    $routes->get('analytics/traffic-sources', 'Admin\\Analytics::traffic_sources');
-    $routes->get('analytics/geo', 'Admin\\Analytics::geo');
-    $routes->get('analytics/device-category', 'Admin\\Analytics::device_category');
+    $routes->get('analytics/overview', 'Admin\\Analytics::overviewView');
+    $routes->get('analytics/top-pages', 'Admin\\Analytics::topPagesView');
+    $routes->get('analytics/traffic-sources', 'Admin\\Analytics::trafficSourcesView');
+    $routes->get('analytics/geo', 'Admin\\Analytics::geoView');
+    $routes->get('analytics/device-category', 'Admin\\Analytics::deviceCategoryView');
     $routes->get('/', 'Admin\Dashboard::index');
     $routes->resource('posts', ['controller' => 'Admin\Posts']);
     $routes->post('posts/upload_image', 'Admin\Posts::upload_image');

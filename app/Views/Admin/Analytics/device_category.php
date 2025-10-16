@@ -2,6 +2,12 @@
 
 <?= $this->section('page_title') ?>Kategori Perangkat<?= $this->endSection() ?>
 
+<?= $this->section('page_actions') ?>
+<a href="<?= base_url('admin/analytics/overview') ?>" class="btn btn-outline-primary btn-sm">
+    <i class="fas fa-arrow-left me-2"></i>Kembali
+</a>
+<?= $this->endSection() ?>
+
 <?= $this->section('content') ?>
 <div class="container-fluid">
     <div id="loading-spinner" class="d-flex justify-content-center align-items-center" style="height: 50vh;">

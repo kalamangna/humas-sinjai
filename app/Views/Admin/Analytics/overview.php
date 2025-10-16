@@ -81,6 +81,44 @@
                 </div>
             </div>
         </div>
+
+        <div class="row mt-5">
+            <div class="col-12">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-header bg-transparent border-bottom-0 py-3">
+                        <h5 class="fw-bold text-dark mb-0"><i class="fas fa-chart-bar me-2"></i>Laporan Lanjutan</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row g-3">
+                            <div class="col-md-3">
+                                <a href="<?= base_url('admin/analytics/top-pages') ?>" class="btn btn-outline-primary w-100 d-flex flex-column align-items-center py-3 text-decoration-none">
+                                    <i class="fas fa-file-alt fs-2 mb-2"></i>
+                                    <span>Halaman Teratas</span>
+                                </a>
+                            </div>
+                            <div class="col-md-3">
+                                <a href="<?= base_url('admin/analytics/traffic-sources') ?>" class="btn btn-outline-success w-100 d-flex flex-column align-items-center py-3 text-decoration-none">
+                                    <i class="fas fa-globe fs-2 mb-2"></i>
+                                    <span>Sumber Lalu Lintas</span>
+                                </a>
+                            </div>
+                            <div class="col-md-3">
+                                <a href="<?= base_url('admin/analytics/geo') ?>" class="btn btn-outline-info w-100 d-flex flex-column align-items-center py-3 text-decoration-none">
+                                    <i class="fas fa-map-marker-alt fs-2 mb-2"></i>
+                                    <span>Geografis</span>
+                                </a>
+                            </div>
+                            <div class="col-md-3">
+                                <a href="<?= base_url('admin/analytics/device-category') ?>" class="btn btn-outline-warning w-100 d-flex flex-column align-items-center py-3 text-decoration-none">
+                                    <i class="fas fa-desktop fs-2 mb-2"></i>
+                                    <span>Kategori Perangkat</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 

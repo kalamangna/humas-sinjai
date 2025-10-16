@@ -31,44 +31,10 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link d-flex align-items-center py-3 <?= url_is('admin/analytics*') ? 'active text-primary fw-bold' : 'text-dark' ?>" href="#analytics-submenu" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="analytics-submenu">
+                        <a class="nav-link d-flex align-items-center py-3 <?= url_is('admin/analytics*') ? 'active text-primary fw-bold' : 'text-dark' ?>" href="<?= base_url('admin/analytics/overview') ?>">
                             <i class="fas fa-fw fa-chart-line me-3"></i>
                             Analitik
                         </a>
-                        <div class="collapse" id="analytics-submenu">
-                            <ul class="nav flex-column ms-4">
-                                <li class="nav-item">
-                                    <a class="nav-link d-flex align-items-center py-2 <?= url_is('admin/analytics/overview') ? 'active text-primary' : 'text-dark' ?>" href="<?= base_url('admin/analytics/overview') ?>">
-                                        <i class="fas fa-fw fa-tachometer-alt me-2"></i>
-                                        Gambaran
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link d-flex align-items-center py-2 <?= url_is('admin/analytics/top-pages') ? 'active text-primary' : 'text-dark' ?>" href="<?= base_url('admin/analytics/top-pages') ?>">
-                                        <i class="fas fa-fw fa-file-alt me-2"></i>
-                                        Halaman Teratas
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link d-flex align-items-center py-2 <?= url_is('admin/analytics/traffic-sources') ? 'active text-primary' : 'text-dark' ?>" href="<?= base_url('admin/analytics/traffic-sources') ?>">
-                                        <i class="fas fa-fw fa-globe me-2"></i>
-                                        Sumber Lalu Lintas
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link d-flex align-items-center py-2 <?= url_is('admin/analytics/geo') ? 'active text-primary' : 'text-dark' ?>" href="<?= base_url('admin/analytics/geo') ?>">
-                                        <i class="fas fa-fw fa-map-marker-alt me-2"></i>
-                                        Geografis
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link d-flex align-items-center py-2 <?= url_is('admin/analytics/device-category') ? 'active text-primary' : 'text-dark' ?>" href="<?= base_url('admin/analytics/device-category') ?>">
-                                        <i class="fas fa-fw fa-desktop me-2"></i>
-                                        Kategori Perangkat
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
                     </li>
                     <?php if (session()->get('role') === 'admin') : ?>
                         <li class="nav-item">
