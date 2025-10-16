@@ -247,4 +247,20 @@ class Home extends BaseController
 
         return view('rss', $data);
     }
+
+    public function sitemap()
+    {
+        $postModel = new PostModel();
+        $categoryModel = new CategoryModel();
+        $tagModel = new TagModel();
+
+        $data = [
+            'posts' => $postModel->where('status', 'published')->orderBy('published_at', 'DESC')->findAll(),
+            'categories' => $categoryModel->findAll(),
+            'tags' => $tagModel->findAll(),
+        ];
+
+        $this->response->setHeader('Content-Type', 'application/xml');
+        return view('sitemap', $data);
+    }
 }

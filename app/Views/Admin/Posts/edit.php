@@ -21,7 +21,7 @@
             </div>
 
             <div class="card-body">
-                <form action="<?= base_url('admin/posts/' . $post['id']) ?>" method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+                <form action="<?= base_url('admin/posts/' . $post['id']) ?>" method="post" enctype="multipart/form-data">
                     <input type="hidden" name="_method" value="PUT">
                     <?= csrf_field() ?>
 
@@ -58,7 +58,13 @@
                         <div class="col-12">
                             <div class="form-group">
                                 <label for="thumbnail" class="form-label fw-semibold text-dark">Gambar <span class="text-danger">*</span></label>
-                                <input type="file" name="thumbnail" id="thumbnail" class="form-control <?= (isset(session('errors')['thumbnail'])) ? 'is-invalid' : '' ?>" onchange="previewImage()">
+                                <div class="input-group">
+                                    <input type="file" name="thumbnail" id="thumbnail" class="form-control <?= (isset(session('errors')['thumbnail'])) ? 'is-invalid' : '' ?>" onchange="previewImage()">
+                                    <input type="hidden" name="pasted_thumbnail" id="pasted_thumbnail">
+                                    <button type="button" id="paste-thumbnail-btn" class="btn btn-outline-secondary">
+                                        <i class="fas fa-paste"></i>
+                                    </button>
+                                </div>
                                 <small class="text-muted">Tipe file yang diizinkan: jpg, jpeg, png, webp. Ukuran maksimal: 2MB.</small>
                                 <?php if (isset(session('errors')['thumbnail'])) : ?>
                                     <div class="invalid-feedback">
@@ -124,7 +130,7 @@
                                         <span class="tag-badge badge bg-primary me-1 mb-1"><?= esc($tagName) ?> <i class="fas fa-times-circle ms-1" style="cursor: pointer;"></i></span>
                                     <?php endforeach; ?>
                                 </div>
-                                <input type="hidden" name="tags" id="tags-input" value="<?= implode(',', old('tags', $post_tag_names)) ?>">
+                                <input type="hidden" name="tags" id="tags-input" value="<?= implode(',', is_string(old('tags')) ? explode(',', old('tags')) : old('tags', $post_tag_names)) ?>">
                                 <small class="text-muted">Klik pada tag untuk menghapusnya.</small>
                                 <?php if (isset(session('errors')['tags'])) : ?>
                                     <div class="invalid-feedback d-block">
@@ -155,10 +161,10 @@
                                         <i class="fas fa-save me-2"></i>Perbarui Berita
                                     </button>
                                 <?php else : ?>
-                                    <button type="submit" class="btn btn-outline-primary px-4" onclick="document.getElementById('status').value = 'draft'">
+                                    <button type="submit" name="status" value="draft" class="btn btn-outline-primary px-4">
                                         <i class="fas fa-save me-2"></i>Simpan Draft
                                     </button>
-                                    <button type="submit" class="btn btn-primary px-4" onclick="document.getElementById('status').value = 'published'">
+                                    <button type="submit" name="status" value="published" class="btn btn-primary px-4">
                                         <i class="fas fa-paper-plane me-2"></i>Publish
                                     </button>
                                 <?php endif; ?>
@@ -172,6 +178,54 @@
 </div>
 
 <?= $this->include('layout/admin_validation_script') ?>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const thumbnailInput = document.getElementById('thumbnail');
+        const pasteBtn = document.getElementById('paste-thumbnail-btn');
+        
+        thumbnailInput.addEventListener('paste', function(e) {
+            const items = (e.clipboardData || e.originalEvent.clipboardData).items;
+            for (const item of items) {
+                if (item.type.indexOf('image') === 0) {
+                    const blob = item.getAsFile();
+                    const reader = new FileReader();
+                    reader.onload = function(event) {
+                        document.getElementById('pasted_thumbnail').value = event.target.result;
+                        document.getElementById('thumbnail-preview').src = event.target.result;
+                        document.getElementById('thumbnail-preview').style.display = 'block';
+                    };
+                    reader.readAsDataURL(blob);
+                }
+            }
+        });
+
+        pasteBtn.addEventListener('click', async function() {
+            try {
+                const clipboardItems = await navigator.clipboard.read();
+                for (const item of clipboardItems) {
+                    const isJpg = item.types.includes('image/jpeg');
+                    const isPng = item.types.includes('image/png');
+                    const isWebp = item.types.includes('image/webp');
+
+                    if (isJpg || isPng || isWebp) {
+                        const blob = await item.getType(item.types.find(type => type.startsWith('image/')));
+                        const reader = new FileReader();
+                        reader.onload = function(event) {
+                            document.getElementById('pasted_thumbnail').value = event.target.result;
+                            document.getElementById('thumbnail-preview').src = event.target.result;
+                            document.getElementById('thumbnail-preview').style.display = 'block';
+                        };
+                        reader.readAsDataURL(blob);
+                    }
+                }
+            } catch (err) {
+                console.error('Failed to read clipboard contents: ', err);
+                alert('Gagal menempel gambar dari clipboard. Pastikan Anda telah menyalin gambar.');
+            }
+        });
+    });
+</script>
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -210,7 +264,7 @@
         const tagContainer = document.getElementById('tag-container');
         const tagsInput = document.getElementById('tags-input');
         const titleInput = document.getElementById('title');
-
+        
         function updateTagsInput() {
             const tags = [];
             tagContainer.querySelectorAll('.tag-badge').forEach(badge => {
@@ -235,7 +289,7 @@
             const badge = document.createElement('span');
             badge.className = 'tag-badge badge bg-primary me-1 mb-1';
             badge.innerHTML = `${tag} <i class="fas fa-times-circle ms-1" style="cursor: pointer;"></i>`;
-
+            
             badge.querySelector('i').addEventListener('click', function() {
                 badge.remove();
                 updateTagsInput();
@@ -273,35 +327,35 @@
                 suggestBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Menyarankan...';
 
                 fetch('<?= base_url('api/tags/suggest') ?>', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/x-www-form-urlencoded',
-                            'X-Requested-With': 'XMLHttpRequest'
-                        },
-                        body: new URLSearchParams({
-                            '<?= csrf_token() ?>': '<?= csrf_hash() ?>',
-                            'title': title,
-                            'content': content
-                        })
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'X-Requested-With': 'XMLHttpRequest'
+                    },
+                    body: new URLSearchParams({
+                        '<?= csrf_token() ?>': '<?= csrf_hash() ?>',
+                        'title': title,
+                        'content': content
                     })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.length > 0) {
-                            data.forEach(tag => {
-                                createTag(tag);
-                            });
-                        } else {
-                            alert('Tidak ada tag yang disarankan.');
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                        suggestedTagsContainer.innerHTML = '<p class="text-danger small">Gagal menyarankan tag.</p>';
-                    })
-                    .finally(() => {
-                        suggestBtn.disabled = false;
-                        suggestBtn.innerHTML = '<i class="fas fa-wand-magic-sparkles me-2"></i>Sarankan Tag';
-                    });
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.length > 0) {
+                        data.forEach(tag => {
+                            createTag(tag);
+                        });
+                    } else {
+                        alert('Tidak ada tag yang disarankan.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    suggestedTagsContainer.innerHTML = '<p class="text-danger small">Gagal menyarankan tag.</p>';
+                })
+                .finally(() => {
+                    suggestBtn.disabled = false;
+                    suggestBtn.innerHTML = '<i class="fas fa-wand-magic-sparkles me-2"></i>Sarankan Tag';
+                });
             } catch (error) {
                 console.error('Error:', error);
                 alert('An error occurred while getting the editor content.');

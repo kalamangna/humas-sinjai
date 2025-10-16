@@ -21,7 +21,7 @@
             </div>
 
             <div class="card-body">
-                <form action="<?= base_url('admin/posts') ?>" method="post" enctype="multipart/form-data" novalidate>
+                <form action="<?= base_url('admin/posts') ?>" method="post" enctype="multipart/form-data">
                     <?= csrf_field() ?>
 
                     <div class="row g-3">
@@ -57,7 +57,13 @@
                         <div class="col-12">
                             <div class="form-group">
                                 <label for="thumbnail" class="form-label fw-semibold text-dark">Gambar <span class="text-danger">*</span></label>
-                                <input type="file" name="thumbnail" id="thumbnail" class="form-control <?= (isset(session('errors')['thumbnail'])) ? 'is-invalid' : '' ?>" onchange="previewImage()">
+                                <div class="input-group">
+                                    <input type="file" name="thumbnail" id="thumbnail" class="form-control <?= (isset(session('errors')['thumbnail'])) ? 'is-invalid' : '' ?>" onchange="previewImage()">
+                                <input type="hidden" name="pasted_thumbnail" id="pasted_thumbnail">
+                                    <button type="button" id="paste-thumbnail-btn" class="btn btn-outline-secondary">
+                                        <i class="fas fa-paste"></i>
+                                    </button>
+                                </div>
                                 <small class="text-muted">Tipe file yang diizinkan: jpg, jpeg, png, webp. Ukuran maksimal: 2MB.</small>
                                 <?php if (isset(session('errors')['thumbnail'])) : ?>
                                     <div class="invalid-feedback">
@@ -135,10 +141,10 @@
                                 <a href="<?= base_url('admin/posts') ?>" class="btn btn-outline-secondary px-4">
                                     <i class="fas fa-times me-2"></i>Batal
                                 </a>
-                                <button type="submit" class="btn btn-outline-primary px-4" onclick="document.getElementById('status').value = 'draft'">
+                                <button type="submit" name="status" value="draft" class="btn btn-outline-primary px-4">
                                     <i class="fas fa-save me-2"></i>Simpan Draft
                                 </button>
-                                <button type="submit" class="btn btn-primary px-4">
+                                <button type="submit" name="status" value="published" class="btn btn-primary px-4">
                                     <i class="fas fa-paper-plane me-2"></i>Publish
                                 </button>
                             </div>
@@ -151,6 +157,37 @@
 </div>
 
 <?= $this->include('layout/admin_validation_script') ?>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const pasteBtn = document.getElementById('paste-thumbnail-btn');
+        
+        pasteBtn.addEventListener('click', async function() {
+            try {
+                const clipboardItems = await navigator.clipboard.read();
+                for (const item of clipboardItems) {
+                    const isJpg = item.types.includes('image/jpeg');
+                    const isPng = item.types.includes('image/png');
+                    const isWebp = item.types.includes('image/webp');
+
+                    if (isJpg || isPng || isWebp) {
+                        const blob = await item.getType(item.types.find(type => type.startsWith('image/')));
+                        const reader = new FileReader();
+                        reader.onload = function(event) {
+                            document.getElementById('pasted_thumbnail').value = event.target.result;
+                            document.getElementById('thumbnail-preview').src = event.target.result;
+                            document.getElementById('thumbnail-preview').style.display = 'block';
+                        };
+                        reader.readAsDataURL(blob);
+                    }
+                }
+            } catch (err) {
+                console.error('Failed to read clipboard contents: ', err);
+                alert('Gagal menempel gambar dari clipboard. Pastikan Anda telah menyalin gambar.');
+            }
+        });
+    });
+</script>
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {

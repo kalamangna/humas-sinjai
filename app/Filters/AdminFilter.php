@@ -10,8 +10,8 @@ class AdminFilter implements FilterInterface
 {
     public function before(RequestInterface $request, $arguments = null)
     {
-        if (session()->get('role') !== 'admin') {
-            return redirect()->to('/admin')->with('error', 'You do not have permission to access this page.');
+        if (!in_array(session()->get('role'), ['admin', 'author'])) {
+            return redirect()->to('/login')->with('error', 'You do not have permission to access this page.');
         }
     }
 

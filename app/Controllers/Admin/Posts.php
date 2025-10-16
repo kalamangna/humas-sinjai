@@ -100,8 +100,11 @@ class Posts extends BaseController
             'content'    => 'required',
             'categories' => 'required',
             'status'     => 'required',
-            'thumbnail'  => 'uploaded[thumbnail]|max_size[thumbnail,2048]|is_image[thumbnail]|mime_in[thumbnail,image/jpg,image/jpeg,image/png,image/webp]',
         ];
+
+        if (empty($this->request->getPost('pasted_thumbnail'))) {
+            $validationRules['thumbnail'] = 'uploaded[thumbnail]|max_size[thumbnail,2048]|is_image[thumbnail]|mime_in[thumbnail,image/jpg,image/jpeg,image/png,image/webp]';
+        }
 
         if (! $this->validate($validationRules)) {
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
@@ -119,12 +122,23 @@ class Posts extends BaseController
         $postTagModel = new PostTagModel();
 
         // Handle file upload
-        $file = $this->request->getFile('thumbnail');
         $thumbnailName = null;
-        if ($file->isValid() && ! $file->hasMoved()) {
-            $thumbnailName = $file->getRandomName();
-            $file->move(FCPATH . 'uploads/thumbnails', $thumbnailName);
+        $pastedThumbnail = $this->request->getPost('pasted_thumbnail');
+
+        if (!empty($pastedThumbnail)) {
+            list($type, $data) = explode(';', $pastedThumbnail);
+            list(, $data)      = explode(',', $data);
+            $data = base64_decode($data);
+            $thumbnailName = uniqid() . '.png';
+            file_put_contents(FCPATH . 'uploads/thumbnails/' . $thumbnailName, $data);
             $thumbnailName = base_url('uploads/thumbnails/' . $thumbnailName);
+        } else {
+            $file = $this->request->getFile('thumbnail');
+            if ($file->isValid() && ! $file->hasMoved()) {
+                $thumbnailName = $file->getRandomName();
+                $file->move(FCPATH . 'uploads/thumbnails', $thumbnailName);
+                $thumbnailName = base_url('uploads/thumbnails/' . $thumbnailName);
+            }
         }
 
         $status = $this->request->getPost('status');
@@ -285,16 +299,31 @@ class Posts extends BaseController
         }
 
         // Handle file upload
-        $file = $this->request->getFile('thumbnail');
-        if ($file->isValid() && ! $file->hasMoved()) {
+        $pastedThumbnail = $this->request->getPost('pasted_thumbnail');
+        if (!empty($pastedThumbnail)) {
             // Delete old thumbnail if it exists
             if (! empty($post['thumbnail']) && file_exists(FCPATH . ltrim($post['thumbnail'], '/'))) {
                 unlink(FCPATH . ltrim($post['thumbnail'], '/'));
             }
 
-            $thumbnailName = $file->getRandomName();
-            $file->move(FCPATH . 'uploads/thumbnails', $thumbnailName);
+            list($type, $data) = explode(';', $pastedThumbnail);
+            list(, $data)      = explode(',', $data);
+            $data = base64_decode($data);
+            $thumbnailName = uniqid() . '.png';
+            file_put_contents(FCPATH . 'uploads/thumbnails/' . $thumbnailName, $data);
             $postData['thumbnail'] = base_url('uploads/thumbnails/' . $thumbnailName);
+        } else {
+            $file = $this->request->getFile('thumbnail');
+            if ($file->isValid() && ! $file->hasMoved()) {
+                // Delete old thumbnail if it exists
+                if (! empty($post['thumbnail']) && file_exists(FCPATH . ltrim($post['thumbnail'], '/'))) {
+                    unlink(FCPATH . ltrim($post['thumbnail'], '/'));
+                }
+
+                $thumbnailName = $file->getRandomName();
+                $file->move(FCPATH . 'uploads/thumbnails', $thumbnailName);
+                $postData['thumbnail'] = base_url('uploads/thumbnails/' . $thumbnailName);
+            }
         }
 
         if ($postModel->update($id, $postData)) {
@@ -359,6 +388,14 @@ class Posts extends BaseController
 
     public function upload_image()
     {
+        $validationRules = [
+            'file' => 'uploaded[file]|max_size[file,2048]|is_image[file]|mime_in[file,image/jpg,image/jpeg,image/png,image/webp]',
+        ];
+
+        if (! $this->validate($validationRules)) {
+            return $this->response->setStatusCode(400, json_encode(['error' => $this->validator->getErrors()]));
+        }
+
         $file = $this->request->getFile('file');
 
         if ($file->isValid() && ! $file->hasMoved()) {

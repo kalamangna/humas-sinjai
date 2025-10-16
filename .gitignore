@@ -127,3 +127,6 @@ _modules/*
 
 # public/uploads
 public/uploads/*
+
+# Google Cloud Service Account Credentials
+writable/ga4-service-account.json
