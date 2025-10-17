@@ -35,8 +35,15 @@ class PostModel extends Model
     public function withCategoriesAndTags(array $posts)
     {
         foreach ($posts as &$post) {
-            $post['categories'] = $this->getPostCategories($post['id']);
-            $post['tags'] = $this->getPostTags($post['id']);
+            // Pastikan post memiliki id sebelum memanggil method terkait
+            if (isset($post['id'])) {
+                $post['categories'] = $this->getPostCategories($post['id']);
+                $post['tags'] = $this->getPostTags($post['id']);
+            } else {
+                // Fallback jika id tidak ada
+                $post['categories'] = [];
+                $post['tags'] = [];
+            }
         }
         return $posts;
     }
@@ -92,6 +99,36 @@ class PostModel extends Model
         }
 
         return $posts;
+    }
+
+    // Method untuk mendapatkan popular posts dengan GA views
+    public function getPopularPosts($limit = 5)
+    {
+        // Ambil semua posts yang published
+        $posts = $this->where('status', 'published')
+            ->orderBy('published_at', 'DESC')
+            ->findAll($limit * 3); // Ambil lebih banyak untuk filtering
+
+        // Tambahkan data GA views
+        $postsWithGA = $this->addGAData($posts);
+
+        // Urutkan berdasarkan views dari GA (descending)
+        usort($postsWithGA, function ($a, $b) {
+            return ($b['views'] ?? 0) - ($a['views'] ?? 0);
+        });
+
+        // Ambil limit teratas
+        return array_slice($postsWithGA, 0, $limit);
+    }
+
+    // Method untuk mendapatkan recent posts dengan GA views
+    public function getRecentPosts($limit = 5)
+    {
+        $posts = $this->where('status', 'published')
+            ->orderBy('published_at', 'DESC')
+            ->findAll($limit);
+
+        return $this->addGAData($posts);
     }
 
     // Method incrementViews dihapus karena sudah menggunakan data dari GA

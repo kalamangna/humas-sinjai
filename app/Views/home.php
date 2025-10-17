@@ -5,25 +5,12 @@
 <!-- Hero Section -->
 <section class="bg-primary-gradient text-white py-5 mb-5">
     <div class="container">
-        <div class="row align-items-center g-3">
-            <!-- Text Content -->
-            <div class="col-lg-6 text-center text-lg-start">
-                <h1 class="display-4 fw-bold mb-2">Humas Sinjai</h1>
-                <div class="mb-4">
-                    <p class="lead fs-4 mb-2">Portal Berita Resmi <span class="d-block d-md-inline">Pemerintah Kabupaten Sinjai</span></p>
-                    <span class="badge bg-light text-primary fs-6 px-3 py-2 border-0">
-                        <i class="fas fa-hashtag me-1"></i>samasamaki
-                    </span>
-                </div>
-            </div>
-
-            <!-- Banner Image -->
-            <div class="col-lg-6 text-center">
-                <img src="<?= base_url('banner.png') ?>" alt="Humas Sinjai - Portal Berita Resmi Kabupaten Sinjai"
-                    class="img-fluid rounded" style="max-height: 400px; object-fit: cover;">
-            </div>
+        <!-- Banner Image -->
+        <div class="row justify-content-center mb-4">
+            <!-- <div class="col-md-8 text-center"> -->
+            <img src="<?= base_url('banner.jpeg') ?>" alt="Banner" class="img-fluid">
+            <!-- </div> -->
         </div>
-    </div>
 </section>
 
 <!-- Featured Posts -->

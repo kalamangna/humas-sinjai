@@ -191,7 +191,7 @@
                                         <img src="<?= esc($popular['thumbnail']) ?>" class="card-img" alt="<?= esc($popular['title']) ?>" style="height: 200px; object-fit: cover;">
                                         <div class="card-img-overlay bg-dark bg-opacity-50 d-flex flex-column justify-content-end">
                                             <h6 class="card-title fw-bold"><?= esc($popular['title']) ?></h6>
-                                            <small><i class="fas fa-eye me-2"></i><?= $popular['views'] ?> dilihat</small>
+                                            <small><i class="fas fa-eye me-2"></i><?= $popular['views'] ?></small>
                                         </div>
                                     </a>
                                 </div>

@@ -8,6 +8,7 @@ use App\Models\TagModel;
 use App\Models\PostCategoryModel;
 use App\Models\PostTagModel;
 use App\Models\UserModel;
+use App\Models\GoogleAnalyticsModel;
 
 class Posts extends BaseController
 {
@@ -16,6 +17,7 @@ class Posts extends BaseController
         $postModel = new PostModel();
         $categoryModel = new CategoryModel();
         $userModel = new UserModel();
+        $gaModel = new GoogleAnalyticsModel();
 
         // Get filters from request
         $filters = [
@@ -50,8 +52,13 @@ class Posts extends BaseController
             $builder->where('posts.status', $filters['status']);
         }
 
+        $posts = $builder->orderBy('posts.created_at', 'DESC')->paginate(10, 'posts');
+
+        // Tambahkan data views dari Google Analytics
+        $postsWithGA = $this->addGADataToPosts($posts);
+
         $data = [
-            'posts'           => $builder->orderBy('posts.created_at', 'DESC')->paginate(10, 'posts'),
+            'posts'           => $postsWithGA,
             'pager'           => $postModel->pager,
             'filters'         => $filters,
             'categories'      => $categoryModel->findAll(),
@@ -408,5 +415,29 @@ class Posts extends BaseController
         }
 
         return $this->response->setStatusCode(500, 'Image upload failed.');
+    }
+
+    /**
+     * Menambahkan data views dari Google Analytics ke array posts
+     */
+    private function addGADataToPosts(array $posts): array
+    {
+        if (empty($posts)) {
+            return $posts;
+        }
+
+        // Ambil semua slug dari posts
+        $slugs = array_column($posts, 'slug');
+
+        // Dapatkan views dari Google Analytics
+        $gaModel = new GoogleAnalyticsModel();
+        $viewsData = $gaModel->getViewsBySlug($slugs);
+
+        // Tambahkan views data ke setiap post
+        foreach ($posts as &$post) {
+            $post['views'] = $viewsData[$post['slug']] ?? 0;
+        }
+
+        return $posts;
     }
 }

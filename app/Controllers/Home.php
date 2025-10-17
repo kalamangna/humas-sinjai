@@ -31,9 +31,7 @@ class Home extends BaseController
         $enrichedPost = $postModel->withCategoriesAndTags([$post]);
         $data['post'] = $enrichedPost[0]; // Get the single enriched post
 
-        // Hapus incrementViews karena sudah menggunakan data dari GA
-        // $postModel->incrementViews($data['post']['id']);
-
+        // Meta tags
         $data['title'] = $data['post']['title'];
         $data['description'] = substr(strip_tags($data['post']['content']), 0, 160);
         $data['keywords'] = implode(', ', array_column($data['post']['tags'], 'name'));
@@ -42,19 +40,11 @@ class Home extends BaseController
         // Tags are now part of the post data
         $data['tags'] = $data['post']['tags'];
 
-        // Fetch recent posts dengan GA views
-        $recentPosts = $postModel->where('status', 'published')->orderBy('published_at', 'DESC')->limit(5)->findAll();
-        $data['recent_posts'] = $postModel->withCategoriesAndTags($recentPosts);
+        // Fetch recent posts dengan GA views menggunakan method baru
+        $data['recent_posts'] = $postModel->getRecentPosts(5);
 
-        // Fetch popular posts dengan GA views
-        $popularPosts = $postModel->where('status', 'published')->orderBy('published_at', 'DESC')->limit(5)->findAll();
-        $popularPosts = $postModel->withCategoriesAndTags($popularPosts);
-
-        // Urutkan berdasarkan views dari GA (descending)
-        usort($popularPosts, function ($a, $b) {
-            return $b['views'] - $a['views'];
-        });
-        $data['popular_posts'] = array_slice($popularPosts, 0, 5);
+        // Fetch popular posts dengan GA views menggunakan method baru
+        $data['popular_posts'] = $postModel->getPopularPosts(5);
 
         // Fetch related posts
         $categoryIds = array_column($data['post']['categories'], 'id');
@@ -166,8 +156,12 @@ class Home extends BaseController
         $postModel = new PostModel();
         $query = $this->request->getGet('q');
         $posts = $postModel->where('status', 'published')->like('title', $query)->orLike('content', $query)->orderBy('posts.published_at', 'DESC')->findAll();
+
+        // Tambahkan GA data ke hasil pencarian
+        $postsWithGA = $postModel->addGAData($posts);
+
         $data = [
-            'posts' => $postModel->withCategoriesAndTags($posts),
+            'posts' => $postModel->withCategoriesAndTags($postsWithGA),
             'query' => $query,
             'title' => 'Hasil pencarian untuk: ' . $query,
             'description' => 'Hasil pencarian untuk kata kunci ' . $query . ' di Humas Sinjai.',
@@ -192,6 +186,7 @@ class Home extends BaseController
         return view('posts', $data);
     }
 
+    // Method categories(), tags(), rss(), sitemap() tetap sama...
     public function categories()
     {
         $categoryModel = new CategoryModel();
