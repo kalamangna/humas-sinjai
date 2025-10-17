@@ -35,6 +35,8 @@ $routes->get('api/analytics/traffic-sources', 'Admin\\Analytics::trafficSources'
 $routes->get('api/analytics/geo', 'Admin\\Analytics::geo');
 $routes->get('api/analytics/device-category', 'Admin\\Analytics::deviceCategory');
 
+$routes->get('api/analytics/popular-posts', 'Admin\\Analytics::popularPosts');
+
 $routes->get('auth/login', 'Auth\\Login::index');
 $routes->post('auth/login', 'Auth\\Login::login');
 

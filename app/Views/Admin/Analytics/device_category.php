@@ -65,7 +65,7 @@
                         <td>${item.operatingSystem}</td>
                         <td>${item.browser}</td>
                         <td>${item.sessions}</td>
-                        <td>${item.screenPageViews}</td>
+                        <td>${item.pageViews}</td>
                         <td>${parseFloat(item.averageSessionDuration).toFixed(2)}s</td>
                     `;
                     deviceCategoryData.appendChild(row);

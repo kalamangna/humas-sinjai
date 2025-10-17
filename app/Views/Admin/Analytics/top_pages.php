@@ -59,10 +59,10 @@
                 data.forEach(item => {
                     const row = document.createElement('tr');
                     row.innerHTML = `
-                        <td>${item.pageTitle}</td>
-                        <td>${item.pagePath}</td>
-                        <td>${item.screenPageViews}</td>
-                        <td>${parseFloat(item.userEngagementDuration).toFixed(2)}s</td>
+                        <td>${item.title}</td>
+                        <td>${item.path}</td>
+                        <td>${item.views}</td>
+                        <td>${parseFloat(item.engagementDuration).toFixed(2)}s</td>
                     `;
                     topPagesData.appendChild(row);
                 });

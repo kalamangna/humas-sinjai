@@ -12,7 +12,7 @@ class Home extends BaseController
     public function index(): string
     {
         $postModel = new PostModel();
-        $posts = $postModel->getPosts(); // Get basic post data
+        $posts = $postModel->getPosts(); // Get basic post data dengan GA views
         $data['posts'] = $postModel->withCategoriesAndTags($posts); // Enrich with categories and tags
 
         return view('home', $data);
@@ -21,7 +21,7 @@ class Home extends BaseController
     public function post($slug = null)
     {
         $postModel = new PostModel();
-        $post = $postModel->getPosts(['slug' => $slug]); // Get basic post data
+        $post = $postModel->getPosts($slug); // Get post dengan GA views
 
         if (empty($post)) {
             throw new \CodeIgniter\Exceptions\PageNotFoundException('Cannot find the post: ' . $slug);
@@ -31,22 +31,30 @@ class Home extends BaseController
         $enrichedPost = $postModel->withCategoriesAndTags([$post]);
         $data['post'] = $enrichedPost[0]; // Get the single enriched post
 
-        $postModel->incrementViews($data['post']['id']);
+        // Hapus incrementViews karena sudah menggunakan data dari GA
+        // $postModel->incrementViews($data['post']['id']);
 
         $data['title'] = $data['post']['title'];
         $data['description'] = substr(strip_tags($data['post']['content']), 0, 160);
         $data['keywords'] = implode(', ', array_column($data['post']['tags'], 'name'));
         $data['image'] = !empty($data['post']['thumbnail']) ? $data['post']['thumbnail'] : base_url('meta.png');
 
-
         // Tags are now part of the post data
         $data['tags'] = $data['post']['tags'];
 
-        // Fetch recent posts
-        $data['recent_posts'] = $postModel->where('status', 'published')->orderBy('published_at', 'DESC')->limit(5)->findAll();
+        // Fetch recent posts dengan GA views
+        $recentPosts = $postModel->where('status', 'published')->orderBy('published_at', 'DESC')->limit(5)->findAll();
+        $data['recent_posts'] = $postModel->withCategoriesAndTags($recentPosts);
 
-        // Fetch popular posts
-        $data['popular_posts'] = $postModel->where('status', 'published')->orderBy('views', 'DESC')->limit(5)->findAll();
+        // Fetch popular posts dengan GA views
+        $popularPosts = $postModel->where('status', 'published')->orderBy('published_at', 'DESC')->limit(5)->findAll();
+        $popularPosts = $postModel->withCategoriesAndTags($popularPosts);
+
+        // Urutkan berdasarkan views dari GA (descending)
+        usort($popularPosts, function ($a, $b) {
+            return $b['views'] - $a['views'];
+        });
+        $data['popular_posts'] = array_slice($popularPosts, 0, 5);
 
         // Fetch related posts
         $categoryIds = array_column($data['post']['categories'], 'id');
@@ -172,7 +180,7 @@ class Home extends BaseController
     public function posts()
     {
         $postModel = new PostModel();
-        $posts = $postModel->getPosts(false, true); // Get paginated basic post data
+        $posts = $postModel->getPosts(false, true); // Get paginated basic post data dengan GA views
         $data = [
             'posts' => $postModel->withCategoriesAndTags($posts),
             'pager' => $postModel->pager,

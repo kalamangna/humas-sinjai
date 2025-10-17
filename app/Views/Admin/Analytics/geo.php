@@ -17,7 +17,7 @@
     </div>
 
     <div id="analytics-content" class="d-none">
-        <div class="row">
+        <div class="row g-3">
             <div class="col-12">
                 <div class="card border-0 shadow-sm">
                     <div class="card-header bg-transparent border-bottom-0 py-3">
@@ -68,7 +68,7 @@
                     `;
                     geoData.appendChild(row);
                 });
-            });
+            })
     });
 </script>
 <?= $this->endSection() ?>

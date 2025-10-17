@@ -111,31 +111,25 @@
                 </h5>
             </div>
             <div class="card-body">
-                <?php if (!empty($popularPosts)) : ?>
-                    <div class="table-responsive">
-                        <table class="table table-hover table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Judul</th>
-                                    <th class="text-end">Dilihat</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php foreach ($popularPosts as $post) : ?>
-                                    <tr>
-                                        <td><?= esc($post['title']) ?></td>
-                                        <td class="text-end"><?= $post['views'] ?></td>
-                                    </tr>
-                                <?php endforeach; ?>
-                            </tbody>
-                        </table>
-                    <?php else : ?>
-                        <div class="text-center py-4">
-                            <i class="fas fa-inbox fa-2x text-muted mb-3"></i>
-                            <p class="text-muted mb-0">Belum ada berita.</p>
-                        </div>
-                    <?php endif; ?>
-                    </div>
+                <div class="table-responsive">
+                    <table class="table table-hover table-striped">
+                        <thead>
+                            <tr>
+                                <th>Judul</th>
+                                <th class="text-end">Dilihat</th>
+                            </tr>
+                        </thead>
+                        <tbody id="popular-posts-data">
+                            <tr>
+                                <td colspan="2" class="text-center">
+                                    <div class="spinner-border text-primary" role="status">
+                                        <span class="visually-hidden">Loading...</span>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
@@ -178,7 +172,6 @@
         </div>
     </div>
 </div>
-
 
 <!-- Quick Actions -->
 <div class="row mb-5">
@@ -227,5 +220,25 @@
         </div>
     </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const popularPostsData = document.getElementById('popular-posts-data');
+
+        fetch('<?= base_url('api/analytics/popular-posts') ?>')
+            .then(response => response.json())
+            .then(data => {
+                popularPostsData.innerHTML = '';
+                data.forEach(item => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${item.title}</td>
+                        <td class="text-end">${item.views}</td>
+                    `;
+                    popularPostsData.appendChild(row);
+                });
+            });
+    });
+</script>
 
 <?= $this->endSection() ?>

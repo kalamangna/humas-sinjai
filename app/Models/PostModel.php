@@ -8,7 +8,7 @@ class PostModel extends Model
 {
     protected $table = 'posts';
     protected $primaryKey = 'id';
-    protected $allowedFields = ['title', 'slug', 'content', 'thumbnail', 'thumbnail_caption', 'status', 'user_id', 'published_at', 'views'];
+    protected $allowedFields = ['title', 'slug', 'content', 'thumbnail', 'thumbnail_caption', 'status', 'user_id', 'published_at'];
     protected $useTimestamps = true;
 
     // New methods for fetching related data
@@ -51,17 +51,48 @@ class PostModel extends Model
         }
 
         if ($slug === false) {
-            if ($paginate) {
-                return $builder->orderBy('posts.published_at', 'DESC')->paginate(10);
-            }
-            return $builder->orderBy('posts.published_at', 'DESC')->findAll();
+            $posts = $paginate
+                ? $builder->orderBy('posts.published_at', 'DESC')->paginate(10)
+                : $builder->orderBy('posts.published_at', 'DESC')->findAll();
+
+            // Tambahkan data views dari Google Analytics
+            return $this->addGAData($posts);
         }
 
-        return $builder->where(['posts.slug' => $slug])->first();
+        $post = $builder->where(['posts.slug' => $slug])->first();
+
+        // Tambahkan data views dari Google Analytics untuk single post
+        if ($post) {
+            $postsWithGA = $this->addGAData([$post]);
+            return $postsWithGA[0] ?? $post;
+        }
+
+        return $post;
     }
 
-    public function incrementViews($id)
+    /**
+     * Menambahkan data views dari Google Analytics ke array posts
+     */
+    private function addGAData(array $posts): array
     {
-        $this->where('id', $id)->set('views', 'views+1', false)->update();
+        if (empty($posts)) {
+            return $posts;
+        }
+
+        // Ambil semua slug dari posts
+        $slugs = array_column($posts, 'slug');
+
+        // Dapatkan views dari Google Analytics
+        $gaModel = new \App\Models\GoogleAnalyticsModel();
+        $viewsData = $gaModel->getViewsBySlug($slugs);
+
+        // Tambahkan views data ke setiap post
+        foreach ($posts as &$post) {
+            $post['views'] = $viewsData[$post['slug']] ?? 0;
+        }
+
+        return $posts;
     }
+
+    // Method incrementViews dihapus karena sudah menggunakan data dari GA
 }

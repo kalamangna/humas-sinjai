@@ -17,16 +17,11 @@ class Dashboard extends BaseController
         $userModel = new UserModel();
 
         $lastPost = $postModel->orderBy('published_at', 'DESC')->first();
-        $totalViews = $postModel->selectSum('views')->first()['views'];
-        $popularPosts = $postModel->orderBy('views', 'DESC')->limit(5)->findAll();
-
         $data = [
             'postCount' => $postModel->countAllResults(),
             'categoryCount' => $categoryModel->countAllResults(),
             'tagCount' => $tagModel->countAllResults(),
             'userCount' => $userModel->countAllResults(),
-            'totalViews' => $totalViews,
-            'popularPosts' => $popularPosts,
             'recentPosts' => $postModel
                 ->select('posts.title, posts.published_at, users.name as author_name')
                 ->join('users', 'users.id = posts.user_id', 'left')

@@ -60,11 +60,11 @@
                 data.forEach(item => {
                     const row = document.createElement('tr');
                     row.innerHTML = `
-                        <td>${item.sessionSource}</td>
-                        <td>${item.sessionMedium}</td>
+                        <td>${item.source}</td>
+                        <td>${item.medium}</td>
                         <td>${item.sessions}</td>
                         <td>${item.newUsers}</td>
-                        <td>${item.screenPageViews}</td>
+                        <td>${item.pageViews}</td>
                     `;
                     trafficSourcesData.appendChild(row);
                 });
