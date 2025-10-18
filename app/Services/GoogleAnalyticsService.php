@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use Google\Analytics\Data\V1beta\BetaAnalyticsDataClient;
 use Google\Analytics\Data\V1beta\RunReportRequest;
 use Google\Analytics\Data\V1beta\DateRange;
 use Google\Analytics\Data\V1beta\Dimension;
@@ -29,7 +28,6 @@ class GoogleAnalyticsService
                 'dimensions' => $this->buildDimensions($config['dimensions'] ?? []),
                 'metrics' => $this->buildMetrics($config['metrics'] ?? []),
                 'order_bys' => $this->buildOrderBys($config['order_bys'] ?? []),
-                'limit' => $config['limit'] ?? 1000,
             ]);
 
             $response = $this->client->runReport($request);

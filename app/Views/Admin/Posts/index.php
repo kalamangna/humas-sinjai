@@ -115,16 +115,16 @@
             <table class="table table-hover mb-0">
                 <thead class="bg-light">
                     <tr>
-                        <th class="border-0 ps-4 align-middle">Gambar</th>
-                        <th class="border-0 align-middle">Judul Berita</th>
-                        <th class="border-0 align-middle">Kategori</th>
-                        <th class="border-0 text-center align-middle">Tag</th>
-                        <th class="border-0 align-middle">Status</th>
-                        <th class="border-0 align-middle">Penulis</th>
-                        <th class="border-0 align-middle">Tanggal Dibuat</th>
-                        <th class="border-0 align-middle">Tanggal Publikasi</th>
-                        <th class="border-0 align-middle">Dilihat</th>
-                        <th class="border-0 text-end pe-4 align-middle">Aksi</th>
+                        <th class="border-0 ps-4">Gambar</th>
+                        <th class="border-0">Judul Berita</th>
+                        <th class="border-0">Kategori</th>
+                        <th class="border-0 text-center">Tag</th>
+                        <th class="border-0">Status</th>
+                        <th class="border-0">Penulis</th>
+                        <th class="border-0">Tanggal Dibuat</th>
+                        <th class="border-0">Tanggal Publikasi</th>
+                        <th class="border-0">Dilihat</th>
+                        <th class="border-0 text-end pe-4">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>

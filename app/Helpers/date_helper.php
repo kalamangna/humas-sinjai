@@ -30,11 +30,36 @@ if (!function_exists('format_date')) {
                 12 => 'Desember',
             ];
 
-            if ($format === 'date_only') {
-                return $day . ' ' . $months[$month] . ' ' . $year;
+            // Short month names in Indonesian (used when $format is 'short' or 'short_date_only')
+            $shortMonths = [
+                1 => 'Jan',
+                2 => 'Feb',
+                3 => 'Mar',
+                4 => 'Apr',
+                5 => 'Mei',
+                6 => 'Jun',
+                7 => 'Jul',
+                8 => 'Agu',
+                9 => 'Sep',
+                10 => 'Okt',
+                11 => 'Nov',
+                12 => 'Des',
+            ];
+
+            // Choose month set based on requested format
+            if (in_array($format, ['short', 'short_date_only'], true)) {
+                $monthNames = $shortMonths;
+            } else {
+                $monthNames = $months;
             }
 
-            return $day . ' ' . $months[$month] . ' ' . $year . ', ' . $hour . ':' . $minute;
+            // date_only / short_date_only: omit time
+            if ($format === 'date_only' || $format === 'short_date_only') {
+                return $day . ' ' . $monthNames[$month] . ' ' . $year;
+            }
+
+            // default (full) or short: include time
+            return $day . ' ' . $monthNames[$month] . ' ' . $year . ', ' . $hour . ':' . $minute;
         } catch (Exception $e) {
             return '-';
         }

@@ -102,12 +102,12 @@ class PostModel extends Model
     }
 
     // Method untuk mendapatkan popular posts dengan GA views
-    public function getPopularPosts($limit = 5)
+    public function getPopularPosts()
     {
         // Ambil semua posts yang published
         $posts = $this->where('status', 'published')
             ->orderBy('published_at', 'DESC')
-            ->findAll($limit * 3); // Ambil lebih banyak untuk filtering
+            ->findAll();
 
         // Tambahkan data GA views
         $postsWithGA = $this->addGAData($posts);
@@ -117,19 +117,17 @@ class PostModel extends Model
             return ($b['views'] ?? 0) - ($a['views'] ?? 0);
         });
 
-        // Ambil limit teratas
-        return array_slice($postsWithGA, 0, $limit);
+        // Ambil 5 data teratas
+        return array_slice($postsWithGA, 0, 5);
     }
 
     // Method untuk mendapatkan recent posts dengan GA views
-    public function getRecentPosts($limit = 5)
+    public function getRecentPosts()
     {
         $posts = $this->where('status', 'published')
             ->orderBy('published_at', 'DESC')
-            ->findAll($limit);
+            ->findAll(5); // Ambil 5 post terbaru
 
         return $this->addGAData($posts);
     }
-
-    // Method incrementViews dihapus karena sudah menggunakan data dari GA
 }

@@ -19,6 +19,7 @@ class GoogleAnalyticsModel extends Model
         $data = $this->gaService->runReport([
             'metrics' => [
                 'totalUsers',
+                'newUsers',
                 'sessions',
                 'screenPageViews',
                 'bounceRate',
@@ -30,10 +31,11 @@ class GoogleAnalyticsModel extends Model
         return array_map(function ($item) {
             return [
                 'totalUsers' => (int)($item['metrics'][0] ?? 0),
-                'sessions' => (int)($item['metrics'][1] ?? 0),
-                'screenPageViews' => (int)($item['metrics'][2] ?? 0),
-                'bounceRate' => (float)($item['metrics'][3] ?? 0),
-                'averageSessionDuration' => (float)($item['metrics'][4] ?? 0),
+                'newUsers' => (int)($item['metrics'][1] ?? 0),
+                'sessions' => (int)($item['metrics'][2] ?? 0),
+                'screenPageViews' => (int)($item['metrics'][3] ?? 0),
+                'bounceRate' => (float)($item['metrics'][4] ?? 0),
+                'averageSessionDuration' => (float)($item['metrics'][5] ?? 0),
             ];
         }, $data);
     }
@@ -44,16 +46,15 @@ class GoogleAnalyticsModel extends Model
             'dimensions' => ['pageTitle', 'pagePath'],
             'metrics' => ['screenPageViews', 'userEngagementDuration'],
             'order_bys' => [['metric' => 'screenPageViews', 'desc' => true]],
-            'limit' => 100,
         ]);
 
         // map array ke format yang diinginkan
         $mappedData = array_map(function ($item) {
             return [
-                'title' => $item['dimensions'][0] ?? 'No Title',
-                'path' => $item['dimensions'][1] ?? '',
-                'views' => (int)($item['metrics'][0] ?? 0),
-                'engagementDuration' => (float)($item['metrics'][1] ?? 0),
+                'pageTitle' => $item['dimensions'][0] ?? 'No Title',
+                'pagePath' => $item['dimensions'][1] ?? '',
+                'screenPageViews' => (int)($item['metrics'][0] ?? 0),
+                'userEngagementDuration' => (float)($item['metrics'][1] ?? 0),
             ];
         }, $data);
 
@@ -68,7 +69,7 @@ class GoogleAnalyticsModel extends Model
             ];
 
             foreach ($excludedPaths as $excludedPath) {
-                if (str_contains($item['path'], $excludedPath)) {
+                if (str_contains($item['pagePath'], $excludedPath)) {
                     return false;
                 }
             }
@@ -77,7 +78,7 @@ class GoogleAnalyticsModel extends Model
 
         // only include path with /v1
         $filteredData = array_filter($filteredData, function ($item) {
-            return str_starts_with($item['path'], '/v1');
+            return str_starts_with($item['pagePath'], '/v1');
         });
 
         // Apply limit setelah filtering
@@ -94,11 +95,11 @@ class GoogleAnalyticsModel extends Model
         // Map array ke format yang diinginkan
         return array_map(function ($item) {
             return [
-                'source' => $item['dimensions'][0] ?? 'Unknown',
-                'medium' => $item['dimensions'][1] ?? 'Unknown',
+                'sessionSource' => $item['dimensions'][0] ?? 'Unknown',
+                'sessionMedium' => $item['dimensions'][1] ?? 'Unknown',
                 'sessions' => (int)($item['metrics'][0] ?? 0),
                 'newUsers' => (int)($item['metrics'][1] ?? 0),
-                'pageViews' => (int)($item['metrics'][2] ?? 0),
+                'screenPageViews' => (int)($item['metrics'][2] ?? 0),
             ];
         }, $data);
     }
@@ -136,7 +137,7 @@ class GoogleAnalyticsModel extends Model
                 'operatingSystem' => $item['dimensions'][1] ?? 'Unknown',
                 'browser' => $item['dimensions'][2] ?? 'Unknown',
                 'sessions' => (int)($item['metrics'][0] ?? 0),
-                'pageViews' => (int)($item['metrics'][1] ?? 0),
+                'screenPageViews' => (int)($item['metrics'][1] ?? 0),
                 'averageSessionDuration' => (float)($item['metrics'][2] ?? 0),
             ];
         }, $data);
