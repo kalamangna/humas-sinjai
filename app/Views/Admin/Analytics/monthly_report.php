@@ -70,13 +70,3 @@ Laporan Bulanan
     </div>
 </div>
 <?= $this->endSection() ?>
-
-<script>
-    document.addEventListener('click', function(e) {
-        if (e.target && e.target.id === 'print-button') {
-            const year = <?= esc($year) ?>;
-            const month = <?= esc($month) ?>;
-            window.open(`<?= base_url('admin/analytics/monthly-report-print/') ?>${year}/${month}`, '_blank');
-        }
-    });
-</script>

@@ -27,6 +27,17 @@
     });
 </script>
 
+<script>
+    document.addEventListener('click', function(e) {
+        if (e.target && e.target.id === 'print-button') {
+            const pathParts = window.location.pathname.split('/');
+            const year = pathParts[pathParts.length - 2];
+            const month = pathParts[pathParts.length - 1];
+            window.open(`<?= base_url('admin/analytics/monthly-report-print/') ?>${year}/${month}`, '_blank');
+        }
+    });
+</script>
+
 </body>
 
 </html>

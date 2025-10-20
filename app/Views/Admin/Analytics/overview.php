@@ -143,12 +143,12 @@
             </div>
         </div>
 
-        <div class="row mb-5">
+        <div class="row g-4 mb-5">
             <div class="col-lg-6">
-                <div class="card border-0 shadow-sm">
+                <div class="card border-0 shadow-sm h-100">
                     <div class="card-header bg-transparent border-bottom-0 py-3">
                         <h5 class="fw-bold text-dark mb-0">
-                            <i class="fas fa-calendar-alt me-2"></i>Laporan Tampilan Postingan Bulanan
+                            <i class="fas fa-calendar-alt me-2"></i>Laporan Tampilan Berita Bulanan
                         </h5>
                     </div>
                     <div class="card-body">
@@ -165,7 +165,7 @@
                 </div>
             </div>
             <div class="col-lg-6">
-                <div class="card border-0 shadow-sm">
+                <div class="card border-0 shadow-sm h-100">
                     <div class="card-header bg-transparent border-bottom-0 py-3">
                         <h5 class="fw-bold text-dark mb-0">
                             <i class="fas fa-users me-2"></i>Laporan Pengguna Bulanan
