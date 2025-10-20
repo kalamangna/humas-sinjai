@@ -7,7 +7,6 @@
     <nav aria-label="breadcrumb" class="my-4">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="<?= base_url('/') ?>" class="text-decoration-none">Beranda</a></li>
-            <li class="breadcrumb-item"><a href="<?= base_url('posts') ?>" class="text-decoration-none">Berita</a></li>
             <li class="breadcrumb-item active" aria-current="page"><?= esc($post['title'] ?? '') ?></li>
         </ol>
     </nav>
@@ -18,15 +17,6 @@
             <article class="card border-0 shadow-sm mb-3">
                 <!-- Post Header -->
                 <div class="card-body p-4">
-                    <?php if (!empty($post['thumbnail'])) : ?>
-                        <figure class="w-100">
-                            <img src="<?= esc($post['thumbnail']) ?>" class="figure-img img-fluid rounded mb-2 w-100" alt="<?= esc($post['title']) ?>" style="max-height: 450px; object-fit: cover;">
-                            <?php if (!empty($post['thumbnail_caption'])) : ?>
-                                <figcaption class="figure-caption"><?= esc($post['thumbnail_caption']) ?></figcaption>
-                            <?php endif; ?>
-                        </figure>
-                    <?php endif; ?>
-
                     <h1 class="fw-bold mb-3 text-dark"><?= esc($post['title']) ?></h1>
 
                     <!-- Post Meta -->
@@ -66,6 +56,15 @@
                             </div>
                         <?php endif; ?>
                     </div>
+
+                    <?php if (!empty($post['thumbnail'])) : ?>
+                        <figure class="w-100">
+                            <img src="<?= esc($post['thumbnail']) ?>" class="figure-img img-fluid rounded mb-2 w-100" alt="<?= esc($post['title']) ?>" style="max-height: 450px; object-fit: cover;">
+                            <?php if (!empty($post['thumbnail_caption'])) : ?>
+                                <figcaption class="figure-caption"><?= esc($post['thumbnail_caption']) ?></figcaption>
+                            <?php endif; ?>
+                        </figure>
+                    <?php endif; ?>
 
                     <!-- Post Content -->
                     <div class="text-muted lh-lg mb-4">
