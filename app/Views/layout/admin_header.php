@@ -6,8 +6,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin - Humas Sinjai</title>
     <link rel="icon" href="<?= base_url('logo.png') ?>" type="image/png">
-    <link rel="stylesheet" href="<?= base_url('css/custom.css') ?>">
+    <link rel="stylesheet" href="<?= base_url('assets/css/custom.css') ?>">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/1.1.2/css/bootstrap-multiselect.css" />
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/1.1.2/js/bootstrap-multiselect.js"></script>
+
+    <script src="<?= base_url('assets/tinymce/tinymce/tinymce.min.js') ?>" referrerpolicy="origin" crossorigin="anonymous"></script>
+    <script>
+        tinymce.init({
+            selector: 'textarea#content',
+            plugins: 'code table lists image',
+            toolbar: 'undo redo | blocks | bold italic | alignleft aligncenter alignright | indent outdent | bullist numlist | code | table | image',
+            images_upload_url: '<?= site_url('admin/posts/upload_image') ?>',
+            relative_urls: false,
+            remove_script_host: false,
+            license_key: 'gpl'
+        });
+    </script>
+
     <script>
         function previewImage() {
             const thumbnail = document.querySelector('#thumbnail');
@@ -23,21 +42,6 @@
             }
         }
     </script>
-    <script src="https://cdn.tiny.cloud/1/d0biv5p4ggrqsdl9idntd4aoeda7o4wcf12azjs82dojzezj/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
-    <script>
-        tinymce.init({
-            selector: 'textarea#content',
-            plugins: 'code table lists image',
-            toolbar: 'undo redo | blocks | bold italic | alignleft aligncenter alignright | indent outdent | bullist numlist | code | table | image',
-            images_upload_url: '<?= site_url('admin/posts/upload_image') ?>',
-            relative_urls: false,
-            remove_script_host: false,
-        });
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/1.1.2/css/bootstrap-multiselect.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/1.1.2/js/bootstrap-multiselect.js"></script>
 </head>
 
 <body class="bg-light">

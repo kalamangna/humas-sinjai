@@ -139,6 +139,16 @@ class Analytics extends BaseController
         return $this->render('Admin/Analytics/monthly_report', $data);
     }
 
+    public function monthlyReportPrint($year, $month)
+    {
+        $postModel = new \App\Models\PostModel();
+        $data['posts'] = $postModel->getPostsByMonthYear($month, $year);
+        $data['year'] = $year;
+        $data['month'] = $month;
+
+        return view('Admin/Analytics/monthly_report_print', $data);
+    }
+
     protected function handleError(\Exception $e)
     {
         log_message('error', 'Google Analytics Error: ' . $e->getMessage());
