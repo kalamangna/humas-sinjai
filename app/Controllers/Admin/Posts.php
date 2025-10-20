@@ -209,7 +209,7 @@ class Posts extends BaseController
                 $postTagModel->insertBatch($tagsToInsert);
             }
 
-            return redirect()->to(base_url('admin/posts'))->with('message', 'Post created successfully.');
+            return redirect()->to(base_url('admin/posts'))->with('success', 'Berita berhasil dibuat.');
         }
 
         return redirect()->back()->withInput()->with('errors', $postModel->errors());
@@ -377,7 +377,7 @@ class Posts extends BaseController
                 $postTagModel->insertBatch($tagsToInsert);
             }
 
-            return redirect()->to(base_url('admin/posts'))->with('message', 'Post updated successfully.');
+            return redirect()->to(base_url('admin/posts'))->with('success', 'Berita berhasil diperbarui.');
         }
 
         return redirect()->back()->withInput()->with('errors', $postModel->errors());
@@ -387,7 +387,7 @@ class Posts extends BaseController
     {
         $postModel = new PostModel();
         if ($postModel->delete($id)) {
-            return redirect()->to(base_url('admin/posts'))->with('message', 'Post deleted successfully.');
+            return redirect()->to(base_url('admin/posts'))->with('success', 'Berita berhasil dihapus.');
         }
 
         return redirect()->to(base_url('admin/posts'))->with('error', 'Error deleting post.');

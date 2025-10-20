@@ -52,7 +52,7 @@ class Tags extends BaseController
         ];
 
         if ($tagModel->save($data)) {
-            return redirect()->to(base_url('admin/tags'))->with('message', 'Tag created successfully.');
+            return redirect()->to(base_url('admin/tags'))->with('success', 'Tag berhasil dibuat.');
         }
 
         return redirect()->back()->withInput()->with('errors', $tagModel->errors());
@@ -79,7 +79,7 @@ class Tags extends BaseController
         ];
 
         if ($tagModel->update($id, $data)) {
-            return redirect()->to(base_url('admin/tags'))->with('message', 'Tag updated successfully.');
+            return redirect()->to(base_url('admin/tags'))->with('success', 'Tag berhasil diperbarui.');
         }
 
         return redirect()->back()->withInput()->with('errors', $tagModel->errors());
@@ -89,7 +89,7 @@ class Tags extends BaseController
     {
         $tagModel = new TagModel();
         if ($tagModel->delete($id)) {
-            return redirect()->to(base_url('admin/tags'))->with('message', 'Tag deleted successfully.');
+            return redirect()->to(base_url('admin/tags'))->with('success', 'Tag berhasil dihapus.');
         }
 
         return redirect()->to(base_url('admin/tags'))->with('error', 'Error deleting tag.');

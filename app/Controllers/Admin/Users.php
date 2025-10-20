@@ -54,7 +54,7 @@ class Users extends BaseController
         ];
 
         if ($userModel->save($data)) {
-            return redirect()->to(base_url('admin/users'))->with('message', 'User created successfully.');
+            return redirect()->to(base_url('admin/users'))->with('success', 'Pengguna berhasil dibuat.');
         }
 
         return redirect()->back()->withInput()->with('errors', $userModel->errors());
@@ -98,7 +98,7 @@ class Users extends BaseController
         }
 
         if ($userModel->update($id, $data)) {
-            return redirect()->to(base_url('admin/users'))->with('message', 'User updated successfully.');
+            return redirect()->to(base_url('admin/users'))->with('success', 'Pengguna berhasil diperbarui.');
         }
 
         return redirect()->back()->withInput()->with('errors', $userModel->errors());
@@ -108,7 +108,7 @@ class Users extends BaseController
     {
         $userModel = new UserModel();
         if ($userModel->delete($id)) {
-            return redirect()->to(base_url('admin/users'))->with('message', 'User deleted successfully.');
+            return redirect()->to(base_url('admin/users'))->with('success', 'Pengguna berhasil dihapus.');
         }
 
         return redirect()->to(base_url('admin/users'))->with('error', 'Error deleting user.');

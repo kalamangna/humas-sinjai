@@ -7,6 +7,8 @@ use App\Models\CategoryModel;
 use App\Models\TagModel;
 use App\Models\PostCategoryModel;
 
+use App\Models\CarouselSlideModel;
+
 class Home extends BaseController
 {
     public function index(): string
@@ -14,6 +16,9 @@ class Home extends BaseController
         $postModel = new PostModel();
         $posts = $postModel->getPosts(); // Get basic post data dengan GA views
         $data['posts'] = $postModel->withCategoriesAndTags($posts); // Enrich with categories and tags
+
+        $carouselSlideModel = new CarouselSlideModel();
+        $data['slides'] = $carouselSlideModel->orderBy('slide_order', 'ASC')->findAll();
 
         return view('home', $data);
     }

@@ -130,4 +130,13 @@ class PostModel extends Model
 
         return $this->addGAData($posts);
     }
+
+    public function getPostsByMonthYear($month, $year)
+    {
+        $posts = $this->where('MONTH(published_at)', $month)
+                      ->where('YEAR(published_at)', $year)
+                      ->findAll();
+
+        return $this->addGAData($posts);
+    }
 }

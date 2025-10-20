@@ -6,9 +6,15 @@ use App\Models\CategoryModel;
 
 class Categories extends BaseController
 {
+    protected $model;
+
+    public function __construct()
+    {
+        $this->model = new CategoryModel();
+    }
+
     public function index()
     {
-        $categoryModel = new CategoryModel();
         $postModel = new \App\Models\PostModel(); // Need this for total posts
 
         // Get filters from request
@@ -16,7 +22,7 @@ class Categories extends BaseController
             'search'   => $this->request->getGet('search'),
         ];
 
-        $builder = $categoryModel
+        $builder = $this->model
             ->select('categories.*, parent.name as parent_name, COUNT(post_categories.post_id) as post_count')
             ->join('post_categories', 'post_categories.category_id = categories.id', 'left')
             ->join('categories as parent', 'parent.id = categories.parent_id', 'left')
@@ -28,10 +34,10 @@ class Categories extends BaseController
 
         $data = [
             'categories'        => $builder->orderBy('categories.name', 'ASC')->paginate(10),
-            'pager'             => $categoryModel->pager,
+            'pager'             => $this->model->pager,
             'filters'           => $filters,
             'total_categories'  => $this->data['total_categories'], // Use data from BaseController
-            'active_categories' => $categoryModel->join('post_categories', 'post_categories.category_id = categories.id')->countAll(),
+            'active_categories' => $this->model->join('post_categories', 'post_categories.category_id = categories.id')->countAll(),
             'total_posts'       => $this->data['total_posts'],
         ];
 
@@ -40,15 +46,12 @@ class Categories extends BaseController
 
     public function new()
     {
-        $categoryModel = new CategoryModel();
-        $data['categories'] = $categoryModel->orderBy('name', 'ASC')->findAll();
+        $data['categories'] = $this->model->orderBy('name', 'ASC')->findAll();
         return $this->render('Admin/Categories/new', $data);
     }
 
     public function create()
     {
-        $categoryModel = new CategoryModel();
-
         $parentId = $this->request->getPost('parent_id');
 
         $data = [
@@ -57,18 +60,17 @@ class Categories extends BaseController
             'parent_id' => empty($parentId) ? null : $parentId,
         ];
 
-        if ($categoryModel->save($data)) {
-            return redirect()->to(base_url('admin/categories'))->with('message', 'Category created successfully.');
+if ($this->model->save($data)) {
+            return redirect()->to(base_url('admin/categories'))->with('success', 'Kategori berhasil dibuat.');
         }
 
-        return redirect()->back()->withInput()->with('errors', $categoryModel->errors());
+        return redirect()->back()->withInput()->with('errors', $this->model->errors());
     }
 
     public function edit($id = null)
     {
-        $categoryModel = new CategoryModel();
-        $data['category'] = $categoryModel->find($id);
-        $data['categories'] = $categoryModel->orderBy('name', 'ASC')->findAll();
+        $data['category'] = $this->model->find($id);
+        $data['categories'] = $this->model->orderBy('name', 'ASC')->findAll();
 
         if (empty($data['category'])) {
             throw new \CodeIgniter\Exceptions\PageNotFoundException('Cannot find the category: ' . $id);
@@ -79,7 +81,6 @@ class Categories extends BaseController
 
     public function update($id = null)
     { 
-        $categoryModel = new CategoryModel();
         $parentId = $this->request->getPost('parent_id');
         $data = [
             'name' => $this->request->getPost('name'),
@@ -87,18 +88,17 @@ class Categories extends BaseController
             'parent_id' => empty($parentId) ? null : $parentId,
         ];
 
-        if ($categoryModel->update($id, $data)) {
-            return redirect()->to(base_url('admin/categories'))->with('message', 'Category updated successfully.');
+if ($this->model->update($id, $data)) {
+            return redirect()->to(base_url('admin/categories'))->with('success', 'Kategori berhasil diperbarui.');
         }
 
-        return redirect()->back()->withInput()->with('errors', $categoryModel->errors());
+        return redirect()->back()->withInput()->with('errors', $this->model->errors());
     }
 
     public function delete($id = null)
     {
-        $categoryModel = new CategoryModel();
-        if ($categoryModel->delete($id)) {
-            return redirect()->to(base_url('admin/categories'))->with('message', 'Category deleted successfully.');
+if ($this->model->delete($id)) {
+            return redirect()->to(base_url('admin/categories'))->with('success', 'Kategori berhasil dihapus.');
         }
 
         return redirect()->to(base_url('admin/categories'))->with('error', 'Error deleting category.');

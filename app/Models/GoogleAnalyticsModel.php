@@ -170,6 +170,48 @@ class GoogleAnalyticsModel extends Model
     }
 
 
+    public function getMonthlyPostStats(): array
+    {
+        $data = $this->gaService->runReport([
+            'dimensions' => ['year', 'month'],
+            'metrics' => ['screenPageViews'],
+            'order_bys' => [
+                ['dimension' => 'year', 'desc' => true],
+                ['dimension' => 'month', 'desc' => true],
+            ],
+        ]);
+
+        // Map array ke format yang diinginkan
+        return array_map(function ($item) {
+            return [
+                'year' => $item['dimensions'][0] ?? 'Unknown',
+                'month' => $item['dimensions'][1] ?? 'Unknown',
+                'screenPageViews' => (int)($item['metrics'][0] ?? 0),
+            ];
+        }, $data);
+    }
+
+    public function getMonthlyUserStats(): array
+    {
+        $data = $this->gaService->runReport([
+            'dimensions' => ['year', 'month'],
+            'metrics' => ['totalUsers'],
+            'order_bys' => [
+                ['dimension' => 'year', 'desc' => true],
+                ['dimension' => 'month', 'desc' => true],
+            ],
+        ]);
+
+        // Map array ke format yang diinginkan
+        return array_map(function ($item) {
+            return [
+                'year' => $item['dimensions'][0] ?? 'Unknown',
+                'month' => $item['dimensions'][1] ?? 'Unknown',
+                'totalUsers' => (int)($item['metrics'][0] ?? 0),
+            ];
+        }, $data);
+    }
+
     public function getViewsBySlug(array $slugs = []): array
     {
         if (empty($slugs)) return [];

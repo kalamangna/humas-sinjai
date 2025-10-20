@@ -5,30 +5,28 @@
 <!-- Hero Section -->
 <section class="mb-5">
     <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-indicators">
-            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-        </div>
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <img src="<?= base_url('banner.jpeg') ?>" class="d-block w-100">
+        <?php if (!empty($slides)): ?>
+            <div class="carousel-indicators">
+                <?php foreach ($slides as $index => $slide): ?>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="<?= $index ?>" class="<?= $index === 0 ? 'active' : '' ?>" aria-current="<?= $index === 0 ? 'true' : 'false' ?>" aria-label="Slide <?= $index + 1 ?>"></button>
+                <?php endforeach; ?>
             </div>
-            <div class="carousel-item">
-                <img src="<?= base_url('banner.png') ?>" class="d-block w-100">
+            <div class="carousel-inner">
+                <?php foreach ($slides as $index => $slide): ?>
+                    <div class="carousel-item <?= $index === 0 ? 'active' : '' ?>">
+                        <img src="<?= base_url(esc($slide['image_path'])) ?>" class="d-block w-100" alt="Carousel Slide" style="max-height: 400px; object-fit: cover;">
+                    </div>
+                <?php endforeach; ?>
             </div>
-            <div class="carousel-item">
-                <img src="<?= base_url('poster.png') ?>" class="d-block w-100">
-            </div>
-        </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        <?php endif; ?>
     </div>
 </section>
 

@@ -10,6 +10,7 @@ class Analytics extends BaseController
 
     public function __construct()
     {
+        helper('date');
         $this->gaModel = new GoogleAnalyticsModel();
     }
 
@@ -96,6 +97,46 @@ class Analytics extends BaseController
         } catch (\Exception $e) {
             return $this->handleError($e);
         }
+    }
+
+    public function monthlyPostStats()
+    {
+        try {
+            $data = $this->gaModel->getMonthlyPostStats();
+
+            foreach ($data as &$item) {
+                $item['formatted_date'] = format_date($item['year'] . '-' . $item['month'] . '-01', 'month_year');
+            }
+
+            return $this->response->setJSON($data);
+        } catch (\Exception $e) {
+            return $this->handleError($e);
+        }
+    }
+
+    public function monthlyUserStats()
+    {
+        try {
+            $data = $this->gaModel->getMonthlyUserStats();
+
+            foreach ($data as &$item) {
+                $item['formatted_date'] = format_date($item['year'] . '-' . $item['month'] . '-01', 'month_year');
+            }
+
+            return $this->response->setJSON($data);
+        } catch (\Exception $e) {
+            return $this->handleError($e);
+        }
+    }
+
+    public function monthlyReport($year, $month)
+    {
+        $postModel = new \App\Models\PostModel();
+        $data['posts'] = $postModel->getPostsByMonthYear($month, $year);
+        $data['year'] = $year;
+        $data['month'] = $month;
+
+        return $this->render('Admin/Analytics/monthly_report', $data);
     }
 
     protected function handleError(\Exception $e)
