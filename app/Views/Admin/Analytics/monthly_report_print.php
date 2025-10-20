@@ -9,6 +9,7 @@
     <style>
         @media print {
             body {
+                print-color-adjust: exact;
                 -webkit-print-color-adjust: exact;
             }
         }
@@ -17,15 +18,15 @@
 
 <body>
     <div class="container py-5">
-        <h3 class="text-center mb-4">Laporan Bulanan - <?= format_date($year . '-' . $month . '-01', 'month_year') ?></h3>
+        <h3 class="text-center fw-bold mb-4">Laporan Bulanan - <?= format_date($year . '-' . $month . '-01', 'month_year') ?></h3>
         <table class="table table-bordered">
             <thead class="table-light">
                 <tr>
-                    <th>Judul Berita</th>
-                    <th>Konten Berita</th>
-                    <th>Link Berita</th>
-                    <th>Total Tampilan</th>
-                    <th>Tanggal Publikasi</th>
+                    <th class="align-middle">Judul Berita</th>
+                    <th class="align-middle">Konten Berita</th>
+                    <th class="align-middle">Link Berita</th>
+                    <th class="align-middle">Total Tampilan</th>
+                    <th class="align-middle">Tanggal Publikasi</th>
                 </tr>
             </thead>
             <tbody>
