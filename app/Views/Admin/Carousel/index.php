@@ -28,7 +28,7 @@ Kelola Slide
                             <tr>
                                 <td class="ps-4"><?= esc($slide['slide_order']) ?></td>
                                 <td>
-                                    <img src="<?= base_url(esc($slide['image_path'])) ?>" alt="" class="rounded" style="width: 150px; height: 75px; object-fit: cover;">
+                                    <img src="<?= esc($slide['image_path']) ?>" alt="" class="rounded" style="width: 150px; height: 75px; object-fit: cover;">
                                 </td>
                                 <td class="text-end pe-4">
                                     <div class="btn-group" role="group">

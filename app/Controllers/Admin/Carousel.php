@@ -42,10 +42,10 @@ class Carousel extends BaseController
 
         if ($image->isValid() && !$image->hasMoved()) {
             $newName = $image->getRandomName();
-            $image->move(ROOTPATH . 'public/uploads/carousel', $newName);
+            $image->move(FCPATH . 'uploads/carousel', $newName);
 
             $this->carouselSlideModel->save([
-                'image_path' => 'uploads/carousel/' . $newName,
+                'image_path' => base_url('uploads/carousel/' . $newName),
                 'slide_order' => $this->request->getPost('slide_order'),
             ]);
 
@@ -84,12 +84,12 @@ class Carousel extends BaseController
 
         if ($image->isValid() && !$image->hasMoved()) {
             $newName = $image->getRandomName();
-            $image->move(ROOTPATH . 'public/uploads/carousel', $newName);
-            $data['image_path'] = 'uploads/carousel/' . $newName;
+            $image->move(FCPATH . 'uploads/carousel', $newName);
+            $data['image_path'] = base_url('uploads/carousel/' . $newName);
 
             // Delete old image
-            if ($slide && !empty($slide['image_path']) && file_exists(ROOTPATH . 'public/' . $slide['image_path'])) {
-                unlink(ROOTPATH . 'public/' . $slide['image_path']);
+            if ($slide && !empty($slide['image_path']) && file_exists(FCPATH . $slide['image_path'])) {
+                unlink(FCPATH . $slide['image_path']);
             }
         }
 
@@ -102,8 +102,8 @@ class Carousel extends BaseController
     {
         $slide = $this->carouselSlideModel->find($id);
 
-        if ($slide && !empty($slide['image_path']) && file_exists(ROOTPATH . 'public/' . $slide['image_path'])) {
-            unlink(ROOTPATH . 'public/' . $slide['image_path']);
+        if ($slide && !empty($slide['image_path']) && file_exists(FCPATH . $slide['image_path'])) {
+            unlink(FCPATH . $slide['image_path']);
         }
 
         $this->carouselSlideModel->delete($id);

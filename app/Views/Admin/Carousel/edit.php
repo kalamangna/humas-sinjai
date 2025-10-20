@@ -35,7 +35,7 @@ Edit Slide
                                     </div>
                                 <?php endif; ?>
                                 <small class="text-muted">Biarkan kosong untuk mempertahankan gambar saat ini. Tipe file yang diizinkan: jpg, jpeg, png, webp. Ukuran maksimal: 2MB.</small>
-                                <img id="image-preview" src="<?= base_url(esc($slide['image_path'])) ?>" alt="" class="img-fluid rounded mt-2" style="max-height: 200px;">
+                                <img id="image-preview" src="<?= esc($slide['image_path']) ?>" alt="" class="img-fluid rounded mt-2" style="max-height: 200px;">
                             </div>
                         </div>
                         <div class="col-12">
