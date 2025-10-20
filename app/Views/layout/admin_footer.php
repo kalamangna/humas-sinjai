@@ -25,9 +25,8 @@
             }
         });
     });
-</script>
 
-<script>
+    // Print Monthly Report
     document.addEventListener('click', function(e) {
         if (e.target && e.target.id === 'print-button') {
             const pathParts = window.location.pathname.split('/');

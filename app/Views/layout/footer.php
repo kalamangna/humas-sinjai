@@ -96,6 +96,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
 <script>
+    // Scroll to Top Button Functionality
     document.addEventListener('DOMContentLoaded', function() {
         const scrollTopButton = document.querySelector('.scroll-to-top');
 
@@ -113,22 +114,6 @@
                 });
             });
         }
-    });
-
-    document.addEventListener('DOMContentLoaded', function() {
-        const dropdownSubmenus = document.querySelectorAll('.dropdown-submenu a.dropdown-toggle');
-
-        dropdownSubmenus.forEach(function(submenu) {
-            submenu.addEventListener('click', function(e) {
-                e.stopPropagation();
-                e.preventDefault();
-
-                const submenuEl = this.nextElementSibling;
-                if (submenuEl) {
-                    submenuEl.classList.toggle('show');
-                }
-            });
-        });
     });
 </script>
 </body>
