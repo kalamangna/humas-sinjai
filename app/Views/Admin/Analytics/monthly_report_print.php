@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cetak Laporan Bulanan</title>
+    <link rel="icon" href="<?= base_url('logo.png') ?>" type="image/png">
     <link rel="stylesheet" href="<?= base_url('assets/css/custom.css') ?>">
     <style>
         @media print {

@@ -6,7 +6,7 @@
 <div class="text-end">
     <small class="text-muted d-block">Periode:</small>
     <span class="badge bg-light text-dark border">
-        <i class="fas fa-calendar-alt me-2"></i>
+        <i class="fas fa-calendar-alt me-1"></i>
         All Time
     </span>
 </div>
@@ -148,7 +148,7 @@
                                 <i class="fas fa-eye me-2"></i>Laporan Tampilan
                             </h5>
                             <a href="#" id="monthly-report-link" class="btn btn-outline-primary btn-sm">
-                                Lihat Laporan Lengkap
+                                <i class="fas fa-file-alt me-2"></i> Lihat Laporan Lengkap
                             </a>
                         </div>
                     </div>

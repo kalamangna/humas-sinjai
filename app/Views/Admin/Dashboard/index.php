@@ -104,6 +104,55 @@
     <?php endif; ?>
 </div>
 
+<!-- Quick Actions -->
+<div class="row mb-5">
+    <div class="col-12">
+        <div class="card border-0 shadow-sm">
+            <div class="card-header bg-transparent border-bottom py-4">
+                <h5 class="fw-bold text-dark mb-0">
+                    <i class="fas fa-bolt me-3"></i>Aksi Cepat
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="row g-3">
+                    <?php $isAdmin = session()->get('role') === 'admin'; ?>
+                    <div class="<?= $isAdmin ? 'col-lg-3' : 'col-lg-4' ?> col-6">
+                        <a href="<?= base_url('admin/posts/new') ?>" class="btn btn-primary w-100 d-flex flex-column align-items-center py-3 text-white text-decoration-none">
+                            <i class="fas fa-plus-circle fs-2 mb-2"></i>
+                            <span>Tambah Berita</span>
+                            <small class="text-light opacity-75 mt-1">Berita baru</small>
+                        </a>
+                    </div>
+                    <div class="<?= $isAdmin ? 'col-lg-3' : 'col-lg-4' ?> col-6">
+                        <a href="<?= base_url('admin/categories/new') ?>" class="btn btn-success w-100 d-flex flex-column align-items-center py-3 text-white text-decoration-none">
+                            <i class="fas fa-folder-plus fs-2 mb-2"></i>
+                            <span>Tambah Kategori</span>
+                            <small class="text-light opacity-75 mt-1">Kategori baru</small>
+                        </a>
+                    </div>
+                    <div class="<?= $isAdmin ? 'col-lg-3' : 'col-lg-4' ?> col-6">
+                        <a href="<?= base_url('admin/tags/new') ?>" class="btn btn-info w-100 d-flex flex-column align-items-center py-3 text-white text-decoration-none">
+                            <i class="fas fa-tag fs-2 mb-2"></i>
+                            <span>Tambah Tag</span>
+                            <small class="text-light opacity-75 mt-1">Tag baru</small>
+                        </a>
+                    </div>
+                    <?php if ($isAdmin) : ?>
+                        <div class="col-lg-3 col-6">
+                            <a href="<?= base_url('admin/users/new') ?>" class="btn btn-warning w-100 d-flex flex-column align-items-center py-3 text-white text-decoration-none">
+                                <i class="fas fa-user-plus fs-2 mb-2"></i>
+                                <span>Tambah Pengguna</span>
+                                <small class="text-light opacity-75 mt-1">Pengguna baru</small>
+                            </a>
+                        </div>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Popular and Recent Posts -->
 <div class="row g-3 mb-5">
     <!-- Popular Posts -->
     <div class="col-lg-6">
@@ -172,54 +221,6 @@
                         <p class="text-muted mb-0">Belum ada berita.</p>
                     </div>
                 <?php endif; ?>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Quick Actions -->
-<div class="row mb-5">
-    <div class="col-12">
-        <div class="card border-0 shadow-sm">
-            <div class="card-header bg-transparent border-bottom py-4">
-                <h5 class="fw-bold text-dark mb-0">
-                    <i class="fas fa-bolt me-3"></i>Aksi Cepat
-                </h5>
-            </div>
-            <div class="card-body">
-                <div class="row g-3">
-                    <?php $isAdmin = session()->get('role') === 'admin'; ?>
-                    <div class="<?= $isAdmin ? 'col-lg-3' : 'col-lg-4' ?> col-6">
-                        <a href="<?= base_url('admin/posts/new') ?>" class="btn btn-primary w-100 d-flex flex-column align-items-center py-3 text-white text-decoration-none">
-                            <i class="fas fa-plus-circle fs-2 mb-2"></i>
-                            <span>Tambah Berita</span>
-                            <small class="text-light opacity-75 mt-1">Berita baru</small>
-                        </a>
-                    </div>
-                    <div class="<?= $isAdmin ? 'col-lg-3' : 'col-lg-4' ?> col-6">
-                        <a href="<?= base_url('admin/categories/new') ?>" class="btn btn-success w-100 d-flex flex-column align-items-center py-3 text-white text-decoration-none">
-                            <i class="fas fa-folder-plus fs-2 mb-2"></i>
-                            <span>Tambah Kategori</span>
-                            <small class="text-light opacity-75 mt-1">Kategori baru</small>
-                        </a>
-                    </div>
-                    <div class="<?= $isAdmin ? 'col-lg-3' : 'col-lg-4' ?> col-6">
-                        <a href="<?= base_url('admin/tags/new') ?>" class="btn btn-info w-100 d-flex flex-column align-items-center py-3 text-white text-decoration-none">
-                            <i class="fas fa-tag fs-2 mb-2"></i>
-                            <span>Tambah Tag</span>
-                            <small class="text-light opacity-75 mt-1">Tag baru</small>
-                        </a>
-                    </div>
-                    <?php if ($isAdmin) : ?>
-                        <div class="col-lg-3 col-6">
-                            <a href="<?= base_url('admin/users/new') ?>" class="btn btn-warning w-100 d-flex flex-column align-items-center py-3 text-white text-decoration-none">
-                                <i class="fas fa-user-plus fs-2 mb-2"></i>
-                                <span>Tambah Pengguna</span>
-                                <small class="text-light opacity-75 mt-1">Pengguna baru</small>
-                            </a>
-                        </div>
-                    <?php endif; ?>
-                </div>
             </div>
         </div>
     </div>

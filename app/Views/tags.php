@@ -9,7 +9,7 @@
         <div class="d-flex flex-wrap gap-2">
             <?php foreach ($tags as $tag) : ?>
                 <a href="<?= base_url('tag/' . esc($tag['slug'])) ?>" class="btn btn-sm btn-outline-secondary d-flex align-items-center">
-                    <i class="fas fa-tag me-1"></i>
+                    <i class="fas fa-tag me-2"></i>
                     <?= esc($tag['name']) ?>
                     <span class="badge bg-secondary ms-2"><?= $tag['post_count'] ?></span>
                 </a>

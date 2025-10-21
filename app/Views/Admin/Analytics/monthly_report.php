@@ -21,10 +21,10 @@ Laporan Bulanan
 
 <?= $this->section('content') ?>
 <div class="card border-0 shadow-sm">
-    <div class="card-header bg-transparent border-bottom-0 py-4">
-        <h4 class="fw-bold text-dark mb-0">
-            <i class="fas fa-calendar-alt me-2 text-primary"></i>Laporan Bulanan - <?= format_date($year . '-' . $month . '-01', 'month_year') ?>
-        </h4>
+    <div class="card-header bg-transparent border-bottom py-4">
+        <h5 class="fw-bold text-dark mb-0">
+            <i class="fas fa-calendar-alt me-2"></i>Laporan Bulanan - <?= format_date($year . '-' . $month . '-01', 'month_year') ?>
+        </h5>
         <p class="text-muted mb-0 mt-2">Total berita: <?= count($posts) ?></p>
     </div>
     <div class="card-body p-0">
@@ -73,11 +73,14 @@ Laporan Bulanan
                 </tbody>
             </table>
         </div>
-        <?= $this->endSection() ?>
+    </div>
+</div>
 
-        <script>
-            document.getElementById('month-select').addEventListener('change', function() {
-                const selected = this.value;
-                window.location.href = `<?= base_url('admin/analytics/monthly-report/') ?>${selected}`;
-            });
-        </script>
+<?= $this->endSection() ?>
+
+<script>
+    document.getElementById('month-select').addEventListener('change', function() {
+        const selected = this.value;
+        window.location.href = `<?= base_url('admin/analytics/monthly-report/') ?>${selected}`;
+    });
+</script>
