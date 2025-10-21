@@ -36,8 +36,8 @@
                                         <th class="border-0 ps-4 py-3 fw-semibold text-dark">Sumber</th>
                                         <th class="border-0 py-3 fw-semibold text-dark">Medium</th>
                                         <th class="border-0 py-3 fw-semibold text-dark">Sesi</th>
-                                        <th class="border-0 py-3 fw-semibold text-dark">Pengguna Baru</th>
-                                        <th class="border-0 pe-4 py-3 fw-semibold text-dark">Tampilan Halaman</th>
+                                        <th class="border-0 py-3 fw-semibold text-dark">Tampilan Halaman</th>
+                                        <th class="border-0 pe-4 py-3 fw-semibold text-dark">Total Pengguna</th>
                                     </tr>
                                 </thead>
                                 <tbody id="traffic-sources-data" class="border-top-0"></tbody>
@@ -85,10 +85,10 @@
                             <span class="fw-bold text-dark">${item.sessions}</span>
                         </td>
                         <td class="py-3">
-                            <span class="fw-bold text-dark">${item.newUsers}</span>
+                            <span class="fw-bold text-dark">${item.screenPageViews}</span>
                         </td>
                         <td class="pe-4 py-3">
-                            <span class="fw-bold text-dark">${item.screenPageViews}</span>
+                            <span class="fw-bold text-dark">${item.totalUsers}</span>
                         </td>
                     `;
                     trafficSourcesData.appendChild(row);

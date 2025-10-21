@@ -44,7 +44,7 @@ class GoogleAnalyticsModel extends Model
     {
         $data = $this->gaService->runReport([
             'dimensions' => ['pageTitle', 'pagePath'],
-            'metrics' => ['screenPageViews', 'userEngagementDuration'],
+            'metrics' => ['screenPageViews', 'totalUsers'],
             'order_bys' => [['metric' => 'screenPageViews', 'desc' => true]],
         ]);
 
@@ -54,7 +54,7 @@ class GoogleAnalyticsModel extends Model
                 'pageTitle' => $item['dimensions'][0] ?? 'No Title',
                 'pagePath' => $item['dimensions'][1] ?? '',
                 'screenPageViews' => (int)($item['metrics'][0] ?? 0),
-                'userEngagementDuration' => (float)($item['metrics'][1] ?? 0),
+                'totalUsers' => (int)($item['metrics'][1] ?? 0),
             ];
         }, $data);
 
@@ -65,7 +65,6 @@ class GoogleAnalyticsModel extends Model
                 '/index.php',
                 '/admin',
                 '/api',
-                '/v1/admin'
             ];
 
             foreach ($excludedPaths as $excludedPath) {
@@ -89,7 +88,7 @@ class GoogleAnalyticsModel extends Model
     {
         $data = $this->gaService->runReport([
             'dimensions' => ['sessionSource', 'sessionMedium'],
-            'metrics' => ['sessions', 'newUsers', 'screenPageViews'],
+            'metrics' => ['sessions', 'screenPageViews', 'totalUsers'],
         ]);
 
         // Map array ke format yang diinginkan
@@ -98,8 +97,8 @@ class GoogleAnalyticsModel extends Model
                 'sessionSource' => $item['dimensions'][0] ?? 'Unknown',
                 'sessionMedium' => $item['dimensions'][1] ?? 'Unknown',
                 'sessions' => (int)($item['metrics'][0] ?? 0),
-                'newUsers' => (int)($item['metrics'][1] ?? 0),
-                'screenPageViews' => (int)($item['metrics'][2] ?? 0),
+                'screenPageViews' => (int)($item['metrics'][1] ?? 0),
+                'totalUsers' => (int)($item['metrics'][2] ?? 0),
             ];
         }, $data);
     }
@@ -108,7 +107,7 @@ class GoogleAnalyticsModel extends Model
     {
         $data = $this->gaService->runReport([
             'dimensions' => ['country', 'region', 'city'],
-            'metrics' => ['sessions', 'activeUsers'],
+            'metrics' => ['sessions', 'totalUsers'],
         ]);
 
         // Map array ke format yang diinginkan
@@ -118,7 +117,7 @@ class GoogleAnalyticsModel extends Model
                 'region' => $item['dimensions'][1] ?? 'Unknown',
                 'city' => $item['dimensions'][2] ?? 'Unknown',
                 'sessions' => (int)($item['metrics'][0] ?? 0),
-                'activeUsers' => (int)($item['metrics'][1] ?? 0),
+                'totalUsers' => (int)($item['metrics'][1] ?? 0),
             ];
         }, $data);
     }
@@ -127,7 +126,7 @@ class GoogleAnalyticsModel extends Model
     {
         $data = $this->gaService->runReport([
             'dimensions' => ['deviceCategory', 'operatingSystem', 'browser'],
-            'metrics' => ['sessions', 'screenPageViews', 'averageSessionDuration'],
+            'metrics' => ['sessions', 'screenPageViews', 'totalUsers'],
         ]);
 
         // Map array ke format yang diinginkan
@@ -138,7 +137,7 @@ class GoogleAnalyticsModel extends Model
                 'browser' => $item['dimensions'][2] ?? 'Unknown',
                 'sessions' => (int)($item['metrics'][0] ?? 0),
                 'screenPageViews' => (int)($item['metrics'][1] ?? 0),
-                'averageSessionDuration' => (float)($item['metrics'][2] ?? 0),
+                'totalUsers' => (int)($item['metrics'][2] ?? 0),
             ];
         }, $data);
     }

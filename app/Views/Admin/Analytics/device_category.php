@@ -20,12 +20,51 @@
     </div>
 
     <div id="analytics-content" class="d-none">
-        <div class="row">
+        <div class="row g-3">
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-header bg-transparent border-bottom py-4">
+                        <h5 class="fw-bold text-dark mb-0">
+                            <i class="fas fa-desktop me-3"></i>Perangkat
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="deviceCategoryChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-header bg-transparent border-bottom py-4">
+                        <h5 class="fw-bold text-dark mb-0">
+                            <i class="fas fa-robot me-3"></i>Sistem Operasi
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="operatingSystemChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-header bg-transparent border-bottom py-4">
+                        <h5 class="fw-bold text-dark mb-0">
+                            <i class="fas fa-globe me-3"></i>Browser
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="browserChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-4">
             <div class="col-12">
                 <div class="card border-0 shadow-sm">
                     <div class="card-header bg-transparent border-bottom py-4">
                         <h5 class="fw-bold text-dark mb-0">
-                            <i class="fas fa-desktop me-3"></i>Statistik Sesi Berdasarkan Perangkat
+                            <i class="fas fa-list me-3"></i>Statistik Berdasarkan Perangkat
                         </h5>
                     </div>
                     <div class="card-body p-0">
@@ -38,7 +77,7 @@
                                         <th class="border-0 py-3 fw-semibold text-dark">Browser</th>
                                         <th class="border-0 py-3 fw-semibold text-dark">Sesi</th>
                                         <th class="border-0 py-3 fw-semibold text-dark">Tampilan Halaman</th>
-                                        <th class="border-0 pe-4 py-3 fw-semibold text-dark">Rata-rata Durasi Sesi</th>
+                                        <th class="border-0 pe-4 py-3 fw-semibold text-dark">Total Pengguna</th>
                                     </tr>
                                 </thead>
                                 <tbody id="device-category-data" class="border-top-0"></tbody>
@@ -63,6 +102,30 @@
                 loadingSpinner.classList.add('d-none');
                 analyticsContent.classList.remove('d-none');
 
+                // Process data for charts
+                const deviceCategoryUsers = {};
+                const operatingSystemUsers = {};
+                const browserUsers = {};
+
+                data.forEach(item => {
+                    // Device Category
+                    const deviceCategory = item.deviceCategory || 'Tidak diketahui';
+                    deviceCategoryUsers[deviceCategory] = (deviceCategoryUsers[deviceCategory] || 0) + parseInt(item.totalUsers);
+
+                    // Operating System
+                    const operatingSystem = item.operatingSystem || 'Tidak diketahui';
+                    operatingSystemUsers[operatingSystem] = (operatingSystemUsers[operatingSystem] || 0) + parseInt(item.totalUsers);
+
+                    // Browser
+                    const browser = item.browser || 'Tidak diketahui';
+                    browserUsers[browser] = (browserUsers[browser] || 0) + parseInt(item.totalUsers);
+                });
+
+                // Create charts
+                createPieChart('deviceCategoryChart', deviceCategoryUsers, 'Device Category');
+                createPieChart('operatingSystemChart', operatingSystemUsers, 'Operating System');
+                createPieChart('browserChart', browserUsers, 'Browser');
+
                 // Clear existing data
                 deviceCategoryData.innerHTML = '';
 
@@ -70,23 +133,6 @@
                 data.forEach((item, index) => {
                     const row = document.createElement('tr');
                     row.className = 'border-bottom';
-
-                    // Format average session duration
-                    let avgSessionDuration = item.averageSessionDuration;
-                    let formattedDuration = '0 detik';
-
-                    if (avgSessionDuration < 60) {
-                        formattedDuration = `${avgSessionDuration.toFixed(0)} detik`;
-                    } else if (avgSessionDuration < 3600) {
-                        const minutes = Math.floor(avgSessionDuration / 60);
-                        const seconds = (avgSessionDuration % 60).toFixed(0);
-                        formattedDuration = `${minutes} menit ${seconds} detik`;
-                    } else {
-                        const hours = Math.floor(avgSessionDuration / 3600);
-                        const minutes = Math.floor((avgSessionDuration % 3600) / 60);
-                        const seconds = (avgSessionDuration % 60).toFixed(0);
-                        formattedDuration = `${hours} jam ${minutes} menit ${seconds} detik`;
-                    }
 
                     row.innerHTML = `
                         <td class="ps-4 py-3">
@@ -116,7 +162,7 @@
                             <span class="fw-bold text-dark">${item.screenPageViews}</span>
                         </td>
                         <td class="pe-4 py-3">
-                            <span class="fw-semibold text-dark">${formattedDuration}</span>
+                            <span class="fw-bold text-dark">${item.totalUsers}</span>
                         </td>
                     `;
                     deviceCategoryData.appendChild(row);
@@ -137,6 +183,60 @@
                     </tr>
                 `;
             });
+
+        function createPieChart(canvasId, data, label) {
+            const ctx = document.getElementById(canvasId).getContext('2d');
+            new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: Object.keys(data),
+                    datasets: [{
+                        label: label,
+                        data: Object.values(data),
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.8)',
+                            'rgba(54, 162, 235, 0.8)',
+                            'rgba(255, 206, 86, 0.8)',
+                            'rgba(75, 192, 192, 0.8)',
+                            'rgba(153, 102, 255, 0.8)',
+                            'rgba(255, 159, 64, 0.8)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed !== null) {
+                                        label += new Intl.NumberFormat('id-ID').format(context.parsed);
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
 
         // Fungsi helper untuk menentukan ikon perangkat
         function getDeviceIcon(deviceCategory) {

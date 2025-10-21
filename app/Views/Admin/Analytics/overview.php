@@ -7,11 +7,7 @@
     <small class="text-muted d-block">Periode:</small>
     <span class="badge bg-light text-dark border">
         <i class="fas fa-calendar-alt me-2"></i>
-        <?php
-        $end = new DateTime();
-        $start = (clone $end)->modify('-27 days');
-        ?>
-        <?= format_date($start->format('Y-m-d'), 'short_date_only') ?> - <?= format_date($end->format('Y-m-d'), 'short_date_only') ?>
+        All Time
     </span>
 </div>
 <?= $this->endSection() ?>
@@ -20,7 +16,7 @@
 <div class="container-fluid">
     <div id="analytics-content">
         <!-- Metrics Cards -->
-        <div class="row g-4 mb-5">
+        <div class="row g-3 mb-5">
             <div class="col-xl-4 col-md-6">
                 <div class="card border-0 shadow-sm h-100">
                     <div class="card-body">
@@ -36,7 +32,7 @@
                     </div>
                     <div class="card-footer bg-transparent border-0 pb-3">
                         <div class="text-muted small">
-                            Total pengguna yang mengunjungi situs Anda dalam 28 hari terakhir.
+                            Total pengguna yang mengunjungi situs Anda sepanjang waktu.
                         </div>
                     </div>
                 </div>
@@ -56,7 +52,7 @@
                     </div>
                     <div class="card-footer bg-transparent border-0 pb-3">
                         <div class="text-muted small">
-                            Jumlah pengguna baru yang mengunjungi situs Anda.
+                            Jumlah pengguna baru yang mengunjungi situs Anda sepanjang waktu.
                         </div>
                     </div>
                 </div>
@@ -76,7 +72,7 @@
                     </div>
                     <div class="card-footer bg-transparent border-0 pb-3">
                         <div class="text-muted small">
-                            Jumlah total tampilan halaman di situs web Anda.
+                            Jumlah total tampilan halaman di situs web Anda sepanjang waktu.
                         </div>
                     </div>
                 </div>
@@ -143,13 +139,18 @@
             </div>
         </div>
 
-        <div class="row g-4 mb-5">
-            <div class="col-lg-6">
+        <div class="row g-3 mb-5">
+            <div class="col-md-6">
                 <div class="card border-0 shadow-sm h-100">
-                    <div class="card-header bg-transparent border-bottom-0 py-3">
-                        <h5 class="fw-bold text-dark mb-0">
-                            <i class="fas fa-calendar-alt me-2"></i>Laporan Tampilan Berita Bulanan
-                        </h5>
+                    <div class="card-header bg-transparent border-bottom py-4">
+                        <div class="d-flex justify-content-between">
+                            <h5 class="fw-bold text-dark mb-0">
+                                <i class="fas fa-eye me-2"></i>Laporan Tampilan
+                            </h5>
+                            <a href="#" id="monthly-report-link" class="btn btn-outline-primary btn-sm">
+                                Lihat Laporan Lengkap
+                            </a>
+                        </div>
                     </div>
                     <div class="card-body">
                         <div id="monthly-post-chart-spinner" class="d-flex justify-content-center align-items-center py-5">
@@ -164,11 +165,11 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-6">
+            <div class="col-md-6">
                 <div class="card border-0 shadow-sm h-100">
-                    <div class="card-header bg-transparent border-bottom-0 py-3">
+                    <div class="card-header bg-transparent border-bottom py-4">
                         <h5 class="fw-bold text-dark mb-0">
-                            <i class="fas fa-users me-2"></i>Laporan Pengguna Bulanan
+                            <i class="fas fa-users me-2"></i>Laporan Pengguna
                         </h5>
                     </div>
                     <div class="card-body">
@@ -190,7 +191,7 @@
         <div class="row mb-5">
             <div class="col-12">
                 <div class="card border-0 shadow-sm">
-                    <div class="card-header bg-transparent border-bottom-0 py-3">
+                    <div class="card-header bg-transparent border-bottom py-4">
                         <h5 class="fw-bold text-dark mb-0">
                             <i class="fas fa-chart-bar me-2"></i>Laporan Lanjutan
                         </h5>
@@ -289,6 +290,10 @@
                 monthlyPostChartSpinner.classList.add('d-none');
                 monthlyPostChart.classList.remove('d-none');
 
+                const latestData = data[data.length - 1];
+                const reportLink = document.getElementById('monthly-report-link');
+                reportLink.href = `<?= base_url('admin/analytics/monthly-report/') ?>${latestData.year}/${latestData.month}`;
+
                 const labels = data.map(item => item.formatted_date);
                 const values = data.map(item => item.screenPageViews);
 
@@ -298,7 +303,7 @@
                     data: {
                         labels: labels.reverse(),
                         datasets: [{
-                            label: 'Tampilan Halaman',
+                            label: 'Total Tampilan',
                             data: values.reverse(),
                             backgroundColor: 'rgba(54, 162, 235, 0.2)',
                             borderColor: 'rgba(54, 162, 235, 1)',
@@ -306,23 +311,6 @@
                         }]
                     },
                     options: {
-                        plugins: {
-                            tooltip: {
-                                callbacks: {
-                                    afterLabel: function(context) {
-                                        return 'Klik untuk melihat detail';
-                                    }
-                                }
-                            }
-                        },
-                        onClick: (e, elements) => {
-                            if (elements.length > 0) {
-                                const elementIndex = elements[0].index;
-                                const year = data[elementIndex].year;
-                                const month = data[elementIndex].month;
-                                window.location.href = `<?= base_url('admin/analytics/monthly-report/') ?>${year}/${month}`;
-                            }
-                        },
                         scales: {
                             y: {
                                 beginAtZero: true

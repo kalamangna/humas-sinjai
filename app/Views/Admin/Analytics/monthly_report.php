@@ -5,12 +5,18 @@ Laporan Bulanan
 <?= $this->endSection() ?>
 
 <?= $this->section('page_actions') ?>
-<a href="<?= base_url('admin/analytics/overview') ?>" class="btn btn-outline-secondary btn-sm">
-    <i class="fas fa-arrow-left me-2"></i>Kembali
-</a>
-<button id="print-button" class="btn btn-outline-primary btn-sm">
-    <i class="fas fa-print me-2"></i>Cetak
-</button>
+<div class="d-flex gap-2">
+    <select id="month-select" class="form-select form-select-sm" style="width: auto;">
+        <?php foreach ($months as $m): ?>
+            <option value="<?= $m['year'] ?>/<?= $m['month'] ?>" <?= ($m['year'] == $year && $m['month'] == $month) ? 'selected' : '' ?>>
+                <?= format_date($m['year'] . '-' . $m['month'] . '-01', 'month_year') ?>
+            </option>
+        <?php endforeach; ?>
+    </select>
+    <button id="print-button" class="btn btn-outline-primary btn-sm">
+        <i class="fas fa-print me-2"></i>Cetak
+    </button>
+</div>
 <?= $this->endSection() ?>
 
 <?= $this->section('content') ?>
@@ -67,6 +73,11 @@ Laporan Bulanan
                 </tbody>
             </table>
         </div>
-    </div>
-</div>
-<?= $this->endSection() ?>
+        <?= $this->endSection() ?>
+
+        <script>
+            document.getElementById('month-select').addEventListener('change', function() {
+                const selected = this.value;
+                window.location.href = `<?= base_url('admin/analytics/monthly-report/') ?>${selected}`;
+            });
+        </script>

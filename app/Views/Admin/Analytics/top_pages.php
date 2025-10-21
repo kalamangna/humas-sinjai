@@ -36,7 +36,7 @@
                                         <th class="border-0 ps-4 py-3 fw-semibold text-dark">Judul Halaman</th>
                                         <th class="border-0 py-3 fw-semibold text-dark">Path Halaman</th>
                                         <th class="border-0 py-3 fw-semibold text-dark">Total Tampilan</th>
-                                        <th class="border-0 pe-4 py-3 fw-semibold text-dark">Durasi Keterlibatan Pengguna</th>
+                                        <th class="border-0 pe-4 py-3 fw-semibold text-dark">Total Pengguna</th>
                                     </tr>
                                 </thead>
                                 <tbody id="top-pages-data" class="border-top-0"></tbody>
@@ -102,11 +102,12 @@
                         <code class="text-muted">${page.pagePath || '/'}</code>
                     </td>
                     <td class="py-3">
-                        <span class="fw-bold text-dark">${parseInt(page.screenPageViews || 0).toLocaleString()}</span>
+                        <span class="fw-bold text-dark">${page.screenPageViews}</span>
                         <small class="text-muted d-block">tampilan</small>
                     </td>
                     <td class="pe-4 py-3">
-                        <span class="fw-semibold text-dark">${engagementDuration}</span>
+                        <span class="fw-bold text-dark">${page.totalUsers}</span>
+                        <small class="text-muted d-block">pengguna</small>
                     </td>
                 `;
 

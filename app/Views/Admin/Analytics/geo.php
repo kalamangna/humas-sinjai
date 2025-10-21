@@ -20,7 +20,34 @@
     </div>
 
     <div id="analytics-content" class="d-none">
-        <div class="row">
+        <div class="row g-3">
+            <div class="col-md-6">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-header bg-transparent border-bottom py-4">
+                        <h5 class="fw-bold text-dark mb-0">
+                            <i class="fas fa-flag me-3"></i>Negara
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="countryChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-header bg-transparent border-bottom py-4">
+                        <h5 class="fw-bold text-dark mb-0">
+                            <i class="fas fa-city me-3"></i>Kota
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="cityChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-4">
             <div class="col-12">
                 <div class="card border-0 shadow-sm">
                     <div class="card-header bg-transparent border-bottom py-4">
@@ -37,7 +64,7 @@
                                         <th class="border-0 py-3 fw-semibold text-dark">Wilayah</th>
                                         <th class="border-0 py-3 fw-semibold text-dark">Kota</th>
                                         <th class="border-0 py-3 fw-semibold text-dark">Sesi</th>
-                                        <th class="border-0 pe-4 py-3 fw-semibold text-dark">Pengguna Aktif</th>
+                                        <th class="border-0 pe-4 py-3 fw-semibold text-dark">Total Pengguna</th>
                                     </tr>
                                 </thead>
                                 <tbody id="geo-data" class="border-top-0"></tbody>
@@ -61,6 +88,24 @@
             .then(data => {
                 loadingSpinner.classList.add('d-none');
                 analyticsContent.classList.remove('d-none');
+
+                // Process data for charts
+                const countryUsers = {};
+                const cityUsers = {};
+
+                data.forEach(item => {
+                    // Country
+                    const country = item.country || 'Tidak diketahui';
+                    countryUsers[country] = (countryUsers[country] || 0) + parseInt(item.totalUsers);
+
+                    // City
+                    const city = item.city || 'Tidak diketahui';
+                    cityUsers[city] = (cityUsers[city] || 0) + parseInt(item.totalUsers);
+                });
+
+                // Create charts
+                createPieChart('countryChart', countryUsers, 'Country');
+                createPieChart('cityChart', cityUsers, 'City');
 
                 // Clear existing data
                 geoData.innerHTML = '';
@@ -88,7 +133,7 @@
                             <span class="fw-bold text-dark">${item.sessions}</span>
                         </td>
                         <td class="pe-4 py-3">
-                            <span class="fw-bold text-dark">${item.activeUsers}</span>
+                            <span class="fw-bold text-dark">${item.totalUsers}</span>
                         </td>
                     `;
                     geoData.appendChild(row);
@@ -109,6 +154,60 @@
                     </tr>
                 `;
             });
+
+        function createPieChart(canvasId, data, label) {
+            const ctx = document.getElementById(canvasId).getContext('2d');
+            new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: Object.keys(data),
+                    datasets: [{
+                        label: label,
+                        data: Object.values(data),
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.8)',
+                            'rgba(54, 162, 235, 0.8)',
+                            'rgba(255, 206, 86, 0.8)',
+                            'rgba(75, 192, 192, 0.8)',
+                            'rgba(153, 102, 255, 0.8)',
+                            'rgba(255, 159, 64, 0.8)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed !== null) {
+                                        label += new Intl.NumberFormat('id-ID').format(context.parsed);
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
     });
 </script>
 <?= $this->endSection() ?>

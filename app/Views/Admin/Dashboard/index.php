@@ -11,7 +11,7 @@
 <?= $this->section('content') ?>
 
 <!-- Stats Cards -->
-<div class="row g-4 mb-5">
+<div class="row g-3 mb-5">
     <?php $isAdmin = session()->get('role') === 'admin'; ?>
     <!-- Posts Card -->
     <div class="<?= $isAdmin ? 'col-xl-3' : 'col-xl-4' ?> col-md-6">
@@ -104,7 +104,7 @@
     <?php endif; ?>
 </div>
 
-<div class="row g-4 mb-5">
+<div class="row g-3 mb-5">
     <!-- Popular Posts -->
     <div class="col-lg-6">
         <div class="card border-0 shadow-sm h-100">

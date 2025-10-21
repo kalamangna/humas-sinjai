@@ -39,15 +39,21 @@ class GoogleAnalyticsService
 
     protected function buildDateRanges(array $dateRanges): array
     {
-        if (empty($dateRanges)) {
-            $dateRanges = [['start_date' => '28daysAgo', 'end_date' => 'today']];
-        }
+        // if (empty($dateRanges)) {
+        //     $dateRanges = [['start_date' => '28daysAgo', 'end_date' => 'today']];
+        // }
 
-        $ranges = [];
-        foreach ($dateRanges as $range) {
-            $ranges[] = new DateRange($range);
-        }
-        return $ranges;
+        // $ranges = [];
+        // foreach ($dateRanges as $range) {
+        //     $ranges[] = new DateRange($range);
+        // }
+        // return $ranges;
+
+        // get all time range
+        return [new DateRange([
+            'start_date' => '2023-07-01', // tanggal GA4 mulai merekam data
+            'end_date' => 'today',
+        ])];
     }
 
     protected function buildDimensions(array $dimensions): array
