@@ -2,7 +2,7 @@
 
 <?= $this->section('content') ?>
 
-<!-- Hero Section -->
+<!-- Carousel Section -->
 <section class="mb-5">
     <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
         <?php if (!empty($slides)): ?>
@@ -14,7 +14,7 @@
             <div class="carousel-inner">
                 <?php foreach ($slides as $index => $slide): ?>
                     <div class="carousel-item <?= $index === 0 ? 'active' : '' ?>">
-                        <img src="<?= esc($slide['image_path']) ?>" class="d-block w-100" alt="Carousel Slide" style="max-height: 400px; object-fit: cover;">
+                        <img src="<?= esc($slide['image_path']) ?>" class="d-block w-100" alt="Carousel Slide" style="max-height: 500px; object-fit: cover;">
                     </div>
                 <?php endforeach; ?>
             </div>
@@ -31,45 +31,63 @@
 </section>
 
 <!-- Featured Posts -->
-<section class="mb-5">
+<section class="py-4 bg-light">
     <div class="container">
-        <div class="row mb-4">
-            <div class="col-12">
-                <h2 class="fw-bold border-bottom pb-2">Berita Terbaru</h2>
+        <!-- Header Section -->
+        <div class="row mb-5">
+            <div class="col-12 text-center">
+                <h2 class="fw-bold display-5 mb-3">
+                    <i class="fas fa-newspaper text-primary me-3"></i>Berita Terbaru
+                </h2>
+                <div class="border-bottom border-primary mx-auto" style="width: 100px;"></div>
             </div>
         </div>
 
+        <!-- Posts Grid -->
         <?php if (!empty($posts)): ?>
-            <div class="row g-3">
+            <div class="row g-4">
                 <?php foreach ($posts as $index => $post): ?>
                     <?php if ($index < 6): // Tampilkan 6 post pertama 
                     ?>
                         <div class="col-lg-4 col-md-6">
-                            <div class="card h-100 shadow-sm border-0">
-                                <a href="<?= base_url('post/' . esc($post['slug'])) ?>">
-                                    <?php if (!empty($post['thumbnail'])) : ?>
-                                        <img src="<?= esc($post['thumbnail']) ?>" class="card-img-top" alt="<?= esc($post['title']) ?>" style="height: 200px; object-fit: cover;">
-                                    <?php else: ?>
-                                        <div class="card-img-top bg-secondary d-flex align-items-center justify-content-center" style="height: 200px;">
-                                            <i class="fas fa-newspaper text-white fa-3x"></i>
+                            <div class="card h-100 shadow border-0 rounded-4 overflow-hidden">
+                                <div class="position-relative">
+                                    <a href="<?= base_url('post/' . esc($post['slug'])) ?>">
+                                        <?php if (!empty($post['thumbnail'])) : ?>
+                                            <img src="<?= esc($post['thumbnail']) ?>" class="card-img-top" alt="<?= esc($post['title']) ?>" style="height: 220px; object-fit: cover;">
+                                        <?php else: ?>
+                                            <div class="card-img-top bg-gradient-primary d-flex align-items-center justify-content-center" style="height: 220px; background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);">
+                                                <i class="fas fa-newspaper text-white fa-4x"></i>
+                                            </div>
+                                        <?php endif; ?>
+                                    </a>
+
+                                    <!-- Category Badge -->
+                                    <?php if (!empty($post['categories'])) : ?>
+                                        <div class="position-absolute top-0 start-0 m-3">
+                                            <?php foreach ($post['categories'] as $category) : ?>
+                                                <a href="<?= base_url('category/' . esc($category['slug'])) ?>" class="badge bg-primary text-decoration-none me-1 shadow-sm">
+                                                    <?= esc($category['name']) ?>
+                                                </a>
+                                            <?php endforeach; ?>
                                         </div>
                                     <?php endif; ?>
-                                </a>
+                                </div>
 
-                                <div class="card-body d-flex flex-column">
-                                    <h5 class="card-title fw-bold">
-                                        <a href="<?= base_url('post/' . esc($post['slug'])) ?>" class="text-decoration-none text-dark">
+                                <div class="card-body d-flex flex-column p-4">
+                                    <h5 class="card-title fw-bold mb-3">
+                                        <a href="<?= base_url('post/' . esc($post['slug'])) ?>" class="text-decoration-none text-dark stretched-link">
                                             <?= esc($post['title']) ?>
                                         </a>
                                     </h5>
-                                    <p class="card-text text-muted flex-grow-1">
+                                    <p class="card-text text-muted flex-grow-1 mb-4">
                                         <?= word_limiter(strip_tags($post['content']), 20) ?>
                                     </p>
 
-                                    <div class="mt-auto">
+                                    <div class="mt-auto pt-3 border-top">
                                         <div class="d-flex justify-content-between align-items-center text-muted small">
-                                            <span>
-                                                <i class="fas fa-calendar me-1"></i>
+                                            <span class="d-flex align-items-center">
+                                                <i class="fas fa-calendar-alt me-2"></i>
                                                 <?php
                                                 // Use published_at as primary date, fallback to created_at
                                                 $dateField = '';
@@ -83,21 +101,11 @@
                                                 echo format_date($dateField, 'date_only');
                                                 ?>
                                             </span>
-                                            <span>
-                                                <i class="fas fa-user me-1"></i>
+                                            <span class="d-flex align-items-center">
+                                                <i class="fas fa-user-edit me-2"></i>
                                                 <?= esc($post['author_name'] ?? 'Admin') ?>
                                             </span>
                                         </div>
-
-                                        <?php if (!empty($post['categories'])) : ?>
-                                            <div class="mt-2">
-                                                <?php foreach ($post['categories'] as $category) : ?>
-                                                    <a href="<?= base_url('category/' . esc($category['slug'])) ?>" class="badge bg-primary text-decoration-none me-1">
-                                                        <?= esc($category['name']) ?>
-                                                    </a>
-                                                <?php endforeach; ?>
-                                            </div>
-                                        <?php endif; ?>
                                     </div>
                                 </div>
                             </div>
@@ -107,24 +115,31 @@
             </div>
 
             <!-- View All Button -->
-            <div class="row mt-4">
+            <div class="row mt-5">
                 <div class="col-12 text-center">
-                    <a href="<?= base_url('posts') ?>" class="btn btn-outline-primary btn-lg px-5">
+                    <a href="<?= base_url('posts') ?>" class="btn btn-primary btn-lg px-5 py-3 rounded-pill shadow-sm">
                         <i class="fas fa-list me-2"></i>Lihat Semua Berita
                     </a>
                 </div>
             </div>
 
         <?php else: ?>
+            <!-- Empty State -->
             <div class="row">
                 <div class="col-12 text-center py-5">
-                    <i class="fas fa-inbox fa-3x text-muted mb-3"></i>
-                    <h4 class="text-muted">Belum ada berita</h4>
-                    <p class="text-muted">Silakan kembali lagi nanti untuk melihat berita terbaru.</p>
+                    <div class="mb-4">
+                        <i class="fas fa-inbox fa-4x text-muted mb-3"></i>
+                    </div>
+                    <h3 class="text-muted mb-3">Belum ada berita</h3>
+                    <p class="text-muted mb-4">Silakan kembali lagi nanti untuk melihat berita terbaru.</p>
+                    <a href="<?= base_url() ?>" class="btn btn-outline-primary">
+                        <i class="fas fa-home me-2"></i>Kembali ke Halaman Utama
+                    </a>
                 </div>
             </div>
         <?php endif; ?>
     </div>
 </section>
+
 
 <?= $this->endSection() ?>

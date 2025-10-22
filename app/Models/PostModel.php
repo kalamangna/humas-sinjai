@@ -148,4 +148,15 @@ class PostModel extends Model
                     ->orderBy('month', 'DESC')
                     ->findAll();
     }
+
+    public function searchAndAddGAData(string $query): array
+    {
+        $posts = $this->where('status', 'published')
+                      ->like('title', $query)
+                      ->orLike('content', $query)
+                      ->orderBy('posts.published_at', 'DESC')
+                      ->findAll();
+
+        return $this->addGAData($posts);
+    }
 }

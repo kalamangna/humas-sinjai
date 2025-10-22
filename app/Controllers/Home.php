@@ -160,10 +160,9 @@ class Home extends BaseController
 
         $postModel = new PostModel();
         $query = $this->request->getGet('q');
-        $posts = $postModel->where('status', 'published')->like('title', $query)->orLike('content', $query)->orderBy('posts.published_at', 'DESC')->findAll();
-
-        // Tambahkan GA data ke hasil pencarian
-        $postsWithGA = $postModel->addGAData($posts);
+        
+        // Panggil method baru untuk pencarian dan penambahan data GA
+        $postsWithGA = $postModel->searchAndAddGAData($query);
 
         $data = [
             'posts' => $postModel->withCategoriesAndTags($postsWithGA),
