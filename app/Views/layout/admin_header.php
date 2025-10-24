@@ -55,9 +55,8 @@
 
             <!-- Brand -->
             <a class="navbar-brand fw-bold d-flex align-items-center" href="<?= base_url('admin') ?>">
-                <img src="<?= base_url('logo.png') ?>" alt="Logo Sinjai" width="32" height="32" class="rounded-circle me-2">
-                <span>Humas Sinjai</span>
-                <small class="badge bg-light text-primary ms-2">Admin</small>
+                <img src="<?= base_url('humas.png') ?>" alt="Logo Sinjai" height="40" class="d-inline-block align-text-top me-2">
+                <!-- <small class="badge bg-light text-primary ms-2">Admin</small> -->
             </a>
 
             <div class="d-flex align-items-center ms-auto">

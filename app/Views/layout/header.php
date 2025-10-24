@@ -49,8 +49,7 @@
         <div class="container">
             <!-- Brand with icon -->
             <a class="navbar-brand fw-bold text-white d-flex align-items-center" href="<?= base_url('/') ?>">
-                <img src="<?= base_url('logo.png') ?>" alt="Logo Sinjai" width="40" height="40" class="d-inline-block align-text-top me-2">
-                <span>Humas Sinjai</span>
+                <img src="<?= base_url('humas.png') ?>" alt="Logo Sinjai" height="40" class="d-inline-block align-text-top me-2">
             </a>
 
             <!-- Mobile toggle button -->
