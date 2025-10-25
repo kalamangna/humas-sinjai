@@ -130,3 +130,6 @@ public/uploads/*
 
 # Google Cloud Service Account Credentials
 writable/ga4-service-account.json
+
+# css map in public
+public/assets/css/*.map
