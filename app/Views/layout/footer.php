@@ -93,7 +93,137 @@
 <a href="#" class="scroll-to-top d-flex align-items-center justify-content-center text-decoration-none"><i class="fas fa-chevron-up"></i></a>
 
 <!-- Bootstrap JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+<!-- Custom JS -->
+<script>
+    /**
+     * JavaScript untuk hover behavior pada dropdown dan dropend
+     */
+    document.addEventListener('DOMContentLoaded', function() {
+        // Elements
+        const mainDropdown = document.querySelector('.navbar-nav .dropdown');
+        const dropends = document.querySelectorAll('.dropend');
+
+        // Hover behavior untuk dropdown utama (desktop only)
+        if (mainDropdown && window.innerWidth >= 992) {
+            const mainToggle = mainDropdown.querySelector('.dropdown-toggle');
+            const mainMenu = mainDropdown.querySelector('.dropdown-menu');
+
+            mainDropdown.addEventListener('mouseenter', function() {
+                mainMenu.classList.add('show');
+                mainToggle.setAttribute('aria-expanded', 'true');
+            });
+
+            mainDropdown.addEventListener('mouseleave', function() {
+                mainMenu.classList.remove('show');
+                mainToggle.setAttribute('aria-expanded', 'false');
+
+                // Tutup semua dropend ketika meninggalkan dropdown utama
+                dropends.forEach(function(dropend) {
+                    const toggle = dropend.querySelector('.dropdown-toggle');
+                    const menu = dropend.querySelector('.dropdown-menu');
+                    if (toggle && menu) {
+                        menu.classList.remove('show');
+                        toggle.setAttribute('aria-expanded', 'false');
+                    }
+                });
+            });
+        }
+
+        // Mobile behavior untuk dropend
+        dropends.forEach(function(dropend) {
+            const toggle = dropend.querySelector('.dropdown-toggle');
+            const menu = dropend.querySelector('.dropdown-menu');
+
+            if (toggle && menu) {
+                // Desktop hover behavior
+                if (window.innerWidth >= 992) {
+                    dropend.addEventListener('mouseenter', function() {
+                        // Tutup dropend lainnya
+                        document.querySelectorAll('.dropend .dropdown-menu').forEach(function(otherMenu) {
+                            if (otherMenu !== menu) {
+                                otherMenu.classList.remove('show');
+                            }
+                        });
+
+                        menu.classList.add('show');
+                        toggle.setAttribute('aria-expanded', 'true');
+                    });
+
+                    dropend.addEventListener('mouseleave', function() {
+                        menu.classList.remove('show');
+                        toggle.setAttribute('aria-expanded', 'false');
+                    });
+                }
+
+                // Mobile click behavior - diperbaiki
+                toggle.addEventListener('click', function(e) {
+                    if (window.innerWidth < 992) {
+                        e.preventDefault();
+                        e.stopPropagation();
+
+                        const isExpanded = toggle.getAttribute('aria-expanded') === 'true';
+
+                        // Jika dropend ini sudah terbuka, tutup saja
+                        if (isExpanded) {
+                            menu.classList.remove('show');
+                            toggle.setAttribute('aria-expanded', 'false');
+                            return;
+                        }
+
+                        // Tutup SEMUA dropend lainnya terlebih dahulu
+                        document.querySelectorAll('.dropend .dropdown-menu').forEach(function(otherMenu) {
+                            otherMenu.classList.remove('show');
+                        });
+                        document.querySelectorAll('.dropend .dropdown-toggle').forEach(function(otherToggle) {
+                            otherToggle.setAttribute('aria-expanded', 'false');
+                        });
+
+                        // Buka dropend ini
+                        menu.classList.add('show');
+                        toggle.setAttribute('aria-expanded', 'true');
+                    }
+                });
+            }
+        });
+
+        // Tutup semua dropdown ketika klik di luar (mobile behavior)
+        document.addEventListener('click', function(e) {
+            // Cek jika klik bukan pada dropdown toggle atau child-nya
+            const isDropdownToggle = e.target.matches('.dropdown-toggle') ||
+                e.target.closest('.dropdown-toggle');
+            const isInDropdownMenu = e.target.closest('.dropdown-menu');
+
+            if (!isDropdownToggle && !isInDropdownMenu) {
+                // Tutup semua dropdown menu
+                document.querySelectorAll('.dropdown-menu').forEach(function(menu) {
+                    menu.classList.remove('show');
+                });
+                // Reset semua toggle
+                document.querySelectorAll('.dropdown-toggle').forEach(function(toggle) {
+                    toggle.setAttribute('aria-expanded', 'false');
+                });
+            }
+        });
+
+        // Handle navbar toggler untuk reset state
+        const navbarToggler = document.querySelector('.navbar-toggler');
+        if (navbarToggler) {
+            navbarToggler.addEventListener('click', function() {
+                // Reset semua dropdown state ketika navbar dibuka/ditutup
+                setTimeout(() => {
+                    document.querySelectorAll('.dropdown-menu').forEach(function(menu) {
+                        menu.classList.remove('show');
+                    });
+                    document.querySelectorAll('.dropdown-toggle').forEach(function(toggle) {
+                        toggle.setAttribute('aria-expanded', 'false');
+                    });
+                }, 100);
+            });
+        }
+    });
+</script>
 
 <script>
     // Scroll to Top Button Functionality

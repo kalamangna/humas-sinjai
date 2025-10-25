@@ -67,34 +67,33 @@
                         <a class="nav-link <?= url_is('posts') ? 'active' : '' ?>" href="<?= base_url('posts') ?>"><i class="fas fa-fw fa-newspaper me-2"></i>Semua Berita</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="fas fa-fw fa-folder me-2"></i>Kategori
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <?php foreach ($categories as $category) : ?>
-                                <li>
-                                    <h6 class="dropdown-header">
-                                        <i class="fas fa-fw fa-folder me-2"></i><?= esc($category['name']) ?>
-                                    </h6>
-                                </li>
-                                <?php if (isset($subCategories[$category['id']])) : ?>
-                                    <?php foreach ($subCategories[$category['id']] as $subCategory) : ?>
-                                        <li>
-                                            <a class="dropdown-item" href="<?= base_url('category/' . $subCategory['slug']) ?>">
-                                                <i class="fas fa-fw fa-file-alt me-2"></i><?= esc($subCategory['name']) ?>
-                                            </a>
-                                        </li>
-                                    <?php endforeach; ?>
-                                <?php else: ?>
+                                <?php if (! empty($subCategories[$category['id']])) : ?>
+                                    <li class="dropend">
+                                        <a class="dropdown-item dropdown-toggle" href="#" role="button"
+                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="fas fa-fw fa-folder-open me-2 text-primary"></i><?= esc($category['name']) ?>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <?php foreach ($subCategories[$category['id']] as $subCategory) : ?>
+                                                <li>
+                                                    <a class="dropdown-item" href="<?= base_url('category/' . $subCategory['slug']) ?>">
+                                                        <i class="fas fa-fw fa-folder me-2 text-secondary"></i><?= esc($subCategory['name']) ?>
+                                                    </a>
+                                                </li>
+                                            <?php endforeach; ?>
+                                        </ul>
+                                    </li>
+                                <?php else : ?>
                                     <li>
                                         <a class="dropdown-item" href="<?= base_url('category/' . $category['slug']) ?>">
-                                            <i class="fas fa-fw fa-tag me-2"></i>Semua <?= esc($category['name']) ?>
+                                            <i class="fas fa-fw fa-folder me-2"></i><?= esc($category['name']) ?>
                                         </a>
-                                    </li>
-                                <?php endif; ?>
-                                <?php if ($category !== end($categories)): ?>
-                                    <li>
-                                        <hr class="dropdown-divider">
                                     </li>
                                 <?php endif; ?>
                             <?php endforeach; ?>
