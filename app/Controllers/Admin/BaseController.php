@@ -19,6 +19,8 @@ class BaseController extends AppBaseController
     {
         parent::initController($request, $response, $logger);
 
+        helper(['image']);
+
         // Temporarily disable ONLY_FULL_GROUP_BY for debugging
         $this->db = \Config\Database::connect();
         $this->db->query("SET SESSION sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''))");

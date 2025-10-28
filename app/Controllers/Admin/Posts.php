@@ -136,14 +136,18 @@ class Posts extends BaseController
             list($type, $data) = explode(';', $pastedThumbnail);
             list(, $data)      = explode(',', $data);
             $data = base64_decode($data);
+            $tempPath = WRITEPATH . 'uploads/' . uniqid() . '.png';
+            file_put_contents($tempPath, $data);
+            $processedImagePath = processImage($tempPath);
             $thumbnailName = uniqid() . '.png';
-            file_put_contents(FCPATH . 'uploads/thumbnails/' . $thumbnailName, $data);
+            rename($processedImagePath, FCPATH . 'uploads/thumbnails/' . $thumbnailName);
             $thumbnailName = base_url('uploads/thumbnails/' . $thumbnailName);
         } else {
             $file = $this->request->getFile('thumbnail');
             if ($file->isValid() && ! $file->hasMoved()) {
-                $thumbnailName = $file->getRandomName();
-                $file->move(FCPATH . 'uploads/thumbnails', $thumbnailName);
+                $processedImagePath = processImage($file->getRealPath());
+                $thumbnailName = uniqid() . '.png';
+                rename($processedImagePath, FCPATH . 'uploads/thumbnails/' . $thumbnailName);
                 $thumbnailName = base_url('uploads/thumbnails/' . $thumbnailName);
             }
         }
@@ -309,26 +313,30 @@ class Posts extends BaseController
         $pastedThumbnail = $this->request->getPost('pasted_thumbnail');
         if (!empty($pastedThumbnail)) {
             // Delete old thumbnail if it exists
-            if (! empty($post['thumbnail']) && file_exists(FCPATH . ltrim($post['thumbnail'], '/'))) {
-                unlink(FCPATH . ltrim($post['thumbnail'], '/'));
+            if (! empty($post['thumbnail']) && file_exists(FCPATH . ltrim(parse_url($post['thumbnail'], PHP_URL_PATH), '/'))) {
+                unlink(FCPATH . ltrim(parse_url($post['thumbnail'], PHP_URL_PATH), '/'));
             }
 
             list($type, $data) = explode(';', $pastedThumbnail);
             list(, $data)      = explode(',', $data);
             $data = base64_decode($data);
+            $tempPath = WRITEPATH . 'uploads/' . uniqid() . '.png';
+            file_put_contents($tempPath, $data);
+            $processedImagePath = processImage($tempPath);
             $thumbnailName = uniqid() . '.png';
-            file_put_contents(FCPATH . 'uploads/thumbnails/' . $thumbnailName, $data);
+            rename($processedImagePath, FCPATH . 'uploads/thumbnails/' . $thumbnailName);
             $postData['thumbnail'] = base_url('uploads/thumbnails/' . $thumbnailName);
         } else {
             $file = $this->request->getFile('thumbnail');
             if ($file->isValid() && ! $file->hasMoved()) {
                 // Delete old thumbnail if it exists
-                if (! empty($post['thumbnail']) && file_exists(FCPATH . ltrim($post['thumbnail'], '/'))) {
-                    unlink(FCPATH . ltrim($post['thumbnail'], '/'));
+                if (! empty($post['thumbnail']) && file_exists(FCPATH . ltrim(parse_url($post['thumbnail'], PHP_URL_PATH), '/'))) {
+                    unlink(FCPATH . ltrim(parse_url($post['thumbnail'], PHP_URL_PATH), '/'));
                 }
 
-                $thumbnailName = $file->getRandomName();
-                $file->move(FCPATH . 'uploads/thumbnails', $thumbnailName);
+                $processedImagePath = processImage($file->getRealPath());
+                $thumbnailName = uniqid() . '.png';
+                rename($processedImagePath, FCPATH . 'uploads/thumbnails/' . $thumbnailName);
                 $postData['thumbnail'] = base_url('uploads/thumbnails/' . $thumbnailName);
             }
         }
