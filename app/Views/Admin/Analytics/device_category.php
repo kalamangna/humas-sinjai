@@ -145,13 +145,13 @@
                         </td>
                         <td class="py-3">
                             <div class="d-flex align-items-center">
-                                <i class="fa-brands fa-fw ${getOSIcon(item.operatingSystem)} text-success me-2"></i>
+                                <i class="${getOSIcon(item.operatingSystem)} fa-fw text-success me-2"></i>
                                 <span class="text-dark">${item.operatingSystem || '-'}</span>
                             </div>
                         </td>
                         <td class="py-3">
                             <div class="d-flex align-items-center">
-                                <i class="fa-brands fa-fw ${getBrowserIcon(item.browser)} text-info me-2"></i>
+                                <i class="${getBrowserIcon(item.browser)} fa-fw text-info me-2"></i>
                                 <span class="text-dark">${item.browser || '-'}</span>
                             </div>
                         </td>
@@ -250,22 +250,22 @@
         // Fungsi helper untuk menentukan ikon OS
         function getOSIcon(os) {
             const osName = (os || '').toLowerCase();
-            if (osName.includes('windows')) return 'fa-windows';
-            if (osName.includes('macintosh') || osName.includes('ios')) return 'fa-apple';
-            if (osName.includes('android')) return 'fa-android';
-            if (osName.includes('linux')) return 'fa-linux';
-            return 'fa-cog';
+            if (osName.includes('windows')) return 'fab fa-windows';
+            if (osName.includes('macintosh') || osName.includes('ios')) return 'fab fa-apple';
+            if (osName.includes('android')) return 'fab fa-android';
+            if (osName.includes('linux')) return 'fab fa-linux';
+            return 'fas fa-cog';
         }
 
         // Fungsi helper untuk menentukan ikon browser
         function getBrowserIcon(browser) {
             const browserName = (browser || '').toLowerCase();
-            if (browserName.includes('chrome')) return 'fa-chrome';
-            if (browserName.includes('firefox')) return 'fa-firefox';
-            if (browserName.includes('safari')) return 'fa-safari';
-            if (browserName.includes('edge')) return 'fa-edge';
-            if (browserName.includes('opera')) return 'fa-opera';
-            return 'fa-globe';
+            if (browserName.includes('chrome')) return 'fab fa-chrome';
+            if (browserName.includes('firefox')) return 'fab fa-firefox';
+            if (browserName.includes('safari')) return 'fab fa-safari';
+            if (browserName.includes('edge')) return 'fab fa-edge';
+            if (browserName.includes('opera')) return 'fab fa-opera';
+            return 'fas fa-globe';
         }
     });
 </script>
