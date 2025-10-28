@@ -6,16 +6,17 @@ if (!function_exists('processImage')) {
         $image = \Config\Services::image()
             ->withFile($file)
             ->fit(1200, 630, 'center')
-            ->convert(IMAGETYPE_PNG);
+            ->convert(IMAGETYPE_WEBP);
 
-        $tempPath = WRITEPATH . 'uploads/' . uniqid() . '.png';
-        $image->save($tempPath, 80); // Compress with quality 80%
+        $tempPath = WRITEPATH . 'uploads/' . uniqid() . '.webp';
 
-        $fileSize = filesize($tempPath);
-        if ($fileSize > 300 * 1024) {
-            // Further compression if needed
-            $image->save($tempPath, 60);
-        }
+        // Iteratively reduce quality to meet file size target
+        $quality = 85;
+        do {
+            $image->save($tempPath, $quality);
+            $fileSize = filesize($tempPath);
+            $quality -= 5;
+        } while ($fileSize > 300 * 1024 && $quality >= 50);
 
         return $tempPath;
     }

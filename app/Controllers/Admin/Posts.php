@@ -136,17 +136,17 @@ class Posts extends BaseController
             list($type, $data) = explode(';', $pastedThumbnail);
             list(, $data)      = explode(',', $data);
             $data = base64_decode($data);
-            $tempPath = WRITEPATH . 'uploads/' . uniqid() . '.png';
+            $tempPath = WRITEPATH . 'uploads/' . uniqid() . '.webp';
             file_put_contents($tempPath, $data);
             $processedImagePath = processImage($tempPath);
-            $thumbnailName = uniqid() . '.png';
+            $thumbnailName = uniqid() . '.webp';
             rename($processedImagePath, FCPATH . 'uploads/thumbnails/' . $thumbnailName);
             $thumbnailName = base_url('uploads/thumbnails/' . $thumbnailName);
         } else {
             $file = $this->request->getFile('thumbnail');
             if ($file->isValid() && ! $file->hasMoved()) {
                 $processedImagePath = processImage($file->getRealPath());
-                $thumbnailName = uniqid() . '.png';
+                $thumbnailName = uniqid() . '.webp';
                 rename($processedImagePath, FCPATH . 'uploads/thumbnails/' . $thumbnailName);
                 $thumbnailName = base_url('uploads/thumbnails/' . $thumbnailName);
             }
@@ -320,10 +320,10 @@ class Posts extends BaseController
             list($type, $data) = explode(';', $pastedThumbnail);
             list(, $data)      = explode(',', $data);
             $data = base64_decode($data);
-            $tempPath = WRITEPATH . 'uploads/' . uniqid() . '.png';
+            $tempPath = WRITEPATH . 'uploads/' . uniqid() . '.webp';
             file_put_contents($tempPath, $data);
             $processedImagePath = processImage($tempPath);
-            $thumbnailName = uniqid() . '.png';
+            $thumbnailName = uniqid() . '.webp';
             rename($processedImagePath, FCPATH . 'uploads/thumbnails/' . $thumbnailName);
             $postData['thumbnail'] = base_url('uploads/thumbnails/' . $thumbnailName);
         } else {
@@ -335,7 +335,7 @@ class Posts extends BaseController
                 }
 
                 $processedImagePath = processImage($file->getRealPath());
-                $thumbnailName = uniqid() . '.png';
+                $thumbnailName = uniqid() . '.webp';
                 rename($processedImagePath, FCPATH . 'uploads/thumbnails/' . $thumbnailName);
                 $postData['thumbnail'] = base_url('uploads/thumbnails/' . $thumbnailName);
             }

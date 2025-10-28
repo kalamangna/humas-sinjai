@@ -48,10 +48,10 @@
                         <?php endif; ?>
 
                         <?php if (!empty($post['categories'])) : ?>
-                            <div class="d-flex align-items-center">
+                            <div class="d-flex align-items-center flex-wrap gap-2">
                                 <i class="fas fa-folder text-primary me-2"></i>
                                 <?php foreach ($post['categories'] as $category) : ?>
-                                    <a href="<?= base_url('category/' . esc($category['slug'])) ?>" class="badge bg-primary text-decoration-none me-1 shadow-sm">
+                                    <a href="<?= base_url('category/' . esc($category['slug'])) ?>" class="badge bg-primary text-decoration-none shadow-sm">
                                         <?= esc($category['name']) ?>
                                     </a>
                                 <?php endforeach; ?>
