@@ -7,6 +7,7 @@ use CodeIgniter\Router\RouteCollection;
  */
 $routes->get('/', 'Home::index');
 
+
 // Auth routes
 $routes->get('login', 'Auth\Login::index');
 $routes->post('login', 'Auth\Login::attemptLogin');

@@ -20,6 +20,30 @@ class Home extends BaseController
         $carouselSlideModel = new CarouselSlideModel();
         $data['slides'] = $carouselSlideModel->orderBy('slide_order', 'ASC')->findAll();
 
+        // Fetch Priority Programs posts
+        $categoryModel = new CategoryModel();
+        $priorityCategory = $categoryModel->where('slug', 'program-prioritas')->first();
+        $priorityPosts = [];
+
+        if ($priorityCategory) {
+            $childCategories = $categoryModel->where('parent_id', $priorityCategory['id'])->findAll();
+            $childCategoryIds = array_column($childCategories, 'id');
+
+            if ($childCategoryIds) {
+                $postCategoryModel = new PostCategoryModel();
+                $postIds = array_column($postCategoryModel->whereIn('category_id', $childCategoryIds)->findAll(), 'post_id');
+
+                if ($postIds) {
+                    $priorityPosts = $postModel->whereIn('id', $postIds)
+                                               ->where('status', 'published')
+                                               ->orderBy('published_at', 'DESC')
+                                               ->limit(6)
+                                               ->findAll();
+                    $data['priority_posts'] = $postModel->withCategoriesAndTags($priorityPosts);
+                }
+            }
+        }
+
         return view('home', $data);
     }
 
