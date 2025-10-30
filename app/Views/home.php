@@ -31,7 +31,7 @@
 </section>
 
 <!-- Featured Posts -->
-<section class="py-4 bg-light">
+<section class="py-5 bg-light">
     <div class="container">
         <!-- Header Section -->
         <div class="row mb-5">
@@ -142,21 +142,21 @@
 </section>
 
 <!-- Kategori Populer -->
-<section class="py-5">
+<section class="py-5 bg-primary text-white">
     <div class="container text-center">
         <h2 class="fw-bold mb-4">
-            <i class="fas fa-tags text-primary me-2"></i>Kategori Populer
+            <i class="fas fa-tags me-2"></i>Kategori Populer
         </h2>
         <div class="d-flex flex-wrap justify-content-center gap-3">
             <?php if (!empty($popular_categories)): ?>
                 <?php foreach ($popular_categories as $category): ?>
                     <a href="<?= base_url('category/' . esc($category['slug'])) ?>"
-                        class="btn btn-outline-primary rounded-pill px-4 py-2 shadow-sm">
-                        <?= esc($category['name']) ?> <span class="badge bg-primary ms-2"><?= esc($category['post_count']) ?></span>
+                        class="btn btn-outline-light rounded-pill px-4 py-2 shadow-sm">
+                        <?= esc($category['name']) ?> <span class="badge bg-light text-primary ms-2"><?= esc($category['post_count']) ?></span>
                     </a>
                 <?php endforeach; ?>
             <?php else: ?>
-                <p class="text-muted">Belum ada kategori populer untuk saat ini.</p>
+                <p>Belum ada kategori populer untuk saat ini.</p>
             <?php endif; ?>
         </div>
     </div>

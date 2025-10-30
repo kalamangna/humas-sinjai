@@ -2,7 +2,17 @@
 
 <?= $this->section('content') ?>
 
-<div class="container py-4">
+<div class="container">
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb" class="my-4">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="<?= base_url('/') ?>" class="text-decoration-none">
+                    <i class="fas fa-home me-2"></i>Beranda
+                </a></li>
+            <li class="breadcrumb-item active" aria-current="page">Semua Tag</li>
+        </ol>
+    </nav>
+
     <!-- Header Section -->
     <div class="row mb-5">
         <div class="col-12 text-center">

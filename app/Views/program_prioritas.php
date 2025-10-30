@@ -13,15 +13,17 @@
         </ol>
     </nav>
 
-    <div class="row g-4">
+    <div class="row mb-5">
         <div class="col-12 text-center">
             <h1 class="fw-bold display-5 mb-3">
                 <i class="fas fa-bullseye text-primary me-3"></i>Program Prioritas
             </h1>
             <div class="border-bottom border-primary mx-auto" style="width: 100px;"></div>
         </div>
+    </div>
 
-        <?php if (!empty($posts)): ?>
+    <?php if (!empty($posts)): ?>
+        <div class="row g-4">
             <?php foreach ($posts as $post): ?>
                 <div class="col-md-6">
                     <div class="card h-100 shadow border-0 rounded-4 overflow-hidden">
@@ -84,36 +86,37 @@
                     </div>
                 </div>
             <?php endforeach; ?>
+        </div>
 
-            <!-- Pagination -->
-            <?php if (isset($pager) && $pager->getPageCount() > 1) : ?>
-                <div class="d-flex flex-column flex-lg-row justify-content-center align-items-center justify-content-lg-between mt-5 pt-4">
-                    <div class="text-muted small mb-2 mb-lg-0">
-                        <?php
-                        $from = ($pager->getCurrentPage() - 1) * $pager->getPerPage() + 1;
-                        $to = $from + count($posts) - 1;
-                        ?>
-                        Menampilkan <?= $from ?>-<?= $to ?> dari <?= $pager->getTotal() ?> program
-                    </div>
-                    <div class="d-flex align-items-center">
-                        <?= $pager->links('default', 'custom_bootstrap') ?>
-                    </div>
+        <!-- Pagination -->
+        <?php if (isset($pager) && $pager->getPageCount() > 1) : ?>
+            <div class="d-flex flex-column flex-lg-row justify-content-center align-items-center justify-content-lg-between mt-5 pt-4">
+                <div class="text-muted small mb-2 mb-lg-0">
+                    <?php
+                    $from = ($pager->getCurrentPage() - 1) * $pager->getPerPage() + 1;
+                    $to = $from + count($posts) - 1;
+                    ?>
+                    Menampilkan <?= $from ?>-<?= $to ?> dari <?= $pager->getTotal() ?> program
                 </div>
-            <?php endif; ?>
-
-        <?php else: ?>
-            <div class="col-12 text-center py-5">
-                <div class="mb-4">
-                    <i class="fas fa-inbox fa-4x text-muted mb-3"></i>
+                <div class="d-flex align-items-center">
+                    <?= $pager->links('default', 'custom_bootstrap') ?>
                 </div>
-                <h3 class="text-muted mb-3">Belum ada program</h3>
-                <p class="text-muted mb-4">Silakan kembali lagi nanti untuk melihat program prioritas.</p>
-                <a href="<?= base_url() ?>" class="btn btn-outline-primary">
-                    <i class="fas fa-home me-2"></i>Kembali ke Halaman Utama
-                </a>
             </div>
         <?php endif; ?>
-    </div>
+
+    <?php else: ?>
+        <div class="col-12 text-center py-5">
+            <div class="mb-4">
+                <i class="fas fa-inbox fa-4x text-muted mb-3"></i>
+            </div>
+            <h3 class="text-muted mb-3">Belum ada program</h3>
+            <p class="text-muted mb-4">Silakan kembali lagi nanti untuk melihat program prioritas.</p>
+            <a href="<?= base_url() ?>" class="btn btn-outline-primary">
+                <i class="fas fa-home me-2"></i>Kembali ke Halaman Utama
+            </a>
+        </div>
+    <?php endif; ?>
+
 </div>
 
 <?= $this->endSection() ?>

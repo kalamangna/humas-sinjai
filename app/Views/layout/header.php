@@ -45,7 +45,7 @@
 
 <body class="bg-light">
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary-gradient shadow-sm">
+    <nav class="navbar navbar-expand-xl navbar-dark bg-primary-gradient shadow-sm">
         <div class="container">
             <!-- Brand with icon -->
             <a class="navbar-brand fw-bold text-white d-flex align-items-center" href="<?= base_url('/') ?>">
@@ -113,7 +113,7 @@
                 </ul>
 
                 <!-- Search form -->
-                <form class="d-flex" action="<?= base_url('search') ?>" method="get">
+                <form class="d-flex my-2 my-xl-0" action="<?= base_url('search') ?>" method="get">
                     <div class="input-group">
                         <input class="form-control" type="search" placeholder="Cari berita..." aria-label="Search" name="q" required>
                         <button class="btn btn-light" type="submit">
