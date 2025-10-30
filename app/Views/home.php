@@ -2,6 +2,8 @@
 
 <?= $this->section('content') ?>
 
+
+
 <!-- Carousel Section -->
 <section class="mb-5">
     <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">

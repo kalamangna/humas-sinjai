@@ -20,40 +20,6 @@ class Home extends BaseController
         $carouselSlideModel = new CarouselSlideModel();
         $data['slides'] = $carouselSlideModel->orderBy('slide_order', 'ASC')->findAll();
 
-        // Fetch Priority Programs posts
-        $categoryModel = new CategoryModel();
-        $priorityCategory = $categoryModel->where('slug', 'program-prioritas')->first();
-        $priorityPosts = [];
-
-        if ($priorityCategory) {
-            $childCategories = $categoryModel->where('parent_id', $priorityCategory['id'])->findAll();
-            $childCategoryIds = array_column($childCategories, 'id');
-
-            if ($childCategoryIds) {
-                $postCategoryModel = new PostCategoryModel();
-                $postIds = array_column($postCategoryModel->whereIn('category_id', $childCategoryIds)->findAll(), 'post_id');
-
-                if ($postIds) {
-                    $priorityPosts = $postModel->whereIn('id', $postIds)
-                                               ->where('status', 'published')
-                                               ->orderBy('published_at', 'DESC')
-                                               ->limit(6)
-                                               ->findAll();
-                    $data['priority_posts'] = $postModel->withCategoriesAndTags($priorityPosts);
-                }
-            }
-        }
-
-        // Fetch Popular Categories
-        $data['popular_categories'] = $categoryModel->select('categories.name, categories.slug, COUNT(post_categories.post_id) as post_count')
-                                                   ->join('post_categories', 'post_categories.category_id = categories.id')
-                                                   ->join('posts', 'posts.id = post_categories.post_id')
-                                                   ->where('posts.status', 'published')
-                                                   ->where('categories.parent_id IS NOT NULL')
-                                                   ->groupBy('categories.id')
-                                                   ->orderBy('post_count', 'DESC')
-                                                   ->limit(10)
-                                                   ->findAll();
 
         return view('home', $data);
     }
@@ -223,7 +189,7 @@ class Home extends BaseController
 
         $postModel = new PostModel();
         $query = $this->request->getGet('q');
-        
+
         // Panggil method baru untuk pencarian dan penambahan data GA
         $postsWithGA = $postModel->searchAndAddGAData($query);
 

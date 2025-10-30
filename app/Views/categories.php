@@ -6,9 +6,11 @@
     <!-- Breadcrumb -->
     <nav aria-label="breadcrumb" class="my-4">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="<?= base_url('/') ?>" class="text-decoration-none">
+            <li class="breadcrumb-item">
+                <a href="<?= base_url('/') ?>" class="text-decoration-none">
                     <i class="fas fa-home me-2"></i>Beranda
-                </a></li>
+                </a>
+            </li>
             <li class="breadcrumb-item active" aria-current="page">Semua Kategori</li>
         </ol>
     </nav>

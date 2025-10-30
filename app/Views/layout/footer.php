@@ -65,10 +65,14 @@
                 </ul>
             </div>
 
-            <!-- Banner -->
+            <!-- Layanan Pengaduan -->
             <div class="col-md-12 col-lg-3 mb-4">
-                <img src="<?= base_url('poster.png') ?>" alt="Banner" class="img-fluid">
+                <h6 class="fw-bold mb-3 text-white">Layanan Pengaduan</h6>
+                <a href="https://lapor.go.id/" target="_blank" class="bg-white d-inline-block p-2 rounded mb-2">
+                    <img src="<?= base_url('lapor.png') ?>" alt="Layanan Pengaduan" class="img-fluid">
+                </a>
             </div>
+
         </div>
 
         <hr class="my-4 border-light">
