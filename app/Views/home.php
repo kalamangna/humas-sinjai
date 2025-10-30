@@ -5,7 +5,7 @@
 
 
 <!-- Carousel Section -->
-<section class="mb-5">
+<section>
     <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
         <?php if (!empty($slides)): ?>
             <div class="carousel-indicators">

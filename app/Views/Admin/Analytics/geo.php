@@ -37,11 +37,11 @@
                 <div class="card border-0 shadow-sm h-100">
                     <div class="card-header bg-transparent border-bottom py-4">
                         <h5 class="fw-bold text-dark mb-0">
-                            <i class="fas fa-city me-3"></i>Kota
+                            <i class="fas fa-map me-3"></i>Wilayah
                         </h5>
                     </div>
                     <div class="card-body">
-                        <canvas id="cityChart"></canvas>
+                        <canvas id="regionChart"></canvas>
                     </div>
                 </div>
             </div>
@@ -91,21 +91,21 @@
 
                 // Process data for charts
                 const countryUsers = {};
-                const cityUsers = {};
+                const regionUsers = {};
 
                 data.forEach(item => {
                     // Country
                     const country = item.country || 'Tidak diketahui';
                     countryUsers[country] = (countryUsers[country] || 0) + parseInt(item.totalUsers);
 
-                    // City
-                    const city = item.city || 'Tidak diketahui';
-                    cityUsers[city] = (cityUsers[city] || 0) + parseInt(item.totalUsers);
+                    // Region
+                    const region = item.region || 'Tidak diketahui';
+                    regionUsers[region] = (regionUsers[region] || 0) + parseInt(item.totalUsers);
                 });
 
                 // Create charts
                 createPieChart('countryChart', countryUsers, 'Country');
-                createPieChart('cityChart', cityUsers, 'City');
+                createPieChart('regionChart', regionUsers, 'Wilayah');
 
                 // Clear existing data
                 geoData.innerHTML = '';
