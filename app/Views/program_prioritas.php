@@ -85,9 +85,21 @@
                 </div>
             <?php endforeach; ?>
 
-            <div class="col-12 mt-5">
-                <?= $pager->links() ?>
+        <!-- Pagination -->
+        <?php if (isset($pager) && $pager->getPageCount() > 1) : ?>
+            <div class="d-flex flex-column flex-lg-row justify-content-center align-items-center justify-content-lg-between mt-5 pt-4">
+                <div class="text-muted small mb-2 mb-lg-0">
+                    <?php
+                    $from = ($pager->getCurrentPage() - 1) * $pager->getPerPage() + 1;
+                    $to = $from + count($posts) - 1;
+                    ?>
+                    Menampilkan <?= $from ?>-<?= $to ?> dari <?= $pager->getTotal() ?> program
+                </div>
+                <div class="d-flex align-items-center">
+                    <?= $pager->links('default', 'custom_bootstrap') ?>
+                </div>
             </div>
+        <?php endif; ?>
 
         <?php else: ?>
             <div class="col-12 text-center py-5">

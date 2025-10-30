@@ -5,9 +5,7 @@ namespace App\Database\Seeds;
 use CodeIgniter\Database\Seeder;
 use App\Models\PostModel;
 use App\Models\CategoryModel;
-use App\Models\TagModel;
 use App\Models\PostCategoryModel;
-use App\Models\PostTagModel;
 use App\Models\UserModel;
 use Faker\Factory;
 
@@ -17,22 +15,34 @@ class PostSeeder extends Seeder
     {
         $postModel = new PostModel();
         $categoryModel = new CategoryModel();
-        $tagModel = new TagModel();
         $postCategoryModel = new PostCategoryModel();
-        $postTagModel = new PostTagModel();
         $userModel = new UserModel();
         $faker = Factory::create();
 
-        $categories = $categoryModel->findAll();
-        $tags = $tagModel->findAll();
-        $users = $userModel->findAll();
+        // Get the "Program Prioritas" parent category
+        $parentCategory = $categoryModel->where('slug', 'program-prioritas')->first();
 
-        if (empty($categories) || empty($tags) || empty($users)) {
-            echo "Please create some categories, tags, and users first.\n";
+        if (empty($parentCategory)) {
+            echo "Please run the CategorySeeder first to create the 'Program Prioritas' category.\n";
             return;
         }
 
-        for ($i = 0; $i < 50; $i++) {
+        // Get the child categories of "Program Prioritas"
+        $childCategories = $categoryModel->where('parent_id', $parentCategory['id'])->findAll();
+
+        if (empty($childCategories)) {
+            echo "Please create some child categories for 'Program Prioritas' first.\n";
+            return;
+        }
+
+        $users = $userModel->findAll();
+
+        if (empty($users)) {
+            echo "Please create some users first.\n";
+            return;
+        }
+
+        for ($i = 0; $i < 20; $i++) {
             $title = $faker->sentence();
             $postData = [
                 'title' => $title,
@@ -47,23 +57,12 @@ class PostSeeder extends Seeder
             $postId = $postModel->insert($postData);
 
             if ($postId) {
-                // Assign categories
-                $randomCategories = $faker->randomElements($categories, $faker->numberBetween(1, 3));
-                foreach ($randomCategories as $category) {
-                    $postCategoryModel->insert([
-                        'post_id' => $postId,
-                        'category_id' => $category['id'],
-                    ]);
-                }
-
-                // Assign tags
-                $randomTags = $faker->randomElements($tags, $faker->numberBetween(2, 5));
-                foreach ($randomTags as $tag) {
-                    $postTagModel->insert([
-                        'post_id' => $postId,
-                        'tag_id' => $tag['id'],
-                    ]);
-                }
+                // Assign a random child category
+                $randomChildCategory = $faker->randomElement($childCategories);
+                $postCategoryModel->insert([
+                    'post_id' => $postId,
+                    'category_id' => $randomChildCategory['id'],
+                ]);
             }
         }
     }

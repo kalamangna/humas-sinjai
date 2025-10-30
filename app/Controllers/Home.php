@@ -355,10 +355,7 @@ class Home extends BaseController
             $postIds = array_column($postCategoryModel->whereIn('category_id', $childCategoryIds)->findAll(), 'post_id');
 
             if (!empty($postIds)) {
-                $posts = $postModel->whereIn('id', $postIds)
-                                   ->where('status', 'published')
-                                   ->orderBy('published_at', 'DESC')
-                                   ->paginate(10);
+                $posts = $postModel->whereIn('posts.id', $postIds)->getPosts(false, true);
                 $data['posts'] = $postModel->withCategoriesAndTags($posts);
                 $data['pager'] = $postModel->pager;
             }
