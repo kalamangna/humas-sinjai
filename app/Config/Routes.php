@@ -27,6 +27,7 @@ $routes->get('search', 'Home::search');
 $routes->get('categories', 'Home::categories');
 $routes->get('rss', 'Home::rss');
 $routes->get('sitemap.xml', 'Home::sitemap');
+$routes->get('program-prioritas', 'Home::programPrioritas');
 
 $routes->post('api/tags/suggest', 'Api\TagSuggestion::suggest');
 

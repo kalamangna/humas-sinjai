@@ -148,11 +148,11 @@
             <i class="fas fa-tags text-primary me-2"></i>Kategori Populer
         </h2>
         <div class="d-flex flex-wrap justify-content-center gap-3">
-            <?php if (!empty($categories)): ?>
-                <?php foreach ($categories as $category): ?>
+            <?php if (!empty($popular_categories)): ?>
+                <?php foreach ($popular_categories as $category): ?>
                     <a href="<?= base_url('category/' . esc($category['slug'])) ?>"
                         class="btn btn-outline-primary rounded-pill px-4 py-2 shadow-sm">
-                        <i class="fas fa-tag me-2"></i><?= esc($category['name']) ?>
+                        <?= esc($category['name']) ?> <span class="badge bg-primary ms-2"><?= esc($category['post_count']) ?></span>
                     </a>
                 <?php endforeach; ?>
             <?php else: ?>
@@ -243,7 +243,7 @@
             <!-- View All Button -->
             <div class="row mt-5">
                 <div class="col-12 text-center">
-                    <a href="<?= base_url('category/program-prioritas') ?>" class="btn btn-primary btn-lg px-5 py-3 rounded-pill shadow-sm">
+                    <a href="<?= base_url('program-prioritas') ?>" class="btn btn-primary btn-lg px-5 py-3 rounded-pill shadow-sm">
                         <i class="fas fa-list me-2"></i>Lihat Semua Program
                     </a>
                 </div>

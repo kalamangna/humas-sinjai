@@ -3,41 +3,45 @@
 namespace App\Database\Seeds;
 
 use CodeIgniter\Database\Seeder;
-use Faker\Factory;
-use App\Models\CategoryModel; // Import the CategoryModel
+use App\Models\CategoryModel;
 
 class CategorySeeder extends Seeder
 {
     public function run()
     {
-        $faker = Factory::create();
-        $categoryModel = new CategoryModel(); // Instantiate the model
+        $categoryModel = new CategoryModel();
 
-        // Create 5 parent categories
-        for ($i = 0; $i < 5; $i++) {
-            $name = $faker->unique()->word;
-            $slug = strtolower(url_title($name, '-', true));
+        // Create "Program Prioritas" parent category
+        $parentCategoryName = 'Program Prioritas';
+        $parentCategorySlug = 'program-prioritas';
 
-            if ($categoryModel->where('slug', $slug)->first() === null) {
-                $categoryModel->save([
-                    'name' => $name,
-                    'slug' => $slug,
-                ]);
+        if ($categoryModel->where('slug', $parentCategorySlug)->first() === null) {
+            $categoryModel->save([
+                'name' => $parentCategoryName,
+                'slug' => $parentCategorySlug,
+            ]);
 
-                $parentId = $categoryModel->getInsertID();
+            $parentId = $categoryModel->getInsertID();
 
-                // Create 2 subcategories for each parent
-                for ($j = 0; $j < 2; $j++) {
-                    $name = $faker->unique()->word;
-                    $slug = strtolower(url_title($name, '-', true));
+            // Create child categories
+            $childCategories = [
+                'Pendidikan Berkualitas',
+                'Kesehatan Terjangkau',
+                'Infrastruktur Merata',
+                'Ekonomi Kreatif',
+                'Reformasi Birokrasi',
+                'Lingkungan Hidup',
+            ];
 
-                    if ($categoryModel->where('slug', $slug)->first() === null) {
-                        $categoryModel->save([
-                            'name' => $name,
-                            'slug' => $slug,
-                            'parent_id' => $parentId,
-                        ]);
-                    }
+            foreach ($childCategories as $childCategoryName) {
+                $childCategorySlug = strtolower(url_title($childCategoryName, '-', true));
+
+                if ($categoryModel->where('slug', $childCategorySlug)->first() === null) {
+                    $categoryModel->save([
+                        'name'      => $childCategoryName,
+                        'slug'      => $childCategorySlug,
+                        'parent_id' => $parentId,
+                    ]);
                 }
             }
         }

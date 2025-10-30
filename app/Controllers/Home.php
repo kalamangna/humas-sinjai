@@ -44,6 +44,17 @@ class Home extends BaseController
             }
         }
 
+        // Fetch Popular Categories
+        $data['popular_categories'] = $categoryModel->select('categories.name, categories.slug, COUNT(post_categories.post_id) as post_count')
+                                                   ->join('post_categories', 'post_categories.category_id = categories.id')
+                                                   ->join('posts', 'posts.id = post_categories.post_id')
+                                                   ->where('posts.status', 'published')
+                                                   ->where('categories.parent_id IS NOT NULL')
+                                                   ->groupBy('categories.id')
+                                                   ->orderBy('post_count', 'DESC')
+                                                   ->limit(10)
+                                                   ->findAll();
+
         return view('home', $data);
     }
 
@@ -321,5 +332,42 @@ class Home extends BaseController
 
         $this->response->setHeader('Content-Type', 'application/xml');
         return view('sitemap', $data);
+    }
+
+    public function programPrioritas()
+    {
+        $categoryModel = new CategoryModel();
+        $parentCategory = $categoryModel->where('slug', 'program-prioritas')->first();
+
+        if (empty($parentCategory)) {
+            throw new \CodeIgniter\Exceptions\PageNotFoundException('Cannot find the category: program-prioritas');
+        }
+
+        $childCategories = $categoryModel->where('parent_id', $parentCategory['id'])->findAll();
+        $childCategoryIds = array_column($childCategories, 'id');
+
+        $postModel = new PostModel();
+        $data['posts'] = [];
+        $data['pager'] = null;
+
+        if (!empty($childCategoryIds)) {
+            $postCategoryModel = new PostCategoryModel();
+            $postIds = array_column($postCategoryModel->whereIn('category_id', $childCategoryIds)->findAll(), 'post_id');
+
+            if (!empty($postIds)) {
+                $posts = $postModel->whereIn('id', $postIds)
+                                   ->where('status', 'published')
+                                   ->orderBy('published_at', 'DESC')
+                                   ->paginate(10);
+                $data['posts'] = $postModel->withCategoriesAndTags($posts);
+                $data['pager'] = $postModel->pager;
+            }
+        }
+
+        $data['title'] = 'Program Prioritas';
+        $data['description'] = 'Program prioritas Pemerintah Kabupaten Sinjai.';
+        $data['keywords'] = 'program prioritas, sinjai, pemerintah kabupaten sinjai';
+
+        return view('program_prioritas', $data);
     }
 }

@@ -66,6 +66,9 @@
                     <li class="nav-item">
                         <a class="nav-link <?= url_is('posts') ? 'active' : '' ?>" href="<?= base_url('posts') ?>"><i class="fas fa-fw fa-newspaper me-2"></i>Semua Berita</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link <?= url_is('program-prioritas') ? 'active' : '' ?>" href="<?= base_url('program-prioritas') ?>"><i class="fas fa-fw fa-bullseye me-2"></i>Program Prioritas</a>
+                    </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">
