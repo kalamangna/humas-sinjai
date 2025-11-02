@@ -76,11 +76,11 @@ Laporan Bulanan
     </div>
 </div>
 
-<?= $this->endSection() ?>
-
 <script>
     document.getElementById('month-select').addEventListener('change', function() {
         const selected = this.value;
         window.location.href = `<?= base_url('admin/analytics/monthly-report/') ?>${selected}`;
     });
 </script>
+
+<?= $this->endSection() ?>

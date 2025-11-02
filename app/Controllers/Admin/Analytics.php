@@ -134,18 +134,21 @@ class Analytics extends BaseController
         $postModel = new \App\Models\PostModel();
 
         if ($year === null || $month === null) {
-            $latest = $postModel->getDistinctMonths()[0] ?? null;
-            if ($latest) {
-                return redirect()->to(base_url("admin/analytics/monthly-report/{$latest['year']}/{$latest['month']}"));
-            }
             $year = date('Y');
             $month = date('m');
+            return redirect()->to(base_url("admin/analytics/monthly-report/{$year}/{$month}"));
         }
 
         $data['posts'] = $postModel->getPostsByMonthYear($month, $year);
         $data['year'] = $year;
         $data['month'] = $month;
-        $data['months'] = $postModel->getDistinctMonths();
+        $data['months'] = [];
+        for ($m = 1; $m <= 12; $m++) {
+            $data['months'][] = [
+                'year' => $year,
+                'month' => str_pad($m, 2, '0', STR_PAD_LEFT)
+            ];
+        }
 
         return $this->render('Admin/Analytics/monthly_report', $data);
     }

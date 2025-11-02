@@ -134,8 +134,8 @@ class PostModel extends Model
     public function getPostsByMonthYear($month, $year)
     {
         $posts = $this->where('MONTH(published_at)', $month)
-                      ->where('YEAR(published_at)', $year)
-                      ->findAll();
+            ->where('YEAR(published_at)', $year)
+            ->findAll();
 
         return $this->addGAData($posts);
     }
@@ -143,19 +143,19 @@ class PostModel extends Model
     public function getDistinctMonths()
     {
         return $this->select('YEAR(published_at) as year, MONTH(published_at) as month')
-                    ->distinct()
-                    ->orderBy('year', 'DESC')
-                    ->orderBy('month', 'DESC')
-                    ->findAll();
+            ->distinct()
+            ->orderBy('year', 'DESC')
+            ->orderBy('month', 'DESC')
+            ->findAll();
     }
 
     public function searchAndAddGAData(string $query): array
     {
         $posts = $this->where('status', 'published')
-                      ->like('title', $query)
-                      ->orLike('content', $query)
-                      ->orderBy('posts.published_at', 'DESC')
-                      ->findAll();
+            ->like('title', $query)
+            ->orLike('content', $query)
+            ->orderBy('posts.published_at', 'DESC')
+            ->findAll();
 
         return $this->addGAData($posts);
     }
