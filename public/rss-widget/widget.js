@@ -20,30 +20,46 @@
         return;
       }
 
-      let html = `<div class="rss-widget ${theme}"><h4 class="rss-title">${title}</h4><ul>`;
+      // struktur widget
+      let html = `
+        <div class="humas-sinjai-widget humas-sinjai-${theme}">
+          <h4 class="humas-sinjai-title">${title}</h4>
+          <ul>
+      `;
+
+      // daftar berita
       data.slice(0, limit).forEach((item) => {
-        html += `<li class="rss-item">`;
-        if (item.thumbnail) {
-          html += `
-      <div class="rss-item-thumb">
-        <img src="${item.thumbnail}" alt="${item.title}" class="rss-thumb">
-      </div>
-    `;
-        }
         html += `
-    <div class="rss-item-content">
-      <a href="${item.link}" target="_blank">${item.title}</a>
-      <br><small>${item.pubDate}</small>
-    </div>
-  `;
-        html += `</li>`;
+          <li class="humas-sinjai-item">
+            ${
+              item.thumbnail
+                ? `
+              <div class="humas-sinjai-thumb-wrapper">
+                <img src="${item.thumbnail}" alt="${item.title}" class="humas-sinjai-thumb">
+              </div>`
+                : ""
+            }
+            <div class="humas-sinjai-content">
+              <a href="${item.link}" target="_blank">${item.title}</a>
+              <small>${item.pubDate}</small>
+            </div>
+          </li>
+        `;
       });
 
-      html += `</ul><div class="rss-footer"><a href="https://humas.sinjaikab.go.id" target="_blank">humas.sinjaikab.go.id</a></div></div>`;
+      // footer widget
+      html += `
+          </ul>
+          <div class="humas-sinjai-footer">
+            <a href="https://humas.sinjaikab.go.id" target="_blank">humas.sinjaikab.go.id</a>
+          </div>
+        </div>
+      `;
+
       el.innerHTML = html;
     })
     .catch(() => {
-      document.getElementById(containerId).innerHTML =
-        "<p>Gagal memuat berita.</p>";
+      const el = document.getElementById(containerId);
+      if (el) el.innerHTML = "<p>Gagal memuat berita.</p>";
     });
 })();

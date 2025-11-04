@@ -111,16 +111,12 @@
                         <div class="row g-4">
                             <div class="col-md-6">
                                 <h3 class="h5 fw-semibold">Contoh Light Theme</h3>
-                                <div class="rounded border">
-                                    <div id="rss-widget-preview-light"></div>
-                                </div>
+                                <div id="rss-widget-preview-light"></div>
                             </div>
 
                             <div class="col-md-6">
                                 <h3 class="h5 fw-semibold">Contoh Dark Theme</h3>
-                                <div class="rounded">
-                                    <div id="rss-widget-preview-dark"></div>
-                                </div>
+                                <div id="rss-widget-preview-dark"></div>
                             </div>
                         </div>
                     </section>
