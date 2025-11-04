@@ -22,12 +22,23 @@
 
       let html = `<div class="rss-widget ${theme}"><h4 class="rss-title">${title}</h4><ul>`;
       data.slice(0, limit).forEach((item) => {
-        html += `<li>`;
+        html += `<li class="rss-item">`;
         if (item.thumbnail) {
-          html += `<img src="${item.thumbnail}" alt="${item.title}" class="rss-thumb">`;
+          html += `
+      <div class="rss-item-thumb">
+        <img src="${item.thumbnail}" alt="${item.title}" class="rss-thumb">
+      </div>
+    `;
         }
-        html += `<a href="${item.link}" target="_blank">${item.title}</a><br><small>${item.pubDate}</small></li>`;
+        html += `
+    <div class="rss-item-content">
+      <a href="${item.link}" target="_blank">${item.title}</a>
+      <br><small>${item.pubDate}</small>
+    </div>
+  `;
+        html += `</li>`;
       });
+
       html += `</ul><div class="rss-footer"><a href="https://humas.sinjaikab.go.id" target="_blank">humas.sinjaikab.go.id</a></div></div>`;
       el.innerHTML = html;
     })
