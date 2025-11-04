@@ -1,8 +1,8 @@
 <?php
 header('Content-Type: application/json; charset=UTF-8');
-header('Access-Control-Allow-Origin: *'); // penting untuk cross-domain
+header('Access-Control-Allow-Origin: *');
 
-$rss_url = 'https://humas.sinjaikab.go.id/v1/rss'; // URL RSS kamu
+$rss_url = 'https://humas.sinjaikab.go.id/v1/rss';
 
 function load_rss($url)
 {
@@ -16,18 +16,26 @@ function load_rss($url)
 }
 
 $rss = load_rss($rss_url);
-
 if (!$rss) {
-    echo json_encode(['error' => 'Failed to load RSS feed']);
+    echo json_encode(['error' => 'Gagal memuat RSS']);
     exit;
 }
 
 $items = [];
 foreach ($rss->channel->item as $item) {
+    // Ambil thumbnail jika ada
+    $thumbnail = '';
+    if (isset($item->enclosure['url'])) {
+        $thumbnail = (string)$item->enclosure['url'];
+    } elseif (isset($item->children('media', true)->thumbnail)) {
+        $thumbnail = (string)$item->children('media', true)->thumbnail->attributes()->url;
+    }
+
     $items[] = [
-        'title' => (string) $item->title,
-        'link' => (string) $item->link,
-        'pubDate' => date('d M Y', strtotime((string) $item->pubDate))
+        'title' => (string)$item->title,
+        'link' => (string)$item->link,
+        'pubDate' => date('d M Y', strtotime((string)$item->pubDate)),
+        'thumbnail' => $thumbnail
     ];
 }
 

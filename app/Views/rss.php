@@ -3,7 +3,7 @@
     <channel>
         <title>Humas Sinjai</title>
         <link><?= base_url() ?></link>
-        <description>Berita terbaru dari Humas Sinjai</description>
+        <description>Berita Terbaru - Humas Sinjai</description>
         <language>id-id</language>
         <pubDate><?= date('r', strtotime($posts[0]['published_at'] ?? 'now')) ?></pubDate>
         <lastBuildDate><?= date('r', strtotime($posts[0]['published_at'] ?? 'now')) ?></lastBuildDate>
@@ -15,6 +15,9 @@
                 <link><?= base_url('post/' . $post['slug']) ?></link>
                 <description><?= esc(substr(strip_tags($post['content']), 0, 200)) ?>...</description>
                 <pubDate><?= date('r', strtotime($post['published_at'])) ?></pubDate>
+                <?php if (!empty($post['thumbnail'])): ?>
+                    <enclosure url="<?= htmlspecialchars($post['thumbnail']) ?>" type="image/webp" />
+                <?php endif; ?>
                 <guid><?= base_url('post/' . $post['slug']) ?></guid>
             </item>
         <?php endforeach; ?>

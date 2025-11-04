@@ -49,28 +49,39 @@
   color: #666;
 }
 
-.rss-footer img {
-  height: 16px;
-  margin-right: 8px;
-  vertical-align: middle;
-}
-
 /* ======================================================
    Dark Mode
 ====================================================== */
 .rss-widget.dark {
-  background: #1b1b1b;
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
   color: #fff;
 }
 
 .rss-widget.dark .rss-title {
-  background: #1e3c72;
+  background: #fff;
+  color: #1e3c72;
 }
 
 .rss-widget.dark a {
-  color: #9fc4ff; /* warna biru muda kontras */
+  color: #fff;
 }
 
 .rss-widget.dark .rss-footer {
-  color: #aaa;
+  color: #fff;
+}
+
+/* ======================================================
+   Thumbnail Image
+====================================================== */
+.rss-widget .rss-thumb {
+  width: 100%;
+  max-height: 160px;
+  object-fit: cover;
+  border-radius: 6px;
+  margin-bottom: 6px;
+}
+
+.rss-widget.dark .rss-thumb {
+  opacity: 0.95;
+  border: 1px solid #fff;
 }

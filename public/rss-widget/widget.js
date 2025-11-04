@@ -22,7 +22,11 @@
 
       let html = `<div class="rss-widget ${theme}"><h4 class="rss-title">${title}</h4><ul>`;
       data.slice(0, limit).forEach((item) => {
-        html += `<li><a href="${item.link}" target="_blank">${item.title}</a><br><small>${item.pubDate}</small></li>`;
+        html += `<li>`;
+        if (item.thumbnail) {
+          html += `<img src="${item.thumbnail}" alt="${item.title}" class="rss-thumb">`;
+        }
+        html += `<a href="${item.link}" target="_blank">${item.title}</a><br><small>${item.pubDate}</small></li>`;
       });
       html += `</ul><div class="rss-footer"><a href="https://humas.sinjaikab.go.id" target="_blank">humas.sinjaikab.go.id</a></div></div>`;
       el.innerHTML = html;

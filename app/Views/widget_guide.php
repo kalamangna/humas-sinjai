@@ -50,12 +50,14 @@
                             <button type="button" class="btn btn-sm btn-outline-primary position-absolute top-0 end-0 m-2 copy-btn" data-target="code-light" title="Salin kode">
                                 <i class="fas fa-copy me-2"></i>Salin
                             </button>
-                            <pre id="code-light" class="bg-light border rounded p-3"><code>&lt;link rel="stylesheet" href="https://humas.sinjaikab.go.id/v1/rss-widget/style.css"&gt;
+                            <pre id="code-light" class="bg-light border rounded p-3"><code>
+&lt;link rel="stylesheet" href="https://humas.sinjaikab.go.id/v1/rss-widget/style.css"&gt;
 &lt;div id="rss-widget-light"&gt;&lt;/div&gt;
 &lt;script src="https://humas.sinjaikab.go.id/v1/rss-widget/widget.js"
     data-container="rss-widget-light"
     data-limit="5"
-    data-theme="light"&gt;
+    data-theme="light"
+    data-title="Berita Terbaru - Humas Sinjai"&gt;
 &lt;/script&gt;</code></pre>
                         </div>
 
@@ -64,12 +66,14 @@
                             <button type="button" class="btn btn-sm btn-outline-light position-absolute top-0 end-0 m-2 copy-btn" data-target="code-dark" title="Salin kode">
                                 <i class="fas fa-copy me-2"></i>Salin
                             </button>
-                            <pre id="code-dark" class="bg-dark text-light border rounded p-3"><code>&lt;link rel="stylesheet" href="https://humas.sinjaikab.go.id/v1/rss-widget/style.css"&gt;
+                            <pre id="code-dark" class="bg-dark text-light border rounded p-3"><code>
+&lt;link rel="stylesheet" href="https://humas.sinjaikab.go.id/v1/rss-widget/style.css"&gt;
 &lt;div id="rss-widget-dark"&gt;&lt;/div&gt;
 &lt;script src="https://humas.sinjaikab.go.id/v1/rss-widget/widget.js"
     data-container="rss-widget-dark"
     data-limit="5"
-    data-theme="dark"&gt;
+    data-theme="dark"
+    data-title="Berita Terbaru - Humas Sinjai"&gt;
 &lt;/script&gt;</code></pre>
                         </div>
                     </section>
@@ -89,6 +93,14 @@
                             <li class="list-group-item">
                                 <p class="fw-semibold mb-1"><code>data-theme</code> <span class="badge bg-secondary">Opsional</span></p>
                                 <p class="mb-0 text-muted">Tema tampilan widget. Gunakan <code>light</code> untuk tema terang atau <code>dark</code> untuk tema gelap. Defaultnya adalah <code>light</code>. Contoh: <code>data-theme="dark"</code>.</p>
+                            </li>
+                            <li class="list-group-item">
+                                <p class="fw-semibold mb-1"><code>data-title</code> <span class="badge bg-secondary">Opsional</span></p>
+                                <p class="mb-0 text-muted">
+                                    Judul yang akan ditampilkan di bagian atas widget. Jika tidak diatur, judul default adalah
+                                    <code>Berita Terbaru - Humas Sinjai</code>. Anda dapat menyesuaikannya sesuai kebutuhan, misalnya:
+                                    <code>data-title="Info Resmi Pemkab Sinjai"</code>.
+                                </p>
                             </li>
                         </ul>
                     </section>
