@@ -155,6 +155,25 @@
 
         <!-- Sidebar -->
         <div class="col-lg-4">
+            <!-- tes widget -->
+            <div id="rss-widget"></div>
+            <script src="https://humas.sinjaikab.go.id/v1/rss-widget/widget.js"
+                data-container="rss-widget"
+                data-limit="5"
+                data-title="Berita Terbaru - Humas Sinjai"
+                data-theme="light">
+            </script>
+            <link rel="stylesheet" href="https://humas.sinjaikab.go.id/v1/rss-widget/style.css">
+
+            <div id="rss-widget-dark"></div>
+            <script src="https://humas.sinjaikab.go.id/v1/rss-widget/widget.js"
+                data-container="rss-widget-dark"
+                data-limit="5"
+                data-title="Berita Terbaru - Humas Sinjai"
+                data-theme="dark">
+            </script>
+            <link rel="stylesheet" href="https://humas.sinjaikab.go.id/v1/rss-widget/style.css">
+
             <!-- Recent Posts -->
             <div class="card border-0 shadow rounded-4 overflow-hidden mb-4">
                 <div class="card-body p-4">

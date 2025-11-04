@@ -15,4 +15,10 @@ class Page extends BaseController
         $data['title'] = 'Kontak';
         return view('contact', $data);
     }
+
+    public function widget()
+    {
+        $data['title'] = 'Panduan Widget';
+        return view('widget_guide', $data);
+    }
 }

@@ -47,6 +47,11 @@
                             <i class="fas fa-fw fa-rss me-2 small text-white"></i>RSS
                         </a>
                     </li>
+                    <li class="mb-2">
+                        <a href="<?= base_url('widget') ?>" class="text-light text-decoration-none">
+                            <i class="fas fa-fw fa-code me-2 small text-white"></i>Widget
+                        </a>
+                    </li>
                 </ul>
             </div>
 

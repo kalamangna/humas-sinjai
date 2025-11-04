@@ -22,6 +22,7 @@ $routes->get('tag/(:segment)', 'Home::tag/$1');
 $routes->get('tags', 'Home::tags');
 $routes->get('about', 'Page::about');
 $routes->get('contact', 'Page::contact');
+$routes->get('widget', 'Page::widget');
 $routes->get('search', 'Home::search');
 
 $routes->get('categories', 'Home::categories');

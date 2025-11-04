@@ -5,7 +5,7 @@
     parseInt(document.currentScript.getAttribute("data-limit")) || 5;
   const title =
     document.currentScript.getAttribute("data-title") ||
-    "Latest News from Humas Sinjai";
+    "Berita Terbaru - Humas Sinjai";
   const theme = document.currentScript.getAttribute("data-theme") || "light";
   const apiUrl = "https://humas.sinjaikab.go.id/v1/rss-widget/index.php";
 
@@ -29,6 +29,6 @@
     })
     .catch(() => {
       document.getElementById(containerId).innerHTML =
-        "<p>Failed to load news.</p>";
+        "<p>Gagal memuat berita.</p>";
     });
 })();
