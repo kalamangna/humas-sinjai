@@ -7,7 +7,7 @@
     document.currentScript.getAttribute("data-title") ||
     "Latest News from Humas Sinjai";
   const theme = document.currentScript.getAttribute("data-theme") || "light";
-  const apiUrl = "https://humas.sinjaikab.go.id/rss-widget/index.php";
+  const apiUrl = "https://humas.sinjaikab.go.id/v1/rss-widget/index.php";
 
   fetch(apiUrl)
     .then((res) => res.json())
