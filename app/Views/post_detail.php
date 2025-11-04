@@ -155,6 +155,16 @@
 
         <!-- Sidebar -->
         <div class="col-lg-4">
+            <!-- Widget -->
+            <div class="card border-0 shadow rounded-4 overflow-hidden mb-4">
+                <iframe
+                    src="https://humas.sinjaikab.go.id/v1/rss-widget/widget.php?limit=3&theme=dark"
+                    style="border:none; width:100%;"
+                    scrolling="no"
+                    loading="lazy">
+                </iframe>
+            </div>
+
             <!-- Recent Posts -->
             <div class="card border-0 shadow rounded-4 overflow-hidden mb-4">
                 <div class="card-body p-4">
