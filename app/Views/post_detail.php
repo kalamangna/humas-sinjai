@@ -61,7 +61,7 @@
 
                     <?php if (!empty($post['thumbnail'])) : ?>
                         <figure class="w-100 mb-4">
-                            <img src="<?= esc($post['thumbnail']) ?>" class="figure-img img-fluid rounded-3 mb-3 w-100" alt="<?= esc($post['title']) ?>" style="max-height: 450px; object-fit: cover;">
+                            <img src="<?= esc($post['thumbnail']) ?>" class="figure-img img-fluid rounded-3 mb-3 w-100" alt="<?= esc($post['title']) ?>">
                             <?php if (!empty($post['thumbnail_caption'])) : ?>
                                 <figcaption class="figure-caption text-center text-muted"><?= esc($post['thumbnail_caption']) ?></figcaption>
                             <?php endif; ?>

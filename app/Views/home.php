@@ -16,7 +16,7 @@
             <div class="carousel-inner">
                 <?php foreach ($slides as $index => $slide): ?>
                     <div class="carousel-item <?= $index === 0 ? 'active' : '' ?>">
-                        <img src="<?= esc($slide['image_path']) ?>" class="d-block w-100" alt="Carousel Slide" style="max-height: 500px; object-fit: cover;">
+                        <img src="<?= esc($slide['image_path']) ?>" class="d-block w-100" alt="Carousel Slide" style="max-height: 600px; object-fit: cover;">
                     </div>
                 <?php endforeach; ?>
             </div>
