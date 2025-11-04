@@ -40,6 +40,52 @@
                             <li class="list-group-item">Tempelkan kode tersebut ke dalam bagian <code>&lt;body&gt;</code> pada halaman web Anda di mana Anda ingin widget ditampilkan.</li>
                             <li class="list-group-item">Simpan perubahan pada file HTML Anda dan muat ulang halaman untuk melihat widget beraksi.</li>
                         </ol>
+
+                        <div class="accordion mt-4" id="platform-guides">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="heading-blogspot">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-blogspot" aria-expanded="false" aria-controls="collapse-blogspot">
+                                        <i class="fab fa-blogger-b me-2"></i><strong>Panduan untuk Pengguna Blogspot</strong>
+                                    </button>
+                                </h2>
+                                <div id="collapse-blogspot" class="accordion-collapse collapse" aria-labelledby="heading-blogspot" data-bs-parent="#platform-guides">
+                                    <div class="accordion-body">
+                                        <ol>
+                                            <li>Masuk ke <strong>Dashboard Blogger</strong> → menu <strong>Tata Letak</strong>.</li>
+                                            <li>Klik <strong>Tambahkan Gadget</strong> → pilih <strong>HTML/JavaScript</strong>.</li>
+                                            <li>Tempelkan kode widget di kolom <strong>Konten</strong>.</li>
+                                            <li>Klik <strong>Simpan</strong> dan lihat hasilnya di blog Anda.</li>
+                                            <li>Jika widget tidak tampil, pastikan blog Anda mengizinkan script eksternal (https).</li>
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="heading-wordpress">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-wordpress" aria-expanded="false" aria-controls="collapse-wordpress">
+                                        <i class="fab fa-wordpress me-2"></i><strong>Panduan untuk Pengguna WordPress</strong>
+                                    </button>
+                                </h2>
+                                <div id="collapse-wordpress" class="accordion-collapse collapse" aria-labelledby="heading-wordpress" data-bs-parent="#platform-guides">
+                                    <div class="accordion-body">
+                                        <p><strong>Untuk Widget Area (Sidebar/Footer):</strong></p>
+                                        <ol>
+                                            <li>Masuk ke <strong>Dashboard WordPress</strong> → <strong>Appearance</strong> → <strong>Widgets</strong> (Tampilan → Widget).</li>
+                                            <li>Tambahkan block <strong>Custom HTML</strong> di area yang Anda inginkan (misalnya, sidebar atau footer).</li>
+                                            <li>Tempelkan kode script widget di dalamnya.</li>
+                                            <li>Simpan perubahan dan muat ulang situs Anda.</li>
+                                        </ol>
+                                        <hr class="my-3">
+                                        <p><strong>Untuk Konten Halaman/Postingan (Block Editor):</strong></p>
+                                        <ol>
+                                            <li>Tambahkan blok <strong>Custom HTML</strong> di mana Anda ingin widget muncul.</li>
+                                            <li>Tempelkan kode di atas ke dalam blok tersebut.</li>
+                                            <li>Klik <strong>Preview</strong> untuk melihat hasilnya atau <strong>Update</strong> untuk menyimpan.</li>
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </section>
 
                     <section class="mb-5">

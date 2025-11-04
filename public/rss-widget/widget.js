@@ -50,9 +50,10 @@
       // footer widget
       html += `
           </ul>
-          <div class="humas-sinjai-footer">
-            <a href="https://humas.sinjaikab.go.id" target="_blank">humas.sinjaikab.go.id</a>
-          </div>
+            <div class="humas-sinjai-footer">
+              <img src="https://humas.sinjaikab.go.id/v1/humas.png" alt="Logo Sinjai" class="humas-sinjai-footer-logo">
+              <a href="https://humas.sinjaikab.go.id" target="_blank">humas.sinjaikab.go.id</a>
+            </div>
         </div>
       `;
 
