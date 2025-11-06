@@ -81,10 +81,9 @@
                         <div class="d-flex flex-wrap gap-3">
                             <?php
                             $share_url = urlencode(current_url());
-                            $share_title = urlencode($post['title']);
                             ?>
                             <!-- WhatsApp -->
-                            <a href="https://api.whatsapp.com/send?text=<?= $share_title ?>%20<?= $share_url ?>" target="_blank" class="btn btn-success btn-sm rounded-pill px-4 shadow-sm">
+                            <a href="https://api.whatsapp.com/send?text=<?= $share_url ?>" target="_blank" class="btn btn-success btn-sm rounded-pill px-4 shadow-sm">
                                 <i class="fab fa-whatsapp me-2"></i>WhatsApp
                             </a>
 
@@ -94,7 +93,7 @@
                             </a>
 
                             <!-- X (Twitter) -->
-                            <a href="https://twitter.com/intent/tweet?url=<?= $share_url ?>&text=<?= $share_title ?>" target="_blank" class="btn btn-dark btn-sm rounded-pill px-4 shadow-sm">
+                            <a href="https://twitter.com/intent/tweet?url=<?= $share_url ?>" target="_blank" class="btn btn-dark btn-sm rounded-pill px-4 shadow-sm">
                                 <i class="fab fa-x-twitter me-2"></i>X
                             </a>
 
