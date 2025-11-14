@@ -290,12 +290,24 @@
                 monthlyPostChartSpinner.classList.add('d-none');
                 monthlyPostChart.classList.remove('d-none');
 
-                const latestData = data[data.length - 1];
                 const reportLink = document.getElementById('monthly-report-link');
-                reportLink.href = `<?= base_url('admin/analytics/monthly-report/') ?>${latestData.year}/${latestData.month}`;
+                
+                if (data.length > 0) {
+                    const latestData = data[0];
+                    reportLink.href = `<?= base_url('admin/analytics/monthly-report/') ?>${latestData.year}/${latestData.month}`;
+                } else {
+                    reportLink.href = '#';
+                }
 
-                const labels = data.map(item => item.formatted_date);
-                const values = data.map(item => item.screenPageViews);
+                const reversedData = data.slice().sort((a, b) => {
+                    if (a.year !== b.year) {
+                        return a.year - b.year;
+                    }
+                    return a.month - b.month;
+                });
+
+                const labels = reversedData.map(item => item.formatted_date);
+                const values = reversedData.map(item => item.screenPageViews);
 
                 const ctx = document.getElementById('monthly-post-chart').getContext('2d');
                 new Chart(ctx, {
@@ -326,8 +338,15 @@
                 monthlyUserChartSpinner.classList.add('d-none');
                 monthlyUserChart.classList.remove('d-none');
 
-                const labels = data.map(item => item.formatted_date);
-                const values = data.map(item => item.totalUsers);
+                const reversedData = data.slice().sort((a, b) => {
+                    if (a.year !== b.year) {
+                        return a.year - b.year;
+                    }
+                    return a.month - b.month;
+                });
+
+                const labels = reversedData.map(item => item.formatted_date);
+                const values = reversedData.map(item => item.totalUsers);
 
                 const ctx = document.getElementById('monthly-user-chart').getContext('2d');
                 new Chart(ctx, {

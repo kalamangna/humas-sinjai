@@ -21,7 +21,7 @@
 
     <div id="analytics-content" class="d-none">
         <div class="row g-3">
-            <div class="col-md-6">
+            <div class="col-md-12">
                 <div class="card border-0 shadow-sm h-100">
                     <div class="card-header bg-transparent border-bottom py-4">
                         <h5 class="fw-bold text-dark mb-0">
@@ -33,18 +33,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="card border-0 shadow-sm h-100">
-                    <div class="card-header bg-transparent border-bottom py-4">
-                        <h5 class="fw-bold text-dark mb-0">
-                            <i class="fas fa-map me-3"></i>Wilayah
-                        </h5>
-                    </div>
-                    <div class="card-body">
-                        <canvas id="regionChart"></canvas>
-                    </div>
-                </div>
-            </div>
+            <div class="col-md-12">
         </div>
 
         <div class="row mt-4">
@@ -91,21 +80,15 @@
 
                 // Process data for charts
                 const countryUsers = {};
-                const regionUsers = {};
 
                 data.forEach(item => {
                     // Country
                     const country = item.country || 'Tidak diketahui';
                     countryUsers[country] = (countryUsers[country] || 0) + parseInt(item.totalUsers);
-
-                    // Region
-                    const region = item.region || 'Tidak diketahui';
-                    regionUsers[region] = (regionUsers[region] || 0) + parseInt(item.totalUsers);
                 });
 
                 // Create charts
                 createPieChart('countryChart', countryUsers, 'Country');
-                createPieChart('regionChart', regionUsers, 'Wilayah');
 
                 // Clear existing data
                 geoData.innerHTML = '';
