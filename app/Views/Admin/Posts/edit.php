@@ -138,10 +138,16 @@
                                     </div>
                                 <?php endif; ?>
                             </div>
-                            <div class="form-group mt-3">
+                            <div class="form-group mt-3 d-flex gap-2">
                                 <button type="button" id="suggest-tags-btn" class="btn btn-outline-primary btn-sm">
                                     <i class="fas fa-wand-magic-sparkles me-2"></i>Sarankan Tag
                                 </button>
+                                <div class="input-group input-group-sm" style="max-width: 300px;">
+                                    <input type="text" id="manual-tag-input" class="form-control" placeholder="Tambah tag manual...">
+                                    <button class="btn btn-outline-secondary" type="button" id="add-manual-tag-btn">
+                                        <i class="fas fa-plus"></i>
+                                    </button>
+                                </div>
                             </div>
                         </div>
 
@@ -158,11 +164,11 @@
                                 </a>
                                 <?php if ($post['status'] === 'published') : ?>
                                     <button type="submit" class="btn btn-primary px-4">
-                                        <i class="fas fa-save me-2"></i>Perbarui Berita
+                                        <i class="fas fa-save me-2"></i>Perbarui
                                     </button>
                                 <?php else : ?>
                                     <button type="submit" name="status" value="draft" class="btn btn-outline-primary px-4">
-                                        <i class="fas fa-save me-2"></i>Simpan Draft
+                                        <i class="fas fa-save me-2"></i>Draft
                                     </button>
                                     <button type="submit" name="status" value="published" class="btn btn-primary px-4">
                                         <i class="fas fa-paper-plane me-2"></i>Publish
@@ -183,7 +189,7 @@
     document.addEventListener('DOMContentLoaded', function() {
         const thumbnailInput = document.getElementById('thumbnail');
         const pasteBtn = document.getElementById('paste-thumbnail-btn');
-        
+
         thumbnailInput.addEventListener('paste', function(e) {
             const items = (e.clipboardData || e.originalEvent.clipboardData).items;
             for (const item of items) {
@@ -264,7 +270,9 @@
         const tagContainer = document.getElementById('tag-container');
         const tagsInput = document.getElementById('tags-input');
         const titleInput = document.getElementById('title');
-        
+        const manualTagInput = document.getElementById('manual-tag-input');
+        const addManualTagBtn = document.getElementById('add-manual-tag-btn');
+
         function updateTagsInput() {
             const tags = [];
             tagContainer.querySelectorAll('.tag-badge').forEach(badge => {
@@ -289,7 +297,7 @@
             const badge = document.createElement('span');
             badge.className = 'tag-badge badge bg-primary me-1 mb-1';
             badge.innerHTML = `${tag} <i class="fas fa-times-circle ms-1" style="cursor: pointer;"></i>`;
-            
+
             badge.querySelector('i').addEventListener('click', function() {
                 badge.remove();
                 updateTagsInput();
@@ -298,6 +306,23 @@
             tagContainer.appendChild(badge);
             updateTagsInput();
         }
+
+        function addManualTag() {
+            const tag = manualTagInput.value.trim();
+            if (tag) {
+                createTag(tag);
+                manualTagInput.value = '';
+            }
+        }
+
+        addManualTagBtn.addEventListener('click', addManualTag);
+
+        manualTagInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault(); // Prevent form submission
+                addManualTag();
+            }
+        });
 
         // Add event listeners to existing tags
         tagContainer.querySelectorAll('.tag-badge i').forEach(icon => {
@@ -327,35 +352,35 @@
                 suggestBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Menyarankan...';
 
                 fetch('<?= base_url('api/tags/suggest') ?>', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded',
-                        'X-Requested-With': 'XMLHttpRequest'
-                    },
-                    body: new URLSearchParams({
-                        '<?= csrf_token() ?>': '<?= csrf_hash() ?>',
-                        'title': title,
-                        'content': content
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                            'X-Requested-With': 'XMLHttpRequest'
+                        },
+                        body: new URLSearchParams({
+                            '<?= csrf_token() ?>': '<?= csrf_hash() ?>',
+                            'title': title,
+                            'content': content
+                        })
                     })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.length > 0) {
-                        data.forEach(tag => {
-                            createTag(tag);
-                        });
-                    } else {
-                        alert('Tidak ada tag yang disarankan.');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    suggestedTagsContainer.innerHTML = '<p class="text-danger small">Gagal menyarankan tag.</p>';
-                })
-                .finally(() => {
-                    suggestBtn.disabled = false;
-                    suggestBtn.innerHTML = '<i class="fas fa-wand-magic-sparkles me-2"></i>Sarankan Tag';
-                });
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.length > 0) {
+                            data.forEach(tag => {
+                                createTag(tag);
+                            });
+                        } else {
+                            alert('Tidak ada tag yang disarankan.');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        suggestedTagsContainer.innerHTML = '<p class="text-danger small">Gagal menyarankan tag.</p>';
+                    })
+                    .finally(() => {
+                        suggestBtn.disabled = false;
+                        suggestBtn.innerHTML = '<i class="fas fa-wand-magic-sparkles me-2"></i>Sarankan Tag';
+                    });
             } catch (error) {
                 console.error('Error:', error);
                 alert('An error occurred while getting the editor content.');

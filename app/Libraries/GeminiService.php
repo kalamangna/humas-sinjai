@@ -7,7 +7,9 @@ use Exception;
 
 class GeminiService
 {
-    private const API_BASE_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent';
+    private const BASE_URL = 'https://generativelanguage.googleapis.com/v1beta/models/';
+    private const PRIMARY_MODEL = 'gemini-2.5-flash';
+    private const FALLBACK_MODEL = 'gemini-2.5-flash-lite';
     private const MAX_CONTENT_LENGTH = 500;
 
     private string $apiKey;
@@ -26,13 +28,24 @@ class GeminiService
         }
 
         try {
-            $response = $this->makeApiRequest($title, $content);
-            $tagsString = $this->extractTagsFromResponse($response);
-            return $this->parseTags($tagsString);
+            return $this->attemptSuggestion($title, $content, self::PRIMARY_MODEL);
         } catch (Exception $e) {
-            log_message('error', '[GeminiService] ' . $e->getMessage());
-            return [];
+            log_message('warning', "[GeminiService] Primary model (" . self::PRIMARY_MODEL . ") failed: " . $e->getMessage() . ". Switching to fallback model (" . self::FALLBACK_MODEL . ").");
+
+            try {
+                return $this->attemptSuggestion($title, $content, self::FALLBACK_MODEL);
+            } catch (Exception $e2) {
+                log_message('error', '[GeminiService] Fallback model also failed: ' . $e2->getMessage());
+                return [];
+            }
         }
+    }
+
+    private function attemptSuggestion(string $title, string $content, string $model): array
+    {
+        $response = $this->makeApiRequest($title, $content, $model);
+        $tagsString = $this->extractTagsFromResponse($response);
+        return $this->parseTags($tagsString);
     }
 
     private function validateApiKey(): bool
@@ -44,22 +57,25 @@ class GeminiService
         return true;
     }
 
-    private function makeApiRequest(string $title, string $content): array
+    private function makeApiRequest(string $title, string $content, string $model): array
     {
-        $url = $this->buildApiUrl();
+        $url = $this->buildApiUrl($model);
         $payload = $this->buildRequestPayload($title, $content);
 
+        // We do not catch exceptions here; we let them bubble up to suggestTags
+        // so it can trigger the fallback logic.
         $response = $this->httpClient->post($url, [
             'json' => $payload,
             'timeout' => 30,
+            'http_errors' => true // Ensure 4xx/5xx responses throw exceptions
         ]);
 
         return json_decode($response->getBody(), true) ?? [];
     }
 
-    private function buildApiUrl(): string
+    private function buildApiUrl(string $model): string
     {
-        return self::API_BASE_URL . "?key={$this->apiKey}";
+        return self::BASE_URL . $model . ":generateContent?key=".$this->apiKey;
     }
 
     private function buildRequestPayload(string $title, string $content): array
@@ -107,7 +123,7 @@ class GeminiService
     {
         if (empty($response['candidates'][0]['content']['parts'][0]['text'])) {
             log_message('warning', '[GeminiService] Empty or unexpected response: ' . json_encode($response));
-            throw new Exception('Invalid API response format');
+            throw new Exception('Invalid API response format or blocked content');
         }
 
         return $response['candidates'][0]['content']['parts'][0]['text'];
