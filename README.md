@@ -1,53 +1,57 @@
-# Humas Sinjai - Portal Berita & Informasi
+# Humas Sinjai - Portal Berita Resmi Pemerintah Kabupaten Sinjai
 
 Aplikasi web portal berita dan informasi untuk Humas Sinjai, dibangun menggunakan framework CodeIgniter 4. Aplikasi ini menyediakan platform untuk mempublikasikan berita, kegiatan, dan program prioritas pemerintah, dilengkapi dengan dashboard admin yang komprehensif.
 
 ## Fitur Utama
 
 ### 🌐 Portal Publik
-*   **Beranda Informatif:** Menampilkan berita terbaru, berita populer, carousel banner, dan widget penting.
-*   **Manajemen Berita:** Halaman detail berita dengan gambar, kategori, dan tag.
-*   **Kategorisasi:** Penelusuran berita berdasarkan kategori dan tag.
-*   **Pencarian:** Fitur pencarian berita yang cepat.
-*   **Halaman Statis:** Profil (About), Kontak, dan Widget Guide.
-*   **Program Prioritas:** Halaman khusus untuk mensosialisasikan program prioritas pemerintah.
-*   **SEO & Distribusi:** Dukungan otomatis untuk Sitemap.xml dan RSS Feed.
+
+- **Beranda Informatif:** Menampilkan berita terbaru, berita populer, carousel banner, dan widget penting.
+- **Manajemen Berita:** Halaman detail berita dengan gambar, kategori, dan tag.
+- **Kategorisasi:** Penelusuran berita berdasarkan kategori dan tag.
+- **Pencarian:** Fitur pencarian berita yang cepat.
+- **Halaman Statis:** Profil (About), Kontak, dan Widget Guide.
+- **Program Prioritas:** Halaman khusus untuk mensosialisasikan program prioritas pemerintah.
+- **SEO & Distribusi:** Dukungan otomatis untuk Sitemap.xml dan RSS Feed.
 
 ### 🛠 Dashboard Admin
-*   **Statistik & Analitik:** Integrasi mendalam dengan Google Analytics untuk menampilkan:
-    *   Ikhtisar Kunjungan (Overview).
-    *   Halaman Terpopuler (Top Pages).
-    *   Sumber Trafik (Traffic Sources).
-    *   Demografi Pengunjung (Geografi & Perangkat).
-    *   Laporan Bulanan.
-*   **Manajemen Konten (CMS):**
-    *   **Post Editor:** Editor teks kaya fitur (TinyMCE) dengan dukungan upload gambar dan *paste* gambar langsung dari clipboard.
-    *   **AI Tag Suggestion:** Integrasi **Gemini AI** untuk menyarankan tag SEO secara otomatis berdasarkan judul dan konten berita (dengan mekanisme fallback model otomatis).
-    *   **Input Tag Manual:** Fleksibilitas untuk menambah tag secara manual.
-    *   **Status Publikasi:** Dukungan draft dan publish jadwal.
-*   **Manajemen Media:** Pengelolaan Banner/Carousel halaman depan.
-*   **Manajemen Taksonomi:** Pengelolaan Kategori dan Tag secara dinamis.
-*   **Manajemen Pengguna:** Pengaturan profil admin.
+
+- **Statistik & Analitik:** Integrasi mendalam dengan Google Analytics untuk menampilkan:
+  - Ikhtisar Kunjungan (Overview).
+  - Halaman Terpopuler (Top Pages).
+  - Sumber Trafik (Traffic Sources).
+  - Demografi Pengunjung (Geografi & Perangkat).
+  - Laporan Bulanan.
+- **Manajemen Konten (CMS):**
+  - **Post Editor:** Editor teks kaya fitur (TinyMCE) dengan dukungan upload gambar dan _paste_ gambar langsung dari clipboard.
+  - **AI Tag Suggestion:** Integrasi **Gemini AI** untuk menyarankan tag SEO secara otomatis berdasarkan judul dan konten berita (dengan mekanisme fallback model otomatis).
+  - **Input Tag Manual:** Fleksibilitas untuk menambah tag secara manual.
+  - **Status Publikasi:** Dukungan draft dan publish jadwal.
+- **Manajemen Media:** Pengelolaan Banner/Carousel halaman depan.
+- **Manajemen Taksonomi:** Pengelolaan Kategori dan Tag secara dinamis.
+- **Manajemen Pengguna:** Pengaturan profil admin.
 
 ### 🚀 Teknologi & Integrasi
-*   **Framework:** CodeIgniter 4 (PHP 8.1+).
-*   **Database:** MySQL.
-*   **Frontend:** Bootstrap 5, SCSS.
-*   **AI Service:** Google Gemini API (Model: `gemini-2.5-flash` dengan fallback ke `gemini-2.5-flash-lite`).
-*   **Analytics:** Google Analytics 4 (via Service Account).
-*   **Libraries:** TinyMCE, FontAwesome.
+
+- **Framework:** CodeIgniter 4 (PHP 8.1+).
+- **Database:** MySQL.
+- **Frontend:** Bootstrap 5, SCSS.
+- **AI Service:** Google Gemini API (Model: `gemini-2.5-flash` dengan fallback ke `gemini-2.5-flash-lite`).
+- **Analytics:** Google Analytics 4 (via Service Account).
+- **Libraries:** TinyMCE, FontAwesome.
 
 ## Persyaratan Sistem
 
-*   PHP version 8.1 atau lebih baru.
-*   Ekstensi PHP: `intl`, `mbstring`, `json`, `mysqlnd`, `libcurl`.
-*   Database MySQL/MariaDB.
-*   Composer.
+- PHP version 8.1 atau lebih baru.
+- Ekstensi PHP: `intl`, `mbstring`, `json`, `mysqlnd`, `libcurl`.
+- Database MySQL/MariaDB.
+- Composer.
 
 ## Konfigurasi
 
 1.  **Environment:**
     Salin file `env` menjadi `.env` dan sesuaikan konfigurasi berikut:
+
     ```env
     CI_ENVIRONMENT = development # atau production
 
@@ -68,11 +72,13 @@ Aplikasi web portal berita dan informasi untuk Humas Sinjai, dibangun menggunaka
     ```
 
 2.  **Instalasi Dependensi:**
+
     ```bash
     composer install
     ```
 
 3.  **Migrasi Database:**
+
     ```bash
     php spark migrate
     ```
@@ -84,11 +90,8 @@ Aplikasi web portal berita dan informasi untuk Humas Sinjai, dibangun menggunaka
 
 ## Struktur Folder Penting
 
-*   `app/Controllers`: Logika aplikasi (Frontend & Admin).
-*   `app/Views`: Template HTML.
-*   `app/Models`: Interaksi database.
-*   `app/Libraries`: Layanan eksternal (GeminiService, GoogleAnalyticsService).
-*   `public`: Aset publik (CSS, JS, Images, Uploads).
-
----
-*Dibangun di atas [CodeIgniter 4 Application Starter](https://github.com/codeigniter4/appstarter).*
+- `app/Controllers`: Logika aplikasi (Frontend & Admin).
+- `app/Views`: Template HTML.
+- `app/Models`: Interaksi database.
+- `app/Libraries`: Layanan eksternal (GeminiService, GoogleAnalyticsService).
+- `public`: Aset publik (CSS, JS, Images, Uploads).
