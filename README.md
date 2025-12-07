@@ -1,68 +1,94 @@
-# CodeIgniter 4 Application Starter
+# Humas Sinjai - Portal Berita & Informasi
 
-## What is CodeIgniter?
+Aplikasi web portal berita dan informasi untuk Humas Sinjai, dibangun menggunakan framework CodeIgniter 4. Aplikasi ini menyediakan platform untuk mempublikasikan berita, kegiatan, dan program prioritas pemerintah, dilengkapi dengan dashboard admin yang komprehensif.
 
-CodeIgniter is a PHP full-stack web framework that is light, fast, flexible and secure.
-More information can be found at the [official site](https://codeigniter.com).
+## Fitur Utama
 
-This repository holds a composer-installable app starter.
-It has been built from the
-[development repository](https://github.com/codeigniter4/CodeIgniter4).
+### 🌐 Portal Publik
+*   **Beranda Informatif:** Menampilkan berita terbaru, berita populer, carousel banner, dan widget penting.
+*   **Manajemen Berita:** Halaman detail berita dengan gambar, kategori, dan tag.
+*   **Kategorisasi:** Penelusuran berita berdasarkan kategori dan tag.
+*   **Pencarian:** Fitur pencarian berita yang cepat.
+*   **Halaman Statis:** Profil (About), Kontak, dan Widget Guide.
+*   **Program Prioritas:** Halaman khusus untuk mensosialisasikan program prioritas pemerintah.
+*   **SEO & Distribusi:** Dukungan otomatis untuk Sitemap.xml dan RSS Feed.
 
-More information about the plans for version 4 can be found in [CodeIgniter 4](https://forum.codeigniter.com/forumdisplay.php?fid=28) on the forums.
+### 🛠 Dashboard Admin
+*   **Statistik & Analitik:** Integrasi mendalam dengan Google Analytics untuk menampilkan:
+    *   Ikhtisar Kunjungan (Overview).
+    *   Halaman Terpopuler (Top Pages).
+    *   Sumber Trafik (Traffic Sources).
+    *   Demografi Pengunjung (Geografi & Perangkat).
+    *   Laporan Bulanan.
+*   **Manajemen Konten (CMS):**
+    *   **Post Editor:** Editor teks kaya fitur (TinyMCE) dengan dukungan upload gambar dan *paste* gambar langsung dari clipboard.
+    *   **AI Tag Suggestion:** Integrasi **Gemini AI** untuk menyarankan tag SEO secara otomatis berdasarkan judul dan konten berita (dengan mekanisme fallback model otomatis).
+    *   **Input Tag Manual:** Fleksibilitas untuk menambah tag secara manual.
+    *   **Status Publikasi:** Dukungan draft dan publish jadwal.
+*   **Manajemen Media:** Pengelolaan Banner/Carousel halaman depan.
+*   **Manajemen Taksonomi:** Pengelolaan Kategori dan Tag secara dinamis.
+*   **Manajemen Pengguna:** Pengaturan profil admin.
 
-You can read the [user guide](https://codeigniter.com/user_guide/)
-corresponding to the latest version of the framework.
+### 🚀 Teknologi & Integrasi
+*   **Framework:** CodeIgniter 4 (PHP 8.1+).
+*   **Database:** MySQL.
+*   **Frontend:** Bootstrap 5, SCSS.
+*   **AI Service:** Google Gemini API (Model: `gemini-2.5-flash` dengan fallback ke `gemini-2.5-flash-lite`).
+*   **Analytics:** Google Analytics 4 (via Service Account).
+*   **Libraries:** TinyMCE, FontAwesome.
 
-## Installation & updates
+## Persyaratan Sistem
 
-`composer create-project codeigniter4/appstarter` then `composer update` whenever
-there is a new release of the framework.
+*   PHP version 8.1 atau lebih baru.
+*   Ekstensi PHP: `intl`, `mbstring`, `json`, `mysqlnd`, `libcurl`.
+*   Database MySQL/MariaDB.
+*   Composer.
 
-When updating, check the release notes to see if there are any changes you might need to apply
-to your `app` folder. The affected files can be copied or merged from
-`vendor/codeigniter4/framework/app`.
+## Konfigurasi
 
-## Setup
+1.  **Environment:**
+    Salin file `env` menjadi `.env` dan sesuaikan konfigurasi berikut:
+    ```env
+    CI_ENVIRONMENT = development # atau production
 
-Copy `env` to `.env` and tailor for your app, specifically the baseURL
-and any database settings.
+    app.baseURL = 'http://localhost:8080/'
 
-## Important Change with index.php
+    database.default.hostname = localhost
+    database.default.database = nama_database
+    database.default.username = user_database
+    database.default.password = password_database
+    database.default.DBDriver = MySQLi
 
-`index.php` is no longer in the root of the project! It has been moved inside the *public* folder,
-for better security and separation of components.
+    # Google Analytics Service Account Credentials (JSON)
+    GOOGLE_APPLICATION_CREDENTIALS = /path/to/service-account.json
+    GA_PROPERTY_ID = 'YOUR_GA4_PROPERTY_ID'
 
-This means that you should configure your web server to "point" to your project's *public* folder, and
-not to the project root. A better practice would be to configure a virtual host to point there. A poor practice would be to point your web server to the project root and expect to enter *public/...*, as the rest of your logic and the
-framework are exposed.
+    # Gemini AI API Key
+    GEMINI_API_KEY = 'YOUR_GEMINI_API_KEY'
+    ```
 
-**Please** read the user guide for a better explanation of how CI4 works!
+2.  **Instalasi Dependensi:**
+    ```bash
+    composer install
+    ```
 
-## Repository Management
+3.  **Migrasi Database:**
+    ```bash
+    php spark migrate
+    ```
 
-We use GitHub issues, in our main repository, to track **BUGS** and to track approved **DEVELOPMENT** work packages.
-We use our [forum](http://forum.codeigniter.com) to provide SUPPORT and to discuss
-FEATURE REQUESTS.
+4.  **Menjalankan Server:**
+    ```bash
+    php spark serve
+    ```
 
-This repository is a "distribution" one, built by our release preparation script.
-Problems with it can be raised on our forum, or as issues in the main repository.
+## Struktur Folder Penting
 
-## Server Requirements
+*   `app/Controllers`: Logika aplikasi (Frontend & Admin).
+*   `app/Views`: Template HTML.
+*   `app/Models`: Interaksi database.
+*   `app/Libraries`: Layanan eksternal (GeminiService, GoogleAnalyticsService).
+*   `public`: Aset publik (CSS, JS, Images, Uploads).
 
-PHP version 8.1 or higher is required, with the following extensions installed:
-
-- [intl](http://php.net/manual/en/intl.requirements.php)
-- [mbstring](http://php.net/manual/en/mbstring.installation.php)
-
-> [!WARNING]
-> - The end of life date for PHP 7.4 was November 28, 2022.
-> - The end of life date for PHP 8.0 was November 26, 2023.
-> - If you are still using PHP 7.4 or 8.0, you should upgrade immediately.
-> - The end of life date for PHP 8.1 will be December 31, 2025.
-
-Additionally, make sure that the following extensions are enabled in your PHP:
-
-- json (enabled by default - don't turn it off)
-- [mysqlnd](http://php.net/manual/en/mysqlnd.install.php) if you plan to use MySQL
-- [libcurl](http://php.net/manual/en/curl.requirements.php) if you plan to use the HTTP\CURLRequest library
+---
+*Dibangun di atas [CodeIgniter 4 Application Starter](https://github.com/codeigniter4/appstarter).*
