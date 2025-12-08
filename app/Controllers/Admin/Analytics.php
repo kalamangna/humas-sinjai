@@ -156,8 +156,8 @@ class Analytics extends BaseController
     public function downloadMonthlyReportPdf($year, $month)
     {
         // Increase limits for large PDF generation
-        ini_set('memory_limit', '512M');
-        set_time_limit(300);
+        ini_set('memory_limit', '1024M'); // 1GB
+        set_time_limit(600); // 10 minutes
 
         $postModel = new \App\Models\PostModel();
         $data['posts'] = $postModel->getPostsByMonthYear($month, $year);
