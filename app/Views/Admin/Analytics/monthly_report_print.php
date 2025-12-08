@@ -5,20 +5,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cetak Laporan Bulanan</title>
-    <link rel="icon" href="<?= base_url('logo.png') ?>" type="image/png">
-    <link rel="stylesheet" href="<?= base_url('assets/css/custom.css') ?>">
+    <?php if (!empty($logo_base64)): ?>
+        <link rel="icon" href="<?= $logo_base64 ?>" type="image/png">
+    <?php endif; ?>
     <style>
-        @media print {
-            body {
-                print-color-adjust: exact;
-                -webkit-print-color-adjust: exact;
-            }
+        body {
+            font-family: sans-serif;
         }
-        
+
         table {
             table-layout: fixed;
             width: 100%;
+            border-collapse: collapse;
         }
+
+        table,
+        th,
+        td {
+            border: 1px solid black;
+        }
+
+                th, td {
+
+                    padding: 8px;
+
+                    text-align: left;
+
+                    vertical-align: top;
+
+                }
 
         td {
             word-wrap: break-word;
@@ -30,13 +45,33 @@
             max-width: 100%;
             height: auto;
         }
-        
+
         /* Specific column widths to help layout */
-        th:nth-child(1) { width: 20%; } /* Judul */
-        th:nth-child(2) { width: 40%; } /* Konten */
-        th:nth-child(3) { width: 15%; } /* Link */
-        th:nth-child(4) { width: 10%; } /* Views */
-        th:nth-child(5) { width: 15%; } /* Tanggal */
+        th:nth-child(1) {
+            width: 20%;
+        }
+
+        /* Judul */
+        th:nth-child(2) {
+            width: 40%;
+        }
+
+        /* Konten */
+        th:nth-child(3) {
+            width: 15%;
+        }
+
+        /* Link */
+        th:nth-child(4) {
+            width: 10%;
+        }
+
+        /* Views */
+        th:nth-child(5) {
+            width: 15%;
+        }
+
+        /* Tanggal */
     </style>
 </head>
 
@@ -57,8 +92,15 @@
                 <?php if (!empty($posts)):
                     foreach ($posts as $post): ?>
                         <tr>
-                            <td><?= esc($post['title']) ?></td>
-                            <td><?= $post['content'] ?></td>
+                            <td><strong><?= esc($post['title']) ?></strong></td>
+                            <td>
+                                <?php if (!empty($post['thumbnail_path']) && file_exists($post['thumbnail_path'])): ?>
+                                    <div style="margin-bottom: 15px;">
+                                        <img src="<?= $post['thumbnail_path'] ?>" style="max-width: 100%; height: auto;">
+                                    </div>
+                                <?php endif; ?>
+                                <?= $post['content'] ?>
+                            </td>
                             <td><a href="<?= base_url('post/' . esc($post['slug'])) ?>" target="_blank"><?= base_url('post/' . esc($post['slug'])) ?></a></td>
                             <td><?= esc($post['views']) ?></td>
                             <td><?= format_date($post['published_at'], 'date_only') ?></td>

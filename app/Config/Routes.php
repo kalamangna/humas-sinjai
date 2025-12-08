@@ -51,9 +51,9 @@ $routes->group('admin', ['filter' => 'admin'], static function ($routes) {
     $routes->get('analytics/traffic-sources', 'Admin\\Analytics::trafficSourcesView');
     $routes->get('analytics/geo', 'Admin\\Analytics::geoView');
     $routes->get('analytics/device-category', 'Admin\\Analytics::deviceCategoryView');
-    $routes->get('analytics/monthly-report', 'Admin\\Analytics::monthlyReport');
     $routes->get('analytics/monthly-report/(:num)/(:num)', 'Admin\\Analytics::monthlyReport/$1/$2');
-    $routes->get('analytics/monthly-report-print/(:num)/(:num)', 'Admin\\Analytics::monthlyReportPrint/$1/$2');
+    $routes->get('analytics/monthly-report', 'Admin\\Analytics::monthlyReport');
+    $routes->get('analytics/download-monthly-report/(:num)/(:num)', 'Admin\\Analytics::downloadMonthlyReportPdf/$1/$2');
     $routes->get('/', 'Admin\Dashboard::index');
     $routes->resource('posts', ['controller' => 'Admin\Posts']);
     $routes->post('posts/upload_image', 'Admin\Posts::upload_image');

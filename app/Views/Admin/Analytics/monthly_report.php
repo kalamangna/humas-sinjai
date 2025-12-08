@@ -13,9 +13,9 @@ Laporan Bulanan
             </option>
         <?php endforeach; ?>
     </select>
-    <button id="print-button" class="btn btn-outline-primary btn-sm">
-        <i class="fas fa-print me-2"></i>Cetak
-    </button>
+    <a href="<?= base_url("admin/analytics/download-monthly-report/{$year}/{$month}") ?>" class="btn btn-outline-danger btn-sm" target="_blank">
+        <i class="fas fa-file-pdf me-2"></i>Download PDF
+    </a>
 </div>
 <?= $this->endSection() ?>
 

@@ -153,14 +153,78 @@ class Analytics extends BaseController
         return $this->render('Admin/Analytics/monthly_report', $data);
     }
 
-    public function monthlyReportPrint($year, $month)
+    public function downloadMonthlyReportPdf($year, $month)
     {
         $postModel = new \App\Models\PostModel();
         $data['posts'] = $postModel->getPostsByMonthYear($month, $year);
+
+        // Pre-process images to use local paths
+        foreach ($data['posts'] as &$post) {
+            // Process Thumbnail
+            if (!empty($post['thumbnail'])) {
+                $post['thumbnail_path'] = $this->localPathFromUrl($post['thumbnail']);
+            }
+
+            // Process Content Images
+            $post['content'] = preg_replace_callback('/<img[^>]+src="([^">]+)"/', function($matches) {
+                $src = $matches[1];
+                $localPath = $this->localPathFromUrl($src);
+                
+                if ($localPath && file_exists($localPath)) {
+                    return str_replace($src, $localPath, $matches[0]);
+                }
+                return $matches[0];
+            }, $post['content']);
+        }
+
         $data['year'] = $year;
         $data['month'] = $month;
 
-        return view('Admin/Analytics/monthly_report_print', $data);
+        // Load logo and convert to base64 to avoid HTTP requests (prevents deadlock on single-threaded servers)
+        $logoPath = FCPATH . 'logo.png';
+        if (file_exists($logoPath)) {
+            $logoData = file_get_contents($logoPath);
+            $data['logo_base64'] = 'data:image/png;base64,' . base64_encode($logoData);
+        } else {
+            $data['logo_base64'] = null;
+        }
+
+        $html = view('Admin/Analytics/monthly_report_print', $data);
+
+        $options = new \Dompdf\Options();
+        $options->set('isRemoteEnabled', false); // Disable remote to prevent deadlocks
+        $options->set('defaultFont', 'Helvetica');
+        $options->set('chroot', FCPATH); // Allow access to public folder
+
+        $dompdf = new \Dompdf\Dompdf($options);
+        $dompdf->loadHtml($html);
+        $dompdf->setPaper('A4', 'landscape');
+        $dompdf->render();
+
+        $filename = 'Laporan-Bulanan-' . $year . '-' . $month . '.pdf';
+
+        return $this->response->setHeader('Content-Type', 'application/pdf')
+                              ->setBody($dompdf->output())
+                              ->setHeader('Content-Disposition', 'attachment; filename="' . $filename . '"');
+    }
+
+    private function localPathFromUrl($url)
+    {
+        $baseUrl = base_url();
+        // Remove protocol and domain if present
+        if (strpos($url, $baseUrl) === 0) {
+            $relativePath = substr($url, strlen($baseUrl));
+            // Ensure no leading slash issues if base_url has one and path has one
+            $relativePath = ltrim($relativePath, '/');
+            return FCPATH . $relativePath;
+        }
+        
+        // If it's already a relative path (e.g. 'uploads/...')
+        if (strpos($url, 'http') !== 0) {
+             return FCPATH . ltrim($url, '/');
+        }
+
+        return null;
     }
 
     protected function handleError(\Exception $e)
