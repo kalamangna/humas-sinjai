@@ -112,11 +112,23 @@
 
 <body>
 
-    <div class="container py-5">
+        <div class="container py-5">
 
-        <h3 class="text-center fw-bold mb-4">Laporan Bulanan - <?= format_date($year . '-' . $month . '-01', 'month_year') ?></h3>
+            <h3 class="text-center fw-bold mb-4">Laporan Bulanan - <?= format_date($year . '-' . $month . '-01', 'month_year') ?></h3>
 
-        <table class="table table-bordered">
+            
+
+            <div style="margin-bottom: 20px;">
+
+                <p><strong>Total Berita:</strong> <?= $total_posts ?></p>
+
+                <p><strong>Total Tampilan:</strong> <?= number_format($total_views, 0, ',', '.') ?></p>
+
+            </div>
+
+    
+
+            <table class="table table-bordered">
 
             <thead class="table-light">
 

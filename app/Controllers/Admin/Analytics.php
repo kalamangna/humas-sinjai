@@ -159,6 +159,13 @@ class Analytics extends BaseController
         $postModel = new \App\Models\PostModel();
         $data['posts'] = $postModel->getPostsByMonthYear($month, $year);
 
+        // Calculate totals
+        $data['total_posts'] = count($data['posts']);
+        $data['total_views'] = 0;
+        foreach ($data['posts'] as $p) {
+            $data['total_views'] += $p['views'];
+        }
+
         $data['year'] = $year;
         $data['month'] = $month;
 
