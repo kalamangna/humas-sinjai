@@ -13,8 +13,10 @@ Laporan Bulanan
             </option>
         <?php endforeach; ?>
     </select>
-    <a href="<?= base_url("admin/analytics/download-monthly-report/{$year}/{$month}") ?>" class="btn btn-outline-danger btn-sm" target="_blank">
-        <i class="fas fa-file-pdf me-2"></i>Download PDF
+    <a href="<?= base_url("admin/analytics/download-monthly-report/{$year}/{$month}") ?>" id="download-pdf-btn" class="btn btn-outline-danger btn-sm">
+        <i class="fas fa-file-pdf me-2" id="btn-icon"></i>
+        <span id="loading-spinner" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true" style="display: none;"></span>
+        Download PDF
     </a>
 </div>
 <?= $this->endSection() ?>
@@ -80,6 +82,28 @@ Laporan Bulanan
     document.getElementById('month-select').addEventListener('change', function() {
         const selected = this.value;
         window.location.href = `<?= base_url('admin/analytics/monthly-report/') ?>${selected}`;
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const downloadBtn = document.getElementById('download-pdf-btn');
+        const loadingSpinner = document.getElementById('loading-spinner');
+        const btnIcon = document.getElementById('btn-icon');
+
+        downloadBtn.addEventListener('click', function() {
+            downloadBtn.classList.add('disabled'); // Visually disable
+            downloadBtn.style.pointerEvents = 'none'; // Prevent multiple clicks
+            
+            btnIcon.style.display = 'none'; // Hide icon
+            loadingSpinner.style.display = 'inline-block'; // Show spinner
+
+            // Re-enable button and reset icon after a delay
+            setTimeout(() => {
+                downloadBtn.classList.remove('disabled');
+                downloadBtn.style.pointerEvents = 'auto';
+                btnIcon.style.display = 'inline-block';
+                loadingSpinner.style.display = 'none';
+            }, 5000); // Adjust delay based on expected PDF generation time
+        });
     });
 </script>
 
