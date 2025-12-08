@@ -25,19 +25,24 @@
             border: 1px solid black;
         }
 
-                th, td {
+        th,
+        td {
 
-                    padding: 8px;
+            padding: 8px;
 
-                    text-align: left;
+            text-align: left;
 
-                    vertical-align: top;
+            vertical-align: top;
 
-                }
+        }
 
         td {
             word-wrap: break-word;
             overflow-wrap: break-word;
+        }
+        
+        td p:first-child {
+            margin-top: 0;
         }
 
         /* Prevent images in content from overflowing */
@@ -47,73 +52,122 @@
         }
 
         /* Specific column widths to help layout */
+
         th:nth-child(1) {
+            width: 5%;
+        }
+
+        /* No */
+
+        th:nth-child(2) {
             width: 20%;
         }
 
         /* Judul */
-        th:nth-child(2) {
+
+        th:nth-child(3) {
             width: 40%;
         }
 
         /* Konten */
-        th:nth-child(3) {
+
+        th:nth-child(4) {
             width: 15%;
         }
 
         /* Link */
-        th:nth-child(4) {
+
+        th:nth-child(5) {
             width: 10%;
         }
 
         /* Views */
-        th:nth-child(5) {
-            width: 15%;
+
+        th:nth-child(6) {
+            width: 10%;
         }
 
         /* Tanggal */
     </style>
+
 </head>
 
+
+
 <body>
+
     <div class="container py-5">
+
         <h3 class="text-center fw-bold mb-4">Laporan Bulanan - <?= format_date($year . '-' . $month . '-01', 'month_year') ?></h3>
+
         <table class="table table-bordered">
+
             <thead class="table-light">
+
                 <tr>
+
+                    <th class="align-middle text-center">No</th>
+
                     <th class="align-middle">Judul Berita</th>
+
                     <th class="align-middle">Konten Berita</th>
+
                     <th class="align-middle">Link Berita</th>
+
                     <th class="align-middle">Total Tampilan</th>
+
                     <th class="align-middle">Tanggal Publikasi</th>
+
                 </tr>
+
             </thead>
+
             <tbody>
+
                 <?php if (!empty($posts)):
+
+                    $i = 1;
+
                     foreach ($posts as $post): ?>
+
                         <tr>
+
+                            <td class="text-center"><?= $i++ ?></td>
+
                             <td><strong><?= esc($post['title']) ?></strong></td>
+
                             <td>
-                                <?php if (!empty($post['thumbnail_path']) && file_exists($post['thumbnail_path'])): ?>
-                                    <div style="margin-bottom: 15px;">
-                                        <img src="<?= $post['thumbnail_path'] ?>" style="max-width: 100%; height: auto;">
-                                    </div>
-                                <?php endif; ?>
-                                <?= $post['content'] ?>
+                                <?= trim(strip_tags($post['content'], '<p><a>')) ?>
                             </td>
+
                             <td><a href="<?= base_url('post/' . esc($post['slug'])) ?>" target="_blank"><?= base_url('post/' . esc($post['slug'])) ?></a></td>
+
                             <td><?= esc($post['views']) ?></td>
+
                             <td><?= format_date($post['published_at'], 'date_only') ?></td>
+
                         </tr>
+
                     <?php endforeach;
+
                 else: ?>
+
                     <tr>
-                        <td colspan="5" class="text-center">Tidak ada postingan untuk bulan ini.</td>
+
+                        <td colspan="6" class="text-center">Tidak ada postingan untuk bulan ini.</td>
+
                     </tr>
+
                 <?php endif; ?>
+
             </tbody>
+
         </table>
+
     </div>
+
 </body>
+
+
 
 </html>
