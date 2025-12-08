@@ -53,60 +53,10 @@ class Home extends BaseController
         $data['popular_posts'] = $postModel->getPopularPosts(5);
 
         // Fetch related posts
-        $categoryIds = array_column($data['post']['categories'], 'id');
-        $tagIds = array_column($data['post']['tags'], 'id');
-        $relatedPosts = $this->_getRelatedPosts($data['post']['id'], $categoryIds, $tagIds);
-
+        $relatedPosts = $postModel->getRelatedPosts($data['post'], 6);
         $data['related_posts'] = $postModel->withCategoriesAndTags($relatedPosts);
 
         return view('post_detail', $data);
-    }
-
-    private function _getRelatedPosts($postId, $categoryIds, $tagIds)
-    {
-        $postModel = new PostModel();
-        $relatedPosts = [];
-        $limit = 6;
-
-        // 1. Get posts by category
-        if (!empty($categoryIds)) {
-            $builder = $postModel->where('posts.id !=', $postId)->where('status', 'published');
-            $builder->whereIn('posts.id', function ($subquery) use ($categoryIds) {
-                $subquery->select('post_id')->from('post_categories')->whereIn('category_id', $categoryIds);
-            });
-            $relatedPosts = $builder->orderBy('published_at', 'DESC')->limit($limit)->findAll();
-        }
-
-        // 2. Fill with posts by tag if needed
-        $foundPostIds = array_column($relatedPosts, 'id');
-        $remainingLimit = $limit - count($relatedPosts);
-
-        if ($remainingLimit > 0 && !empty($tagIds)) {
-            $builder = $postModel->where('posts.id !=', $postId)->where('status', 'published');
-            if (!empty($foundPostIds)) {
-                $builder->whereNotIn('posts.id', $foundPostIds);
-            }
-            $builder->whereIn('posts.id', function ($subquery) use ($tagIds) {
-                $subquery->select('post_id')->from('post_tags')->whereIn('tag_id', $tagIds);
-            });
-            $tagPosts = $builder->orderBy('published_at', 'DESC')->limit($remainingLimit)->findAll();
-            $relatedPosts = array_merge($relatedPosts, $tagPosts);
-        }
-
-        // 3. Fallback to random posts if still not enough
-        $foundPostIds = array_column($relatedPosts, 'id');
-        $remainingLimit = $limit - count($relatedPosts);
-
-        if ($remainingLimit > 0) {
-            $builder = $postModel->where('status', 'published')->where('posts.id !=', $postId);
-            if (!empty($foundPostIds)) {
-                $builder->whereNotIn('posts.id', $foundPostIds);
-            }
-            $randomPosts = $builder->orderBy('RAND()')->limit($remainingLimit)->findAll();
-            $relatedPosts = array_merge($relatedPosts, $randomPosts);
-        }
-
-        return $relatedPosts;
     }
 
     public function category($slug)
