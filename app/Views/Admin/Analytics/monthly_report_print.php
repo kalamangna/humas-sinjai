@@ -14,6 +14,29 @@
                 -webkit-print-color-adjust: exact;
             }
         }
+        
+        table {
+            table-layout: fixed;
+            width: 100%;
+        }
+
+        td {
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+
+        /* Prevent images in content from overflowing */
+        td img {
+            max-width: 100%;
+            height: auto;
+        }
+        
+        /* Specific column widths to help layout */
+        th:nth-child(1) { width: 20%; } /* Judul */
+        th:nth-child(2) { width: 40%; } /* Konten */
+        th:nth-child(3) { width: 15%; } /* Link */
+        th:nth-child(4) { width: 10%; } /* Views */
+        th:nth-child(5) { width: 15%; } /* Tanggal */
     </style>
 </head>
 
