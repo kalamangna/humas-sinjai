@@ -162,25 +162,6 @@ class Analytics extends BaseController
         $postModel = new \App\Models\PostModel();
         $data['posts'] = $postModel->getPostsByMonthYear($month, $year);
 
-        // Pre-process images to use local paths
-        foreach ($data['posts'] as &$post) {
-            // Process Thumbnail
-            if (!empty($post['thumbnail'])) {
-                $post['thumbnail_path'] = $this->localPathFromUrl($post['thumbnail']);
-            }
-
-            // Process Content Images
-            $post['content'] = preg_replace_callback('/<img[^>]+src="([^">]+)"/', function($matches) {
-                $src = $matches[1];
-                $localPath = $this->localPathFromUrl($src);
-                
-                if ($localPath && file_exists($localPath)) {
-                    return str_replace($src, $localPath, $matches[0]);
-                }
-                return $matches[0];
-            }, $post['content']);
-        }
-
         $data['year'] = $year;
         $data['month'] = $month;
 
@@ -210,25 +191,6 @@ class Analytics extends BaseController
         return $this->response->setHeader('Content-Type', 'application/pdf')
                               ->setBody($dompdf->output())
                               ->setHeader('Content-Disposition', 'attachment; filename="' . $filename . '"');
-    }
-
-    private function localPathFromUrl($url)
-    {
-        $baseUrl = base_url();
-        // Remove protocol and domain if present
-        if (strpos($url, $baseUrl) === 0) {
-            $relativePath = substr($url, strlen($baseUrl));
-            // Ensure no leading slash issues if base_url has one and path has one
-            $relativePath = ltrim($relativePath, '/');
-            return FCPATH . $relativePath;
-        }
-        
-        // If it's already a relative path (e.g. 'uploads/...')
-        if (strpos($url, 'http') !== 0) {
-             return FCPATH . ltrim($url, '/');
-        }
-
-        return null;
     }
 
     protected function handleError(\Exception $e)
