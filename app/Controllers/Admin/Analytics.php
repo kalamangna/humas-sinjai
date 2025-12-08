@@ -11,6 +11,7 @@ class Analytics extends BaseController
     public function __construct()
     {
         helper('date');
+        helper('text'); // Load text helper for word_limiter
         $this->gaModel = new GoogleAnalyticsModel();
     }
 
@@ -155,33 +156,15 @@ class Analytics extends BaseController
 
     public function downloadMonthlyReportPdf($year, $month)
     {
-        // Increase limits for large PDF generation
-        ini_set('memory_limit', '1024M'); // 1GB
-        set_time_limit(600); // 10 minutes
-
         $postModel = new \App\Models\PostModel();
         $data['posts'] = $postModel->getPostsByMonthYear($month, $year);
 
         $data['year'] = $year;
         $data['month'] = $month;
 
-        // Load logo and convert to base64 to avoid HTTP requests (prevents deadlock on single-threaded servers)
-        $logoPath = FCPATH . 'logo.png';
-        if (file_exists($logoPath)) {
-            $logoData = file_get_contents($logoPath);
-            $data['logo_base64'] = 'data:image/png;base64,' . base64_encode($logoData);
-        } else {
-            $data['logo_base64'] = null;
-        }
-
         $html = view('Admin/Analytics/monthly_report_print', $data);
 
-        $options = new \Dompdf\Options();
-        $options->set('isRemoteEnabled', false); // Disable remote to prevent deadlocks
-        $options->set('defaultFont', 'Helvetica');
-        $options->set('chroot', FCPATH); // Allow access to public folder
-
-        $dompdf = new \Dompdf\Dompdf($options);
+        $dompdf = new \Dompdf\Dompdf();
         $dompdf->loadHtml($html);
         $dompdf->setPaper('A4', 'landscape');
         $dompdf->render();
@@ -189,8 +172,8 @@ class Analytics extends BaseController
         $filename = 'Laporan-Bulanan-' . $year . '-' . $month . '.pdf';
 
         return $this->response->setHeader('Content-Type', 'application/pdf')
-                              ->setBody($dompdf->output())
-                              ->setHeader('Content-Disposition', 'attachment; filename="' . $filename . '"');
+            ->setBody($dompdf->output())
+            ->setHeader('Content-Disposition', 'attachment; filename="' . $filename . '"');
     }
 
     protected function handleError(\Exception $e)

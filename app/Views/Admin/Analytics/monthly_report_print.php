@@ -2,45 +2,68 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cetak Laporan Bulanan</title>
-    <?php if (!empty($logo_base64)): ?>
-        <link rel="icon" href="<?= $logo_base64 ?>" type="image/png">
-    <?php endif; ?>
     <style>
         body {
-            font-family: sans-serif;
+            font-family: 'DejaVu Sans', sans-serif;
+            margin: 20px;
+            font-size: 10px;
+            /* Decreased font size */
         }
 
         table {
             table-layout: fixed;
             width: 100%;
             border-collapse: collapse;
+            /* Revert to collapse */
+            page-break-inside: auto;
         }
 
         table,
         th,
         td {
             border: 1px solid black;
+            /* Apply border to table elements directly */
+        }
+
+        tr {
+            page-break-inside: auto;
+            page-break-after: auto;
+        }
+
+        tbody {
+            page-break-inside: auto;
+        }
+
+        thead {
+            display: table-header-group;
+        }
+
+        tfoot {
+            display: table-footer-group;
         }
 
         th,
         td {
-
             padding: 8px;
-
             text-align: left;
-
             vertical-align: top;
-
+            page-break-inside: auto;
         }
 
         td {
             word-wrap: break-word;
             overflow-wrap: break-word;
+            word-break: break-all;
+            /* More aggressive for long strings like URLs */
         }
-        
+
+        td a {
+            word-break: break-all;
+            /* Ensure links also break */
+        }
+
         td p:first-child {
             margin-top: 0;
         }
@@ -52,42 +75,35 @@
         }
 
         /* Specific column widths to help layout */
-
+        /* No */
         th:nth-child(1) {
             width: 5%;
         }
 
-        /* No */
-
+        /* Judul */
         th:nth-child(2) {
             width: 20%;
         }
 
-        /* Judul */
-
-        th:nth-child(3) {
-            width: 40%;
-        }
-
         /* Konten */
-
-        th:nth-child(4) {
-            width: 15%;
+        th:nth-child(3) {
+            width: 45%;
         }
 
         /* Link */
+        th:nth-child(4) {
+            width: 20%;
+        }
 
+        /* Views */
         th:nth-child(5) {
             width: 10%;
         }
 
-        /* Views */
-
+        /* Tanggal */
         th:nth-child(6) {
             width: 10%;
         }
-
-        /* Tanggal */
     </style>
 
 </head>
@@ -137,7 +153,7 @@
                             <td><strong><?= esc($post['title']) ?></strong></td>
 
                             <td>
-                                <?= trim(strip_tags($post['content'], '<p><a>')) ?>
+                                <?= word_limiter(trim(strip_tags($post['content'], '<p><a>')), 100) ?>
                             </td>
 
                             <td><a href="<?= base_url('post/' . esc($post['slug'])) ?>" target="_blank"><?= base_url('post/' . esc($post['slug'])) ?></a></td>
