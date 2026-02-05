@@ -147,7 +147,7 @@
                             <h5 class="fw-bold text-dark mb-0">
                                 <i class="fas fa-eye me-2"></i>Laporan Tampilan
                             </h5>
-                            <a href="#" id="monthly-report-link" class="btn btn-outline-primary btn-sm">
+                            <a href="<?= base_url('admin/analytics/monthly-report') ?>" id="monthly-report-link" class="btn btn-outline-primary btn-sm">
                                 <i class="fas fa-file-alt me-2"></i> Lihat Laporan Lengkap
                             </a>
                         </div>
@@ -289,15 +289,6 @@
             .then(data => {
                 monthlyPostChartSpinner.classList.add('d-none');
                 monthlyPostChart.classList.remove('d-none');
-
-                const reportLink = document.getElementById('monthly-report-link');
-                
-                if (data.length > 0) {
-                    const latestData = data[0];
-                    reportLink.href = `<?= base_url('admin/analytics/monthly-report/') ?>${latestData.year}/${latestData.month}`;
-                } else {
-                    reportLink.href = '#';
-                }
 
                 const reversedData = data.slice().sort((a, b) => {
                     if (a.year !== b.year) {
