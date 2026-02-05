@@ -144,8 +144,7 @@ class Analytics extends BaseController
         $data['year'] = $year;
         $data['month'] = $month;
         $data['months'] = [];
-        $maxMonth = ($year == date('Y')) ? date('n') : 12;
-        for ($m = 1; $m <= $maxMonth; $m++) {
+        for ($m = 1; $m <= 12; $m++) {
             $data['months'][] = [
                 'year' => $year,
                 'month' => str_pad($m, 2, '0', STR_PAD_LEFT)
