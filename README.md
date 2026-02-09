@@ -8,11 +8,15 @@ Aplikasi web portal berita dan informasi untuk Humas Sinjai, dibangun menggunaka
 
 - **Beranda Informatif:** Menampilkan berita terbaru, berita populer, carousel banner, dan widget penting.
 - **Manajemen Berita:** Halaman detail berita dengan gambar, kategori, dan tag.
+- **Profil Pejabat:** Halaman detail profil pejabat dengan biografi lengkap (Rich Text) dan foto.
+- **Daftar Pejabat Terstruktur:** Halaman daftar pejabat yang dikelompokkan secara sistematis (Forkopimda, Eselon II, III, IV, dan Kepala Desa).
 - **Kategorisasi:** Penelusuran berita berdasarkan kategori dan tag.
 - **Pencarian:** Fitur pencarian berita yang cepat.
-- **Halaman Statis:** Profil (About), Kontak, dan Widget Guide.
+- **Halaman Statis:** Profil (About), Kontak, dan Panduan Widget.
 - **Program Prioritas:** Halaman khusus untuk mensosialisasikan program prioritas pemerintah.
-- **SEO & Distribusi:** Dukungan otomatis untuk Sitemap.xml dan RSS Feed.
+- **Widget RSS:** Widget yang dapat dipasang di situs eksternal untuk menampilkan berita terbaru secara otomatis.
+- **SEO & Distribusi:** Dukungan otomatis untuk Sitemap.xml, RSS Feed, Canonical Tags, dan Dynamic Meta Tags.
+- **Error Handling:** Halaman error 404 kustom yang selaras dengan desain situs.
 
 ### 🛠 Dashboard Admin
 
@@ -21,15 +25,16 @@ Aplikasi web portal berita dan informasi untuk Humas Sinjai, dibangun menggunaka
   - Halaman Terpopuler (Top Pages).
   - Sumber Trafik (Traffic Sources).
   - Demografi Pengunjung (Geografi & Perangkat).
-  - Laporan Bulanan.
+  - **Laporan Bulanan PDF:** Ekspor laporan statistik bulanan ke format PDF siap cetak.
 - **Manajemen Konten (CMS):**
   - **Post Editor:** Editor teks kaya fitur (TinyMCE) dengan dukungan upload gambar dan _paste_ gambar langsung dari clipboard.
-  - **AI Tag Suggestion:** Integrasi **Gemini AI** untuk menyarankan tag SEO secara otomatis berdasarkan judul dan konten berita (dengan mekanisme fallback model otomatis).
+  - **AI Tag Suggestion:** Integrasi **Gemini AI** untuk menyarankan tag SEO secara otomatis berdasarkan judul dan konten berita.
   - **Input Tag Manual:** Fleksibilitas untuk menambah tag secara manual.
-  - **Status Publikasi:** Dukungan draft dan publish jadwal.
+  - **Status Publikasi:** Dukungan draft dan publikasi terjadwal.
+- **Manajemen Profil Pejabat:** CRUD lengkap untuk mengelola data pejabat, jabatan, instansi, dan biografi dengan editor teks kaya.
 - **Manajemen Media:** Pengelolaan Banner/Carousel halaman depan.
 - **Manajemen Taksonomi:** Pengelolaan Kategori dan Tag secara dinamis.
-- **Manajemen Pengguna:** Pengaturan profil admin.
+- **Manajemen Pengguna:** Pengelolaan akun admin dan pengaturan profil.
 
 ### 🚀 Teknologi & Integrasi
 
