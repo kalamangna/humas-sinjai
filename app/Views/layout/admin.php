@@ -37,6 +37,12 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link d-flex align-items-center py-3 <?= url_is('admin/profiles*') ? 'active text-primary fw-bold' : 'text-dark' ?>" href="<?= base_url('admin/profiles') ?>">
+                            <i class="fas fa-fw fa-user-tie me-3"></i>
+                            Profil
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link d-flex align-items-center py-3 <?= url_is('admin/analytics*') ? 'active text-primary fw-bold' : 'text-dark' ?>" href="<?= base_url('admin/analytics/overview') ?>">
                             <i class="fas fa-fw fa-chart-line me-3"></i>
                             Analitik
