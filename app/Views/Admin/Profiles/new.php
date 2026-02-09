@@ -63,7 +63,7 @@
                         <!-- Posisi -->
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="position" class="form-label fw-semibold text-dark">Posisi / Jabatan</label>
+                                <label for="position" class="form-label fw-semibold text-dark">Jabatan</label>
                                 <input type="text" name="position" id="position" class="form-control form-control-lg border-0 bg-light rounded-3 py-3 <?= (isset(session('errors')['position'])) ? 'is-invalid' : '' ?>"
                                     value="<?= old('position') ?>" placeholder="Contoh: Bupati Sinjai, Anggota DPRD...">
                                 <?php if (isset(session('errors')['position'])) : ?>
@@ -77,7 +77,7 @@
                         <!-- Institusi -->
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="institution" class="form-label fw-semibold text-dark">Institusi / Instansi</label>
+                                <label for="institution" class="form-label fw-semibold text-dark">Instansi</label>
                                 <input type="text" name="institution" id="institution" class="form-control form-control-lg border-0 bg-light rounded-3 py-3 <?= (isset(session('errors')['institution'])) ? 'is-invalid' : '' ?>"
                                     value="<?= old('institution') ?>" placeholder="Contoh: Polres Sinjai, Kejari Sinjai...">
                                 <?php if (isset(session('errors')['institution'])) : ?>
@@ -171,7 +171,7 @@
         function toggleFields() {
             const selectedType = typeSelect.value;
             const hideList = ['forkopimda', 'eselon-ii', 'eselon-iii', 'eselon-iv', 'kepala-desa'];
-            
+
             if (hideList.includes(selectedType)) {
                 bioContainer.style.display = 'none';
                 imageContainer.style.display = 'none';
@@ -216,15 +216,15 @@
     function previewImage(inputId, previewId) {
         const input = document.getElementById(inputId);
         const preview = document.getElementById(previewId);
-        
+
         if (input.files && input.files[0]) {
             const reader = new FileReader();
-            
+
             reader.onload = function(e) {
                 preview.src = e.target.result;
                 preview.style.display = 'block';
             }
-            
+
             reader.readAsDataURL(input.files[0]);
         }
     }

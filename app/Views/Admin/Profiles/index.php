@@ -18,8 +18,8 @@
                     <tr>
                         <th class="border-0 ps-4">Foto</th>
                         <th class="border-0">Nama</th>
-                        <th class="border-0">Posisi / Jabatan</th>
-                        <th class="border-0">Institusi</th>
+                        <th class="border-0">Jabatan</th>
+                        <th class="border-0">Instansi</th>
                         <th class="border-0">Tipe</th>
                         <th class="border-0 text-end pe-4">Aksi</th>
                     </tr>
@@ -47,18 +47,18 @@
                                     <?= esc($profile['institution'] ?? '-') ?>
                                 </td>
                                 <td>
-                                    <?php 
-                                        $typeLabels = [
-                                            'bupati' => 'Bupati',
-                                            'wakil-bupati' => 'Wakil Bupati',
-                                            'sekda' => 'Sekda',
-                                            'forkopimda' => 'Forkopimda',
-                                            'eselon-ii' => 'Eselon II',
-                                            'eselon-iii' => 'Eselon III',
-                                            'eselon-iv' => 'Eselon IV',
-                                            'kepala-desa' => 'Kepala Desa',
-                                        ];
-                                        echo '<span class="badge bg-info">' . ($typeLabels[$profile['type']] ?? $profile['type']) . '</span>';
+                                    <?php
+                                    $typeLabels = [
+                                        'bupati' => 'Bupati',
+                                        'wakil-bupati' => 'Wakil Bupati',
+                                        'sekda' => 'Sekda',
+                                        'forkopimda' => 'Forkopimda',
+                                        'eselon-ii' => 'Eselon II',
+                                        'eselon-iii' => 'Eselon III',
+                                        'eselon-iv' => 'Eselon IV',
+                                        'kepala-desa' => 'Kepala Desa',
+                                    ];
+                                    echo '<span class="badge bg-info">' . ($typeLabels[$profile['type']] ?? $profile['type']) . '</span>';
                                     ?>
                                 </td>
                                 <td class="text-end pe-4">
