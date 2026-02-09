@@ -14,26 +14,29 @@
 
     <?php if (!empty($profile)) : ?>
         <div class="row justify-content-center mb-5">
-            <div class="col-lg-10">
+            <div class="col-lg-8">
                 <div class="card border-0 shadow-sm overflow-hidden rounded-4">
-                    <div class="card-body p-0">
-                        <div class="row g-0">
-                            <div class="col-md-4 bg-light text-center p-4 d-flex flex-column align-items-center justify-content-center">
-                                <?php if (!empty($profile['image'])) : ?>
-                                    <img src="<?= esc($profile['image']) ?>" alt="<?= esc($profile['name']) ?>" class="img-fluid rounded-circle shadow mb-3" style="width: 200px; height: 200px; object-fit: cover;">
-                                <?php else : ?>
-                                    <div class="bg-white rounded-circle shadow mb-3 d-flex align-items-center justify-content-center" style="width: 200px; height: 200px;">
-                                        <i class="fas fa-user fa-5x text-secondary"></i>
-                                    </div>
-                                <?php endif; ?>
-                                <h4 class="fw-bold mb-1"><?= esc($profile['name']) ?></h4>
-                                <p class="text-muted mb-0"><?= esc($profile['position']) ?></p>
-                            </div>
-                            <div class="col-md-8 p-4 p-lg-5">
-                                <h3 class="fw-bold mb-4 border-bottom pb-2">Biografi</h3>
-                                <div class="profile-bio">
-                                    <?= nl2br(esc($profile['bio'])) ?>
+                    <div class="card-body p-4 p-lg-5">
+                        <div class="text-center mb-5">
+                            <?php if (!empty($profile['image'])) : ?>
+                                <img src="<?= esc($profile['image']) ?>" alt="<?= esc($profile['name']) ?>" class="img-fluid rounded-circle shadow mb-4" style="width: 200px; height: 200px; object-fit: cover; border: 5px solid #fff;">
+                            <?php else : ?>
+                                <div class="bg-light rounded-circle shadow mb-4 d-flex align-items-center justify-content-center mx-auto" style="width: 200px; height: 200px;">
+                                    <i class="fas fa-user fa-5x text-secondary"></i>
                                 </div>
+                            <?php endif; ?>
+                            
+                            <h2 class="fw-bold mb-1"><?= esc($profile['name']) ?></h2>
+                            <p class="text-muted fs-5 mb-0"><?= esc($profile['position']) ?></p>
+                            <?php if (!empty($profile['institution'])) : ?>
+                                <p class="text-primary fw-semibold mb-0"><?= esc($profile['institution']) ?></p>
+                            <?php endif; ?>
+                        </div>
+
+                        <div class="profile-content mt-4">
+                            <h4 class="fw-bold mb-3 border-bottom pb-2"><i class="fas fa-info-circle me-2 text-primary"></i>Biografi</h4>
+                            <div class="profile-bio lh-lg">
+                                <?= $profile['bio'] ?>
                             </div>
                         </div>
                     </div>

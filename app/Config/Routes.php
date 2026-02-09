@@ -67,3 +67,6 @@ $routes->group('admin', ['filter' => 'admin'], static function ($routes) {
     $routes->get('settings', 'Admin\Users::settings');
     $routes->post('users/update_settings', 'Admin\Users::update_settings');
 });
+
+// Custom 404 page for the frontend
+$routes->set404Override('App\Controllers\Home::error404');

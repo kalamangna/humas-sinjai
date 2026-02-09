@@ -283,4 +283,11 @@ class Home extends BaseController
 
         return view('program_prioritas', $data);
     }
+
+    public function error404()
+    {
+        $this->response->setStatusCode(404);
+        $data['title'] = 'Halaman Tidak Ditemukan';
+        return view('errors/html/error_404_frontend', $data);
+    }
 }

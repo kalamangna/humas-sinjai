@@ -25,6 +25,27 @@
                     <?= csrf_field() ?>
 
                     <div class="row g-3">
+                        <!-- Foto -->
+                        <div class="col-12" id="image-container">
+                            <div class="form-group">
+                                <label for="image" class="form-label fw-semibold text-dark">Foto Profil</label>
+                                <div class="input-group">
+                                    <input type="file" name="image" id="image" class="form-control <?= (isset(session('errors')['image'])) ? 'is-invalid' : '' ?>" onchange="previewImage('image', 'image-preview')">
+                                    <input type="hidden" name="pasted_image" id="pasted_image">
+                                    <button type="button" id="paste-image-btn" class="btn btn-outline-secondary">
+                                        <i class="fas fa-paste"></i>
+                                    </button>
+                                </div>
+                                <small class="text-muted">Tipe file yang diizinkan: jpg, jpeg, png, webp. Ukuran maksimal: 2MB.</small>
+                                <?php if (isset(session('errors')['image'])) : ?>
+                                    <div class="invalid-feedback">
+                                        <?= session('errors')['image'] ?>
+                                    </div>
+                                <?php endif; ?>
+                                <img id="image-preview" class="img-fluid rounded mt-2" style="max-height: 200px; display: none;">
+                            </div>
+                        </div>
+
                         <!-- Nama -->
                         <div class="col-md-6">
                             <div class="form-group">
@@ -116,27 +137,6 @@
                                         <?= session('errors')['bio'] ?>
                                     </div>
                                 <?php endif; ?>
-                            </div>
-                        </div>
-
-                        <!-- Foto -->
-                        <div class="col-12" id="image-container">
-                            <div class="form-group">
-                                <label for="image" class="form-label fw-semibold text-dark">Foto Profil</label>
-                                <div class="input-group">
-                                    <input type="file" name="image" id="image" class="form-control <?= (isset(session('errors')['image'])) ? 'is-invalid' : '' ?>" onchange="previewImage('image', 'image-preview')">
-                                    <input type="hidden" name="pasted_image" id="pasted_image">
-                                    <button type="button" id="paste-image-btn" class="btn btn-outline-secondary">
-                                        <i class="fas fa-paste"></i>
-                                    </button>
-                                </div>
-                                <small class="text-muted">Tipe file yang diizinkan: jpg, jpeg, png, webp. Ukuran maksimal: 2MB.</small>
-                                <?php if (isset(session('errors')['image'])) : ?>
-                                    <div class="invalid-feedback">
-                                        <?= session('errors')['image'] ?>
-                                    </div>
-                                <?php endif; ?>
-                                <img id="image-preview" class="img-fluid rounded mt-2" style="max-height: 200px; display: none;">
                             </div>
                         </div>
                     </div>

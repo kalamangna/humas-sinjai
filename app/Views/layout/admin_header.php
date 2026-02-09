@@ -17,7 +17,7 @@
     <script src="<?= base_url('assets/tinymce/tinymce/tinymce.min.js') ?>" referrerpolicy="origin" crossorigin="anonymous"></script>
     <script>
         tinymce.init({
-            selector: 'textarea#content',
+            selector: 'textarea#content, textarea#bio',
             plugins: 'code table lists image',
             toolbar: 'undo redo | blocks | bold italic | alignleft aligncenter alignright | indent outdent | bullist numlist | code | table | image',
             images_upload_url: '<?= site_url('admin/posts/upload_image') ?>',
