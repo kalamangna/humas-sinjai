@@ -35,7 +35,7 @@ class Page extends BaseController
              // Fallback: check if it's a slug for a specific profile
              $profile = $model->where('slug', $type)->first();
              if ($profile) {
-                 $data['title'] = $profile['name'];
+                 $data['title'] = $profile['name'] ?: ($profile['position'] ?: 'Profil');
                  $data['profile'] = $profile;
                  return view('profile_detail', $data);
              }

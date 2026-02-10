@@ -34,8 +34,8 @@ class ProfileModel extends Model
 
     // Validation
     protected $validationRules      = [
-        'name'     => 'required|min_length[3]|max_length[255]',
-        'slug'     => 'required|max_length[255]|is_unique[profiles.slug,id,{id}]',
+        'name'     => 'permit_empty|max_length[255]',
+        'slug'     => 'permit_empty|max_length[255]|is_unique[profiles.slug,id,{id}]',
         'type'     => 'required|in_list[bupati,wakil-bupati,sekda,forkopimda,eselon-ii,eselon-iii,eselon-iv,kepala-desa]',
         'order'    => 'permit_empty|integer',
     ];

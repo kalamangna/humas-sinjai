@@ -55,7 +55,7 @@
                                         <tbody>
                                             <?php foreach ($profiles as $profile) : ?>
                                                 <tr>
-                                                    <td class="ps-4 fw-semibold text-dark"><?= esc($profile['name']) ?></td>
+                                                    <td class="ps-4 fw-semibold text-dark"><?= $profile['name'] ? esc($profile['name']) : '-' ?></td>
                                                     <td class="text-muted"><?= esc($profile['position'] ?? '-') ?></td>
                                                     <td class="pe-4 text-muted"><?= esc($profile['institution'] ?? '-') ?></td>
                                                 </tr>

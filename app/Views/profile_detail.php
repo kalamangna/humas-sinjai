@@ -26,8 +26,10 @@
                                 </div>
                             <?php endif; ?>
                             
-                            <h2 class="fw-bold mb-1"><?= esc($profile['name']) ?></h2>
-                            <p class="text-muted fs-5 mb-0"><?= esc($profile['position']) ?></p>
+                            <h2 class="fw-bold mb-1"><?= $profile['name'] ? esc($profile['name']) : esc($profile['position']) ?></h2>
+                            <?php if ($profile['name']): ?>
+                                <p class="text-muted fs-5 mb-0"><?= esc($profile['position']) ?></p>
+                            <?php endif; ?>
                             <?php if (!empty($profile['institution'])) : ?>
                                 <p class="text-primary fw-semibold mb-0"><?= esc($profile['institution']) ?></p>
                             <?php endif; ?>

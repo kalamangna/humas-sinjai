@@ -25,7 +25,7 @@ class Profiles extends BaseController
     public function create()
     {
         $validationRules = [
-            'name'     => 'required|min_length[3]|max_length[255]',
+            'name'     => 'permit_empty|max_length[255]',
             'type'     => 'required|in_list[bupati,wakil-bupati,sekda,forkopimda,eselon-ii,eselon-iii,eselon-iv,kepala-desa]',
         ];
 
@@ -71,16 +71,21 @@ class Profiles extends BaseController
             }
         }
 
-        $slug = url_title($this->request->getPost('name'), '-', true);
+        $name = $this->request->getPost('name');
+        $position = $this->request->getPost('position');
+        
+        $slugSource = $name ?: ($position ?: $selectedType);
+        $slug = url_title($slugSource, '-', true);
+        
         // Ensure unique slug
-        if ($profileModel->where('slug', $slug)->first()) {
-            $slug = $slug . '-' . uniqid();
+        if (empty($slug) || $profileModel->where('slug', $slug)->first()) {
+            $slug = ($slug ?: 'profile') . '-' . uniqid();
         }
 
         $data = [
-            'name'        => $this->request->getPost('name'),
+            'name'        => $name,
             'slug'        => $slug,
-            'position'    => $this->request->getPost('position'),
+            'position'    => $position,
             'institution' => $this->request->getPost('institution'),
             'type'        => $this->request->getPost('type'),
             'bio'         => $this->request->getPost('bio'),
@@ -117,7 +122,7 @@ class Profiles extends BaseController
         }
 
         $validationRules = [
-            'name'     => 'required|min_length[3]|max_length[255]',
+            'name'     => 'permit_empty|max_length[255]',
             'type'     => 'required|in_list[bupati,wakil-bupati,sekda,forkopimda,eselon-ii,eselon-iii,eselon-iv,kepala-desa]',
         ];
 

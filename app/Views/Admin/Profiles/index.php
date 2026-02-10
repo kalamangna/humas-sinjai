@@ -38,7 +38,7 @@
                                     <?php endif; ?>
                                 </td>
                                 <td>
-                                    <h6 class="fw-bold mb-1 text-dark"><?= esc($profile['name']) ?></h6>
+                                    <h6 class="fw-bold mb-1 text-dark"><?= $profile['name'] ? esc($profile['name']) : '-' ?></h6>
                                 </td>
                                 <td>
                                     <?= esc($profile['position'] ?? '-') ?>

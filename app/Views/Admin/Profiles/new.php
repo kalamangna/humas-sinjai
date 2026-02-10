@@ -49,7 +49,7 @@
                         <!-- Nama -->
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="name" class="form-label fw-semibold text-dark">Nama Lengkap <span class="text-danger">*</span></label>
+                                <label for="name" class="form-label fw-semibold text-dark">Nama Lengkap</label>
                                 <input type="text" name="name" id="name" class="form-control form-control-lg border-0 bg-light rounded-3 py-3 <?= (isset(session('errors')['name'])) ? 'is-invalid' : '' ?>"
                                     value="<?= old('name') ?>" placeholder="Nama Lengkap...">
                                 <?php if (isset(session('errors')['name'])) : ?>
