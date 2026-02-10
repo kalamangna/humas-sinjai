@@ -30,9 +30,9 @@
                             <tr>
                                 <td class="ps-4">
                                     <?php if (!empty($profile['image'])) : ?>
-                                        <img src="<?= esc($profile['image']) ?>" alt="<?= esc($profile['name']) ?>" class="rounded-3" style="width: 50px; height: 50px; object-fit: cover;">
+                                        <img src="<?= esc($profile['image']) ?>" alt="<?= esc($profile['name']) ?>" class="rounded-3" style="width: 45px; height: 60px; object-fit: cover;">
                                     <?php else : ?>
-                                        <div class="bg-secondary rounded-3 d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                                        <div class="bg-secondary rounded-3 d-flex align-items-center justify-content-center" style="width: 45px; height: 60px;">
                                             <i class="fas fa-user text-white"></i>
                                         </div>
                                     <?php endif; ?>

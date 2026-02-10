@@ -19,9 +19,9 @@
                     <div class="card-body p-4 p-lg-5">
                         <div class="text-center mb-5">
                             <?php if (!empty($profile['image'])) : ?>
-                                <img src="<?= esc($profile['image']) ?>" alt="<?= esc($profile['name']) ?>" class="img-fluid rounded-4 shadow mb-4" style="width: 250px; height: 300px; object-fit: cover; border: 5px solid #fff;">
-                            <?php else : ?>
-                                <div class="bg-light rounded-4 shadow mb-4 d-flex align-items-center justify-content-center mx-auto" style="width: 250px; height: 300px;">
+                                <img src="<?= esc($profile['image']) ?>" alt="<?= esc($profile['name']) ?>" class="img-fluid rounded-4 shadow mb-4" style="width: 300px; height: 400px; object-fit: cover; border: 5px solid #fff;">
+<?php else : ?>
+                                <div class="bg-light rounded-4 shadow mb-4 d-flex align-items-center justify-content-center mx-auto" style="width: 300px; height: 400px;">
                                     <i class="fas fa-user fa-5x text-secondary"></i>
                                 </div>
                             <?php endif; ?>

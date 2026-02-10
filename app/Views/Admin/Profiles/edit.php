@@ -44,7 +44,7 @@
                                     </div>
                                 <?php endif; ?>
 
-                                <img id="image-preview" src="<?= !empty($profile['image']) ? esc($profile['image']) : '' ?>" class="img-fluid rounded mt-2" style="max-height: 200px; display: <?= !empty($profile['image']) ? 'block' : 'none' ?>;">
+                                <img id="image-preview" src="<?= !empty($profile['image']) ? esc($profile['image']) : '' ?>" class="img-fluid rounded mt-2 shadow-sm" style="width: 150px; height: 200px; object-fit: cover; display: <?= !empty($profile['image']) ? 'block' : 'none' ?>;">
                             </div>
                         </div>
 

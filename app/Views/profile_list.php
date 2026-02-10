@@ -49,7 +49,13 @@
                                             <tr>
                                                 <th class="py-3 ps-4" style="width: 35%;">Nama</th>
                                                 <th class="py-3" style="width: 30%;">Jabatan</th>
-                                                <th class="py-3 pe-4" style="width: 35%;">Instansi</th>
+                                                <th class="py-3 pe-4" style="width: 35%;">
+                                                    <?php 
+                                                        if (strpos($groupName, 'Eselon') !== false) echo 'OPD';
+                                                        elseif ($groupName == 'Kepala Desa') echo 'Desa';
+                                                        else echo 'Instansi';
+                                                    ?>
+                                                </th>
                                             </tr>
                                         </thead>
                                         <tbody>
