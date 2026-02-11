@@ -42,7 +42,7 @@
                                         <?= session('errors')['image'] ?>
                                     </div>
                                 <?php endif; ?>
-                                <img id="image-preview" class="img-fluid rounded mt-2 shadow-sm" style="width: 150px; height: 200px; object-fit: cover; display: none;">
+                                <img id="image-preview" class="img-fluid rounded mt-2 shadow-sm" style="max-height: 200px; display: none;">
                             </div>
                         </div>
 

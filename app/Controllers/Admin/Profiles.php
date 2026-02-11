@@ -52,7 +52,7 @@ class Profiles extends BaseController
             $data = base64_decode($data);
             $tempPath = WRITEPATH . 'uploads/' . uniqid() . '.webp';
             file_put_contents($tempPath, $data);
-            $processedImagePath = processImage($tempPath); // Assuming processImage helper exists as used in Posts
+            $processedImagePath = processImage($tempPath, false); // Assuming processImage helper exists as used in Posts
             $imageName = uniqid() . '.webp';
             rename($processedImagePath, FCPATH . 'uploads/profiles/' . $imageName);
             $imageName = base_url('uploads/profiles/' . $imageName);
@@ -64,7 +64,7 @@ class Profiles extends BaseController
                     mkdir(FCPATH . 'uploads/profiles', 0755, true);
                 }
                 
-                $processedImagePath = processImage($file->getRealPath());
+                $processedImagePath = processImage($file->getRealPath(), false);
                 $imageName = uniqid() . '.webp';
                 rename($processedImagePath, FCPATH . 'uploads/profiles/' . $imageName);
                 $imageName = base_url('uploads/profiles/' . $imageName);
@@ -159,7 +159,7 @@ class Profiles extends BaseController
             $imgData = base64_decode($imgData);
             $tempPath = WRITEPATH . 'uploads/' . uniqid() . '.webp';
             file_put_contents($tempPath, $imgData);
-            $processedImagePath = processImage($tempPath);
+            $processedImagePath = processImage($tempPath, false);
             $imageName = uniqid() . '.webp';
             rename($processedImagePath, FCPATH . 'uploads/profiles/' . $imageName);
             $data['image'] = base_url('uploads/profiles/' . $imageName);
@@ -176,7 +176,7 @@ class Profiles extends BaseController
                     mkdir(FCPATH . 'uploads/profiles', 0755, true);
                 }
 
-                $processedImagePath = processImage($file->getRealPath());
+                $processedImagePath = processImage($file->getRealPath(), false);
                 $imageName = uniqid() . '.webp';
                 rename($processedImagePath, FCPATH . 'uploads/profiles/' . $imageName);
                 $data['image'] = base_url('uploads/profiles/' . $imageName);

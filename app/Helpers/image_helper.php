@@ -1,12 +1,16 @@
 <?php
 
 if (!function_exists('processImage')) {
-    function processImage($file)
+    function processImage($file, $fit = true)
     {
         $image = \Config\Services::image()
-            ->withFile($file)
-            ->fit(1200, 630, 'center')
-            ->convert(IMAGETYPE_WEBP);
+            ->withFile($file);
+            
+        if ($fit) {
+            $image->fit(1200, 630, 'center');
+        }
+            
+        $image->convert(IMAGETYPE_WEBP);
 
         $tempPath = WRITEPATH . 'uploads/' . uniqid() . '.webp';
 

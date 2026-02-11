@@ -30,7 +30,7 @@
                             <tr>
                                 <td class="ps-4">
                                     <?php if (!empty($profile['image'])) : ?>
-                                        <img src="<?= esc($profile['image']) ?>" alt="<?= esc($profile['name']) ?>" class="rounded-3" style="width: 45px; height: 60px; object-fit: cover;">
+                                        <img src="<?= esc($profile['image']) ?>" alt="<?= esc($profile['name']) ?>" class="rounded-3" style="max-height: 60px; max-width: 80px;">
                                     <?php else : ?>
                                         <div class="bg-secondary rounded-3 d-flex align-items-center justify-content-center" style="width: 45px; height: 60px;">
                                             <i class="fas fa-user text-white"></i>
