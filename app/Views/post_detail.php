@@ -134,8 +134,8 @@
                                 <div class="col-12 col-md-6">
                                     <a href="<?= base_url('post/' . esc($related['slug'])) ?>" class="card text-white h-100 border-0 shadow-sm rounded-4 overflow-hidden">
                                         <img src="<?= esc($related['thumbnail']) ?>" class="card-img" alt="<?= esc($related['title']) ?>" style="height: 200px; object-fit: cover;">
-                                        <div class="card-img-overlay bg-dark bg-opacity-50 d-flex flex-column justify-content-end p-4">
-                                            <h6 class="card-title fw-bold mb-2"><?= esc($related['title']) ?></h6>
+                                        <div class="card-img-overlay bg-dark bg-opacity-50 d-flex flex-column justify-content-end p-3">
+                                            <h6 class="card-title fw-bold mb-1 small"><?= esc($related['title']) ?></h6>
                                             <small class="d-flex align-items-center">
                                                 <i class="fas fa-calendar-alt me-2"></i>
                                                 <?= format_date($related['published_at'] ?? $related['created_at'] ?? 'now', 'date_only') ?>
