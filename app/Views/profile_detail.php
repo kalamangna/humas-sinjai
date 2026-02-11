@@ -19,7 +19,7 @@
                     <div class="card-body p-4 p-lg-5">
                         <div class="text-center mb-5">
                             <?php if (!empty($profile['image'])) : ?>
-                                <img src="<?= esc($profile['image']) ?>" alt="<?= esc($profile['name']) ?>" class="img-fluid rounded-4 shadow mb-4" style="border: 5px solid #fff;">
+                                <img src="<?= esc($profile['image']) ?>" alt="<?= esc($profile['name']) ?>" class="img-fluid rounded-4 shadow mb-4" style="max-height: 500px; max-width: 100%; width: auto; border: 5px solid #fff;">
 <?php else : ?>
                                 <div class="bg-light rounded-4 shadow mb-4 d-flex align-items-center justify-content-center mx-auto" style="width: 300px; height: 400px;">
                                     <i class="fas fa-user fa-5x text-secondary"></i>
