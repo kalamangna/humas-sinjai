@@ -13,10 +13,10 @@
                     <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="<?= $index ?>" class="<?= $index === 0 ? 'active' : '' ?>" aria-current="<?= $index === 0 ? 'true' : 'false' ?>" aria-label="Slide <?= $index + 1 ?>"></button>
                 <?php endforeach; ?>
             </div>
-            <div class="carousel-inner">
+            <div class="carousel-inner bg-dark">
                 <?php foreach ($slides as $index => $slide): ?>
                     <div class="carousel-item <?= $index === 0 ? 'active' : '' ?>">
-                        <img src="<?= esc($slide['image_path']) ?>" class="d-block w-100" alt="Carousel Slide" style="max-height: 600px; object-fit: cover;">
+                        <img src="<?= esc($slide['image_path']) ?>" class="d-block mx-auto" alt="Carousel Slide" style="max-height: 600px; width: auto; max-width: 100%; object-fit: contain;">
                     </div>
                 <?php endforeach; ?>
             </div>

@@ -41,8 +41,14 @@ class Carousel extends BaseController
         $image = $this->request->getFile('image');
 
         if ($image->isValid() && !$image->hasMoved()) {
-            $newName = $image->getRandomName();
-            $image->move(FCPATH . 'uploads/carousel', $newName);
+            // Ensure directory exists
+            if (!is_dir(FCPATH . 'uploads/carousel')) {
+                mkdir(FCPATH . 'uploads/carousel', 0755, true);
+            }
+
+            $processedImagePath = processImage($image->getRealPath(), false);
+            $newName = uniqid() . '.webp';
+            rename($processedImagePath, FCPATH . 'uploads/carousel/' . $newName);
 
             $this->carouselSlideModel->save([
                 'image_path' => base_url('uploads/carousel/' . $newName),
@@ -83,13 +89,22 @@ class Carousel extends BaseController
         ];
 
         if ($image->isValid() && !$image->hasMoved()) {
-            $newName = $image->getRandomName();
-            $image->move(FCPATH . 'uploads/carousel', $newName);
+            // Ensure directory exists
+            if (!is_dir(FCPATH . 'uploads/carousel')) {
+                mkdir(FCPATH . 'uploads/carousel', 0755, true);
+            }
+
+            $processedImagePath = processImage($image->getRealPath(), false);
+            $newName = uniqid() . '.webp';
+            rename($processedImagePath, FCPATH . 'uploads/carousel/' . $newName);
             $data['image_path'] = base_url('uploads/carousel/' . $newName);
 
             // Delete old image
-            if ($slide && !empty($slide['image_path']) && file_exists(FCPATH . $slide['image_path'])) {
-                unlink(FCPATH . $slide['image_path']);
+            if ($slide && !empty($slide['image_path'])) {
+                $oldPath = FCPATH . ltrim(parse_url($slide['image_path'], PHP_URL_PATH), '/');
+                if (file_exists($oldPath)) {
+                    unlink($oldPath);
+                }
             }
         }
 
@@ -102,8 +117,11 @@ class Carousel extends BaseController
     {
         $slide = $this->carouselSlideModel->find($id);
 
-        if ($slide && !empty($slide['image_path']) && file_exists(FCPATH . $slide['image_path'])) {
-            unlink(FCPATH . $slide['image_path']);
+        if ($slide && !empty($slide['image_path'])) {
+            $oldPath = FCPATH . ltrim(parse_url($slide['image_path'], PHP_URL_PATH), '/');
+            if (file_exists($oldPath)) {
+                unlink($oldPath);
+            }
         }
 
         $this->carouselSlideModel->delete($id);
